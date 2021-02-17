@@ -10,7 +10,7 @@ const SplashScreen: React.FC = ({ navigation }: any) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate("Authentication");
-    }, 3000);
+    }, 2000);
   });
 
   return (

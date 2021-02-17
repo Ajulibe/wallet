@@ -77,9 +77,10 @@ const Home: React.FC = ({ navigation }: any) => {
               flexDirection: "row",
               width: wp("90%"),
               height: hp("5%"),
-              borderColor: "red",
-              borderWidth: 1,
+              // borderColor: "red",
+              // borderWidth: 1,
               marginLeft: wp("5%"),
+              marginBottom: hp("4%"),
             }}
           >
             <Text
@@ -87,18 +88,30 @@ const Home: React.FC = ({ navigation }: any) => {
                 fontFamily: "Roboto-Bold",
                 fontSize: hp("2.18%"),
                 color: "#666666",
+                marginLeft: wp("2.42%"),
               }}
             >
               SurePay
             </Text>
+
+            <Image
+              source={require("../../assets/images/avatar.png")}
+              style={{
+                resizeMode: "contain",
+                height: 60,
+                width: 50,
+              }}
+            />
           </View>
           <View
             style={{
               justifyContent: "space-around",
               flexDirection: "row",
               width: SCREEN_WIDTH,
-              height: hp("20%"),
+              height: hp("10%"),
               alignItems: "center",
+              // borderColor: "red",
+              // borderWidth: 1,
             }}
           >
             {/* FIRST ICON */}
@@ -275,7 +288,7 @@ const Home: React.FC = ({ navigation }: any) => {
           borderTopLeftRadius: hp("4.46%"),
           borderTopRightRadius: hp("4.46%"),
           backgroundColor: "#ffffff",
-          paddingTop: hp("4.46%"),
+          paddingTop: hp("1.46%"),
           position: "absolute",
           bottom: 0,
           left: 0,
