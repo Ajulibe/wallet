@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-import { Fontisto } from "@expo/vector-icons";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -9,7 +8,7 @@ import {
 const SplashScreen: React.FC = ({ navigation }: any) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Authentication");
+      navigation.navigate("MainFlowTab");
     }, 2000);
   });
 
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
   loading: {
     fontSize: hp("3.35%"),
     color: "white",
-    fontFamily: "Roboto-Bold",
+    fontFamily: "Lato-Bold",
     marginTop: hp("3.35%"),
     lineHeight: hp("3.79%"),
   },
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     marginTop: hp("1.12%"),
-    fontFamily: "Roboto-Regular",
+    fontFamily: "Lato-Regular",
     lineHeight: hp("2%"),
   },
   messageDiv: {
