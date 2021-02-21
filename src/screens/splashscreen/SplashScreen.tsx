@@ -4,6 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { GUIDE } from "../constants/StyleGuide";
 
 const SplashScreen: React.FC = ({ navigation }: any) => {
   useEffect(() => {
@@ -37,21 +38,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#DB3900",
+    backgroundColor: GUIDE.PRIMARY_COLOR,
   },
   loading: {
     fontSize: hp("3.35%"),
     color: "white",
     fontFamily: "Lato-Bold",
-    marginTop: hp("3.35%"),
+    marginTop: hp("2.35%"),
     lineHeight: hp("3.79%"),
   },
   message: {
-    fontSize: hp("2%"),
+    fontSize: wp("3.38%"),
     color: "white",
     textAlign: "center",
-    marginTop: hp("1.12%"),
-    fontFamily: "Lato-Regular",
+    marginTop: hp("2.35%"),
+    fontFamily: "Lato-Light",
     lineHeight: hp("2%"),
   },
   messageDiv: {
@@ -64,8 +65,8 @@ const styles = StyleSheet.create({
     height: hp("8.8%"),
   },
   spinner: {
-    width: wp("9.66%"),
-    height: hp("4.46%"),
+    width: wp("7.66%"),
+    height: wp("7.66%"),
     marginTop: hp("4.46%"),
   },
 });

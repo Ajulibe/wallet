@@ -31,7 +31,7 @@ const HomeScreen: React.FC = () => {
             ]}
           >
             <Image
-              source={require("../../assets/images/AddMoney.png")}
+              source={require("../../../assets/images/AddMoney.png")}
               style={styles.addMoneyImage}
             />
           </View>

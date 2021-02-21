@@ -36,7 +36,7 @@ export default function App() {
   }
   return (
     <SafeAreaProvider>
-      <StatusBar hidden={false} />
+      <StatusBar hidden={false} backgroundColor="#582ED7" />
       <Navigation />
     </SafeAreaProvider>
   );

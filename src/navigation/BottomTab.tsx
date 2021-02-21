@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
   tabBarLabel: {
     fontFamily: "Lato-Regular",
     fontSize: hp("1%"),
+    marginBottom: hp("1%"),
   },
   tabBarImage: {
     resizeMode: "contain",

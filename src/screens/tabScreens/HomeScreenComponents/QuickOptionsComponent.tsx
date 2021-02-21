@@ -20,7 +20,7 @@ const HomeScreen: React.FC = () => {
       <View style={[styles.quickOptionsDiv, { width: WIDTH }]}>
         <View style={styles.optionsDiv}>
           <Image
-            source={require("../../assets/images/rewards.png")}
+            source={require("../../../assets/images/rewards.png")}
             style={styles.optionsImage}
           />
           <Text
@@ -33,7 +33,7 @@ const HomeScreen: React.FC = () => {
         </View>
         <View style={styles.optionsDiv}>
           <Image
-            source={require("../../assets/images/recents.png")}
+            source={require("../../../assets/images/recents.png")}
             style={styles.optionsImage}
           />
           <Text
@@ -52,7 +52,7 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   quickOptions: {
     marginTop: hp("3.35%"),
-    marginLeft: wp("1.2%"),
+    marginLeft: wp("2.2%"),
     lineHeight: hp("2.9%"),
     fontSize: wp("3.86%"),
     fontFamily: "Lato-Regular",
@@ -71,23 +71,23 @@ const styles = StyleSheet.create({
     marginTop: hp("1.67%"),
   },
   optionsImage: {
-    width: wp("4.83%"),
-    height: wp("4.83%"),
+    width: wp("4.5%"),
+    height: wp("4.7%"),
     marginLeft: wp("5.8%"),
   },
   optionsMessage: {
     marginTop: hp("1.23%"),
     marginLeft: wp("4.83%"),
     lineHeight: hp("2.57%"),
-    fontSize: wp("3.38%"),
+    fontSize: wp("3.3%"),
     fontFamily: "Lato-Regular",
   },
   viewOptions: {
     marginTop: hp("1.23%"),
     marginLeft: wp("4.83%"),
     color: "#582ED7",
-    lineHeight: hp("2.9%"),
-    fontSize: wp("2.9%"),
+    lineHeight: hp("2.57%"),
+    fontSize: wp("2.8%"),
     textDecorationLine: "underline",
     fontFamily: "Lato-Regular",
   },
