@@ -8,7 +8,7 @@ import AuthStack from "./AuthStack";
 import HomeStack from "./HomeStack";
 import {ROUTES} from "./Routes"
 
-type RootStackParamList = {
+export type RootStackParamList = {
   [ROUTES.SPLASH_SCREEN]: undefined;
   [ROUTES.AUTHENTICATION_TAB]: undefined;
   [ROUTES.HOME_TAB]: undefined;

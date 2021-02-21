@@ -3,6 +3,10 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Navigation from './src/navigation/MainNavigator';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
+
+
 
 export default function App() {
   // const isLoadingComplete = useCachedResources();
@@ -11,11 +15,14 @@ export default function App() {
   // if (!isLoadingComplete) {
   //   return null;
   // } else {
-    return (
+  return (
+    <Provider store={store}>
       <SafeAreaProvider>
-        <Navigation/>
+        <Navigation />
         <StatusBar />
       </SafeAreaProvider>
-    );
+
+    </Provider>
+  );
   // }
 }
