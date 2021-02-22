@@ -55,7 +55,6 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   walletDetailsContainer: {
     height: hp("12.83%"),
-
     backgroundColor: "#F6F4FD",
     marginTop: hp("3.23%"),
     borderRadius: wp("1.93%"),
