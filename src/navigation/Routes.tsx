@@ -19,10 +19,13 @@ export enum ROUTES {
   AUTH_CREATE_PIN_SCREEN = "AuthCreatePinScreen",
   AUTH_FINAL_LOADING_SCREEN = "AuthFinalLoadingScreen",
 
+
   //for main STACKS
   HOME_SCREEN = "HomeScreen",
-  SEND_MONEY_TO_BANK_ACCOUNT_SCREEN = "SendMoneyToBankAccountScreen",
-  SEND_MONEY_TO_WALLET_SCREEN = "SendMoneyToWallet",
+  WALLET_SCREEN = "WalletScreen",
+  ADD_MONEY_SCREEN = "AddMoneyScreen",
+  SEND_MONEY_SCREEN = "SendMoneyScreen",
+  NOTIFICATION_SCREEN = "NotificationScreen",
 
   //util
   NOT_FOUND_SCREEN = "NotFoundScreen",
