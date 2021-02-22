@@ -6,11 +6,8 @@ import {
   Text,
   ScrollView,
   ImageSourcePropType,
-  Platform,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { StatusBar } from "expo-status-bar";
-import Icon from "react-native-vector-icons/FontAwesome";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -21,10 +18,10 @@ import CustomButton from "../../components/Button";
 import COLORS from "../../utils/Colors";
 import IMAGES from "../../utils/Images";
 
+
 type Props = StackScreenProps<
   AuthStackParamList,
-  ROUTES.AUTH_GET_STARTED_SCREEN
->;
+  ROUTES.AUTH_GET_STARTED_SCREEN>;
 
 class AuthGetStarted extends React.PureComponent<Props> {
   // Define your state for your component.

@@ -13,6 +13,13 @@ import ProgressLoader from "../../components/ProgressLoader";
 import styles from "../../components/css/AuthFormCss";
 import IMAGES from '../../utils/Images'
 
+
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store/reducers/RootReducer';
+import { loginUser, registerUser } from '../../store/actions/AuthActions';
+import { UserInterface } from '../../store/types/AuthTypes';
+
+
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_PHONE_NO_SCREEN>;
 
 const AuthPhoneNo = ({ navigation }: Props) => {
@@ -20,6 +27,26 @@ const AuthPhoneNo = ({ navigation }: Props) => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [inputFocused, setInputFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.user)
+
+
+  function regUser() {
+    dispatch(registerUser())
+  }
+
+  function logUser() {
+    dispatch(loginUser({ phoneNo: "dfdf", pin: "dfdf" }))
+  }
+
+  useEffect(() => {
+    regUser()
+    logUser()
+  }, [])
+
+
 
   const submit = (id: string, x?: string | null, y?: boolean) => {
     if (phoneNumber.length < 11) {
@@ -58,7 +85,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
 
         <CircularProgress icon="screen-smartphone" progress={20} iconType={"SimpleLineIcons"} />
 
-        <Text style={styles.formTitle}>{`In Surepay, your phone number is your account number`}</Text>
+        <Text style={styles.formTitle}>{`In Surepay, your phone number is your account number`} {JSON.stringify(user)}</Text>
 
         <Text style={styles.inputLabel}>Phone No</Text>
         <Input
