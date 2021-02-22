@@ -7,7 +7,7 @@ import AuthFullName from "../screens/auth/AuthFullName";
 import AuthEmail from "../screens/auth/AuthEmail";
 import AuthCreatePin from "../screens/auth/AuthCreatePin";
 import AuthFinalLoading from "../screens/auth/AuthFinalLoading";
-import HomeNavigationStack from "./HomeStack";
+import MainFlowTab from "../navigation/BottomTab";
 import { ROUTES } from "./Routes";
 
 export type AuthStackParamList = {
@@ -18,7 +18,7 @@ export type AuthStackParamList = {
   [ROUTES.AUTH_EMAIL_SCREEN]: undefined;
   [ROUTES.AUTH_CREATE_PIN_SCREEN]: undefined;
   [ROUTES.AUTH_FINAL_LOADING_SCREEN]: undefined;
-  [ROUTES.HOME_TAB]: undefined;
+  [ROUTES.NEW_HOME_TAB]: undefined;
 };
 
 const AuthStack = createStackNavigator<AuthStackParamList>();
@@ -66,8 +66,8 @@ export default function AuthNavigationStack() {
         options={{ headerShown: false }}
       />
       <AuthStack.Screen
-        name={ROUTES.HOME_TAB}
-        component={HomeNavigationStack}
+        name={ROUTES.NEW_HOME_TAB}
+        component={MainFlowTab}
         options={{ headerShown: false }}
       />
     </AuthStack.Navigator>

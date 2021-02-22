@@ -16,7 +16,7 @@ export default function AuthFinalLoading({ navigation, }: Props) {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate(ROUTES.HOME_TAB);
+      navigation.navigate(ROUTES.NEW_HOME_TAB);
     }, 2000);
   });
 

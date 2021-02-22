@@ -21,6 +21,7 @@ import { GUIDE } from "../constants/StyleGuide";
 
 import QuickOptionsScreen from "./HomeScreenComponents/QuickOptionsComponent";
 import DashBoardComponent from "./HomeScreenComponents/DashBoardComponent";
+import IMAGES from '../../utils/Images'
 
 type Props = {
   navigation: NavigationTabProp<"Shop">;
@@ -56,7 +57,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = () => {
           >
             <TouchableOpacity>
               <Image
-                source={require("../../assets/images/newAvatar.png")}
+                source={IMAGES.newAvatar}
                 style={{ width: wp("10.39%"), height: wp("10.39%") }}
               />
             </TouchableOpacity>
@@ -78,7 +79,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = () => {
         <View style={styles.Notification}>
           <TouchableOpacity>
             <Image
-              source={require("../../assets/images/bells.png")}
+              source={IMAGES.bells}
               style={{ width: wp("3.22%"), height: hp("1.67%%") }}
             />
           </TouchableOpacity>
