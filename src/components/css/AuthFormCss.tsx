@@ -11,29 +11,31 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.light.white,
     paddingHorizontal: wp('8%'),
     paddingVertical: hp("8%"),
-    paddingTop : Platform.OS? hp('12%') : hp('8%')
+    paddingTop: Platform.OS ? hp('12%') : hp('8%')
   },
   formTitle: {
-    fontSize: 18,
+    fontSize: wp("3.86%"),
     fontWeight: "400",
-    color: COLORS.light.black,
+    color: COLORS.light.blackLight,
     marginBottom: 36,
     marginTop: 36,
-    textAlign: 'center'
+    textAlign: 'center',
+    lineHeight: hp('2.9%')
   },
   formSubtitle: {
     marginTop: -16,
     marginBottom: 16,
     color: COLORS.light.blackLight,
+
   },
   inputLabel: {
     color: COLORS.light.black,
     marginBottom: 4,
-    fontWeight: '700',
-    // fontSize: 18
+    fontFamily: 'Lato-Bold',
+    fontSize: wp('3.38%')
   },
-  bold:{
-    fontWeight :'700'
+  bold: {
+    fontWeight: '700'
   },
   formDesc: {
     marginTop: 8,
@@ -43,8 +45,8 @@ const styles = StyleSheet.create({
   secondaryButton: {
     color: COLORS.light.primary,
     textDecorationLine: 'underline',
-    fontWeight: '500',
-    fontSize: 16,
+    fontFamily: 'Lato-Regular',
+    fontSize: wp('3.85%'),
   }
 });
 

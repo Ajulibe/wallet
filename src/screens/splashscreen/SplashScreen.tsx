@@ -6,24 +6,24 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {RootStackParamList} from '../../navigation/MainNavigator'
-import {ROUTES} from '../../navigation/Routes'
+import { RootStackParamList } from '../../navigation/MainNavigator'
+import { ROUTES } from '../../navigation/Routes'
 
 
 type Props = StackScreenProps<RootStackParamList, ROUTES.SPLASH_SCREEN>;
 
-export default function SplashScreen({navigation,}: Props) {
+export default function SplashScreen({ navigation, }: Props) {
 
 
-    useEffect(() => {
-      setTimeout(() => {
-        navigation.navigate(ROUTES.AUTHENTICATION_TAB);
-      }, 3000);
-    });
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate(ROUTES.AUTHENTICATION_TAB);
+    }, 3000);
+  });
 
-    
+
   return (
-    <View style = {styles.container}>
+    <View style={styles.container}>
       <Image
         source={require("../../assets/images/logo.png")}
         style={styles.logo}
@@ -31,21 +31,21 @@ export default function SplashScreen({navigation,}: Props) {
       {/* <StatusBar hidden={true}/> */}
     </View>
   );
-    // }
+  // }
 }
 
 // export default SplashScreen;
 
 const styles = StyleSheet.create({
-    container:{
-      flex:1,
-      backgroundColor: "#fff",
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    logo: {
-      resizeMode: "contain",
-      height: hp("5.1%"),
-      width: wp("43.48%"),
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logo: {
+    resizeMode: "contain",
+    height: hp("5.1%"),
+    width: wp("43.48%"),
+  },
 });

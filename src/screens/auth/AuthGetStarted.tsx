@@ -41,7 +41,7 @@ class AuthGetStarted extends React.PureComponent<Props> {
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.container}>
-          <View style={{ flex: 1 }} />
+          {/* <View style={{ flex: 1 }} /> */}
 
           <RowItem
             imgSrc={IMAGES.chat}
@@ -94,10 +94,11 @@ export default AuthGetStarted;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: hp("100%"),
     backgroundColor: COLORS.light.white,
     paddingHorizontal: wp("8%"),
     paddingVertical: hp("8%"),
-    paddingTop : Platform.OS? hp('4%') : hp('8%')
+    // paddingTop: Platform.OS ? hp('4%') : hp('8%')
   },
 
   rowItem: {
@@ -108,17 +109,20 @@ const styles = StyleSheet.create({
   },
   icon: {
     resizeMode: "contain",
-    width: 48,
-    height: 48,
-    marginVertical: 16
+    width: wp("8.59%"),
+    height: wp("8.59%"),
+    marginTop: hp("5.16%"),
+    marginBottom: hp("1.81%")
   },
   rowItemText: {
-    fontSize: 16,
-    // fontWeight: "700",
-    color: COLORS.light.black,
+    color: "#52616E",
     textAlign: 'center',
+    fontFamily: "Lato-Regular",
+    fontSize: wp('3.86%'),
+    lineHeight: hp('2.9%')
+
   },
   rowItemBold: {
-    fontWeight: '700'
+    fontFamily: "Lato-Bold",
   }
 });

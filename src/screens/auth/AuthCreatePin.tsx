@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Modal, Text, Button, View, ScrollView, StyleSheet, Alert, AlertButton } from 'react-native';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { StackScreenProps } from "@react-navigation/stack";
+import { AuthStackParamList } from "../../navigation/AuthStack";
 import { Switch } from 'react-native-switch';
 import PinInput from '../../components/InputPin';
 import CustomButton from "../../components/Button";
 import COLORS from "../../utils/Colors";
+import { ROUTES } from "../../navigation/Routes";
 import CircularProgress from "../../components/CircularProgress";
 import styles from "../../components/css/AuthFormCss";
 import UTILITIES from '../../utils/Utilities'
@@ -11,7 +14,9 @@ import * as LocalAuthentication from 'expo-local-authentication';
 
 const CELL_COUNT = 4;
 
-const AuthCreatePin = () => {
+type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_CREATE_PIN_SCREEN>;
+
+const AuthCreatePin = ({ navigation }: Props) => {
   const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primary);
   const [pinValue, setPinValue] = useState('');//PIN CODE
   const [pinValueConfirm, setPinValueConfirm] = useState('');//CONFIRM PIN
@@ -61,7 +66,10 @@ const AuthCreatePin = () => {
   }, [pinValue, pinValueConfirm])
 
   const onSubmit = () => {
-    console.log(pinValue + "-----" + pinValueConfirm)
+    // console.log(pinValue + "-----" + pinValueConfirm)
+    if (pinValue === pinValueConfirm && pinValue != "") {
+      navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN);
+    }
   }
 
   const scanFingerprint = async () => {
@@ -74,13 +82,15 @@ const AuthCreatePin = () => {
   };
 
   const onSwitchChange = (val: boolean) => {
-    if(isFingerPrintActive){
+    if (isFingerPrintActive == false) {
       scanFingerprint()
+    } else {
+      setIsFingerPrintCaptured(false);
     }
   }
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.container}>
         <CircularProgress icon="lock" progress={98} iconType={"SimpleLineIcons"} />
 
@@ -93,7 +103,7 @@ const AuthCreatePin = () => {
         <PinInput cellCount={CELL_COUNT} onTextInputChange={pinConfirmInputChangeHandler} errorText={errorText} />
 
 
-        <View style={[{display:isFingerPrintActive?"flex":"none"},stylesSwitch.switchWrapper]}>
+        <View style={[{ display: isFingerPrintActive ? "flex" : "none" }, stylesSwitch.switchWrapper]}>
           <Switch
             value={isFingerPrintCaptured}
             onValueChange={onSwitchChange}

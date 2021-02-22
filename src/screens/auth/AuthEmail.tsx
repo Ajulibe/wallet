@@ -40,7 +40,7 @@ const AuthEmail = ({ navigation }: Props) => {
           id="fullName"
           placeholder="john.okafor@gmail.com"
           placeholderTextColor=""
-          errorText="* your name please!"
+          errorText="Enter valid email address"
           keyboardType="default"
           autoCapitalize="sentences"
           returnKeyType="none"

@@ -63,7 +63,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
         <Text style={styles.inputLabel}>Phone No</Text>
         <Input
           id={INPUT_TYPES.PHONE}
-          placeholder="07019 268 250"
+          placeholder="0803 926 8250"
           errorText="Enter a valid Phone Number"
           keyboardType="number-pad"
           autoCapitalize="sentences"

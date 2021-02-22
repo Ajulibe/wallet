@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginTop: hp("1%"),
-    fontFamily: "gilroy-regular",
+    fontFamily: "Lato-Regular",
     color: COLORS.light.red,
     fontSize: 13,
   },
