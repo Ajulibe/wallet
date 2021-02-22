@@ -26,7 +26,7 @@ const AuthStack = createStackNavigator<AuthStackParamList>();
 export default function AuthNavigationStack() {
   return (
     <AuthStack.Navigator
-      initialRouteName={ROUTES.HOME_TAB}
+      initialRouteName={ROUTES.AUTH_GET_STARTED_SCREEN}
       screenOptions={{ gestureEnabled: false, headerShown: false }}
       headerMode={"none"}
     >
