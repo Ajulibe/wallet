@@ -3,9 +3,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "../screens/splashscreen/SplashScreen";
 import MainFlowTab from "../navigation/BottomTab";
-import { ROUTES } from "./Routes";
+import NotFoundScreen from "../screens/NotFoundScreen";
 
-type RootStackParamList = {
+import AuthStack from "./AuthStack";
+import HomeStack from "./HomeStack";
+import { ROUTES } from "./Routes"
+
+
+export type RootStackParamList = {
   [ROUTES.SPLASH_SCREEN]: undefined;
   [ROUTES.AUTHENTICATION_TAB]: undefined;
   [ROUTES.HOME_TAB]: undefined;
@@ -25,6 +30,9 @@ export default function MainNavigator() {
           name={ROUTES.SPLASH_SCREEN}
           component={SplashScreen}
         />
+        <MainStack.Screen name={ROUTES.AUTHENTICATION_TAB} component={AuthStack} />
+        <MainStack.Screen name={ROUTES.HOME_TAB} component={HomeStack} />
+        {/* <MainStack.Screen name={ROUTES.NOT_FOUND_SCREEN} component={NotFoundScreen} options={{ title: 'Oops! Error Page' }} /> */}
         <MainStack.Screen name={ROUTES.NEW_HOME_TAB} component={MainFlowTab} />
       </MainStack.Navigator>
     </NavigationContainer>
