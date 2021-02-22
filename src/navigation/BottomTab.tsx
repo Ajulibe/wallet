@@ -6,17 +6,20 @@ import AddMoneyScreen from "../screens/tabScreens/AddMoneyScreen";
 import SendMoneyScreen from "../screens/tabScreens/SendMoneyScreen";
 import NotificationScreen from "../screens/tabScreens/NotificationScreen";
 import { Image, View, Text, StyleSheet } from "react-native";
+import { ROUTES } from './Routes';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import IMAGES from '../utils/Images'
 
-type RootStackParamList = {
-  HomeScreen: undefined;
-  WalletScreen: undefined;
-  AddMoneyScreen: undefined;
-  SendMoneyScreen: undefined;
-  NotificationScreen: undefined;
+
+export type RootStackParamList = {
+  [ROUTES.HOME_SCREEN]: undefined;
+  [ROUTES.WALLET_SCREEN]: undefined;
+  [ROUTES.ADD_MONEY_SCREEN]: undefined;
+  [ROUTES.SEND_MONEY_SCREEN]: undefined;
+  [ROUTES.NOTIFICATION_SCREEN]: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -30,7 +33,7 @@ export default function MainFlowTab() {
       }}
     >
       <Tab.Screen
-        name="HomeScreen"
+        name={ROUTES.HOME_SCREEN}
         component={HomeScreen}
         options={() => ({
           tabBarLabel: ({ focused }: any) => (
@@ -49,13 +52,13 @@ export default function MainFlowTab() {
                 styles.tabBarImage,
                 { tintColor: focused ? "#582ED7" : "#52616E" },
               ]}
-              source={require("../assets/images/Home.png")}
+              source={IMAGES.Home}
             />
           ),
         })}
       />
       <Tab.Screen
-        name="WalletScreen"
+        name={ROUTES.WALLET_SCREEN}
         component={WalletScreen}
         options={() => ({
           tabBarLabel: ({ focused }: any) => (
@@ -74,13 +77,13 @@ export default function MainFlowTab() {
                 styles.tabBarImage,
                 { tintColor: focused ? "#582ED7" : "#52616E" },
               ]}
-              source={require("../assets/images/WalletIcon.png")}
+              source={IMAGES.WalletIcon}
             />
           ),
         })}
       />
       <Tab.Screen
-        name="AddMoneyScreen"
+        name={ROUTES.ADD_MONEY_SCREEN}
         component={AddMoneyScreen}
         options={{
           tabBarLabel: () => <View />,
@@ -94,7 +97,7 @@ export default function MainFlowTab() {
                       tintColor: "#ffffff",
                     },
                   ]}
-                  source={require("../assets/images/AddMoney.png")}
+                  source={IMAGES.AddMoney}
                 />
               </View>
             </View>
@@ -102,7 +105,7 @@ export default function MainFlowTab() {
         }}
       />
       <Tab.Screen
-        name="SendMoneyScreen"
+        name={ROUTES.SEND_MONEY_SCREEN}
         component={SendMoneyScreen}
         options={{
           tabBarLabel: ({ focused }: any) => (
@@ -123,13 +126,13 @@ export default function MainFlowTab() {
                 styles.tabBarImage,
                 { tintColor: focused ? "#582ED7" : "#52616E" },
               ]}
-              source={require("../assets/images/SendMoney.png")}
+              source={IMAGES.SendMoney}
             />
           ),
         }}
       />
       <Tab.Screen
-        name="NotificationScreen"
+        name={ROUTES.NOTIFICATION_SCREEN}
         component={NotificationScreen}
         options={{
           tabBarLabel: ({ focused }: any) => (
@@ -148,7 +151,7 @@ export default function MainFlowTab() {
                 styles.tabBarImage,
                 { tintColor: focused ? "#582ED7" : "#52616E" },
               ]}
-              source={require("../assets/images/Notification.png")}
+              source={IMAGES.Notification}
             />
           ),
         }}
