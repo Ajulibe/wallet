@@ -19,7 +19,6 @@ export enum ROUTES {
   AUTH_CREATE_PIN_SCREEN = "AuthCreatePinScreen",
   AUTH_FINAL_LOADING_SCREEN = "AuthFinalLoadingScreen",
 
-
   //for main STACKS
   HOME_SCREEN = "HomeScreen",
   WALLET_SCREEN = "WalletScreen",
@@ -29,4 +28,14 @@ export enum ROUTES {
 
   //util
   NOT_FOUND_SCREEN = "NotFoundScreen",
+
+  //HOME STACK SCREENS
+  PROFILE_SCREEN = "ProfileScreen",
+  HOME_STACK_SCREEN = "HomeStackScreen",
+
+  EDIT_PROFILE_SCREEN = "EditProfileScreen",
+  SECURITY = "Security",
+
+  //TAB
+  MAIN_FLOW_TAB = "MainFlowTab",
 }
