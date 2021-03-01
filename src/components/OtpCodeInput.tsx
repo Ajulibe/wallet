@@ -20,7 +20,7 @@ interface Props {
   onTextInputChange: (code?: string) => any
 }
 
-const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false, onTextInputChange }: Props) => {
+const OtpCodeInput = ({ cellCount, initialValue = "", errorText, pinVisible = false, onTextInputChange }: Props) => {
   const [value, setValue] = useState(initialValue);
   const ref = useBlurOnFulfill({ value, cellCount: cellCount });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -28,22 +28,25 @@ const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false,
     setValue,
   });
   const renderCell = ({ index, symbol, isFocused }: { index: number, symbol: string, isFocused: boolean }) => {
-    let textChild = null;
+    let textChild = <Text style={{ fontFamily: 'Lato-Regular', color: COLORS.light.inputText }}>0</Text>;
 
     if (symbol) {
-      textChild = <View style={{ flex: 1, backgroundColor: COLORS.light.secondary, width: '100%', height: '100%', borderRadius: 50 }} />
+      textChild = (
+        (pinVisible) ?
+          <Text style={{ fontSize: 24, fontWeight: '700', textAlignVertical: 'center' }}>{symbol}</Text> :
+          <Text style={{ fontSize: 18 }}>●</Text>
+      );
     } else if (isFocused) {
-      textChild = <Text><Cursor cursorSymbol={""} /></Text>;
+      textChild = <Cursor cursorSymbol={"0"} />;
     }
 
     return (
-      <View style={[
-        styles.cell,
-        isFocused && styles.focusCell,
-        errorText?.length != 0 && styles.errorCell,]}
+      <Text
+        key={index}
+        style={[styles.cell, cellCount > 4 && styles.cell6Cell, isFocused && styles.focusCell, errorText?.length != 0 && styles.errorCell,]}
         onLayout={getCellOnLayoutHandler(index)}>
         {textChild}
-      </View>
+      </Text>
     );
   };
 
@@ -64,12 +67,10 @@ const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false,
         value={value}
         onChangeText={setValue}
         cellCount={cellCount}
+        rootStyle={styles.codeFieldRoot}
         keyboardType="number-pad"
         textContentType="oneTimeCode"
         renderCell={renderCell}
-        rootStyle={styles.codeFieldRoot}
-      // placeholder={"0"}
-      // placeholderTextColor={COLORS.light.inputText}
       />
       {errorText?.length != 0 && (
         <View style={styles.errorContainer}>
@@ -80,32 +81,39 @@ const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false,
   );
 };
 
-export default InputPin;
+export default OtpCodeInput;
 
-let styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
   container: {
-    marginBottom: hp('2%'),
-    marginTop: hp('2%')
+    marginBottom: hp('3.69%'),
+    marginTop: 8
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 30
   },
   codeFieldRoot: {
-    justifyContent: 'space-around',
-    alignSelf: 'center'
+    // marginBottom: 30, 
+    // marginTop: 8 
   },
   cell: {
-    width: wp('6.67%'),
-    height: wp('6.67%'),
+    width: 50,
+    height: 50,
     lineHeight: 44,
-    borderRadius: 50,
+    fontSize: 24,
+    borderRadius: 4,
+    // borderColor: COLORS.light.inputBorder,
     borderColor: 'rgba(0,63,136,0.05)',
-    display: 'flex',
     borderWidth: 1,
     backgroundColor: COLORS.light.inputBg,
     textAlign: 'center',
-    marginHorizontal: wp('4%')
   },
-  cellText: {
-    flex: 1,
-    textAlign: 'center',
+  cell6Cell: {
+    width: wp('13%'),
+    height: wp('13%'),
+    lineHeight: wp('12%'),
+    fontSize: 22,
   },
   focusCell: {
     borderColor: COLORS.light.secondary,
@@ -122,6 +130,5 @@ let styles = StyleSheet.create({
     fontFamily: "Lato-Regular",
     color: COLORS.light.red,
     fontSize: 13,
-    textAlign: 'center'
   },
 });

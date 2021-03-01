@@ -1,9 +1,9 @@
-import { FETCH_REQUEST, FETCH_FAILURE, FetchActionTypes } from "../types/CommonTypes"
+import { GEN_ACTIONS, FetchActionTypes } from "../types/CommonTypes"
 import { ActionCreator } from "redux";
 
-export const request: ActionCreator<FetchActionTypes> = () => {
-    return { type: FETCH_REQUEST };
+export const loading: ActionCreator<FetchActionTypes> = (loading: boolean) => {
+    return { type: GEN_ACTIONS.DATA_LOADING, payload: loading };
 }
-export const failure: ActionCreator<FetchActionTypes> = (error: any) => {
-    return { type: FETCH_FAILURE, payload: error };
+export const failure: ActionCreator<FetchActionTypes> = (error: string) => {
+    return { type: GEN_ACTIONS.ERROR, payload: error };
 }

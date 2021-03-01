@@ -1,38 +1,56 @@
-import { USER_LOGIN, USER_REGISTRATION, USER_PROFILE_UPDATE, AuthActionTypes, UserInterface } from '../types/AuthTypes';
+import { AUTH_TYPES, AuthActionTypes, UserInterface } from '../types/AuthTypes';
+
+import { GEN_ACTIONS, FetchActionTypes, } from '../types/CommonTypes'
 
 interface AuthState {
-  user: UserInterface
+  user: UserInterface,
+  error?: string | null,
+  loading?: boolean | null
 }
 
 const initialState: AuthState = {
   user: {
-    id: "123",
-    phoneNo: '08185468532',
-    firstName: 'Edu Odo',
-    lastName: "Dumboy",
-    emailAddress: 'edu@gmail.com',
-    userPin: '5673'
-  }
+    id: "",
+    phoneNo: '',
+    firstName: '',
+    lastName: "",
+    emailAddress: '',
+    userPin: ''
+  },
+  error: null,
+  loading: null
 };
 
-export function authReducer(state: AuthState = initialState, action: AuthActionTypes): AuthState {
+export function authReducer(state: AuthState = initialState, action: AuthActionTypes | FetchActionTypes): AuthState {
   switch (action.type) {
-    case USER_LOGIN: {
+    case AUTH_TYPES.USER_LOGIN: {
       return {
         ...state,
-        user: action.payload
+        user: action.payload, error: null
       };
     }
-    case USER_REGISTRATION: {
+    case AUTH_TYPES.USER_REGISTRATION: {
       return {
         ...state,
-        user: action.payload
+        user: action.payload, error: null
       };
     }
-    case USER_PROFILE_UPDATE: {
+    case AUTH_TYPES.USER_PROFILE_UPDATE: {
       return {
         ...state,
-        user: action.payload
+        user: action.payload, error: null
+      };
+    }
+    case GEN_ACTIONS.DATA_LOADING: {
+      return {
+        ...state,
+        loading: action.payload
+      };
+    }
+    case GEN_ACTIONS.ERROR: {
+      return {
+        ...state,
+        error: action.payload
       };
     }
     default:

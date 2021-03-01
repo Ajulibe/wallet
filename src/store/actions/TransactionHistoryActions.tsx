@@ -1,6 +1,6 @@
-import { FETCH_RECENT_TRANSACTION, TransactionHistoryActionTypes, TransactionHistoryInterface , TransactionTypeInterface } from '../types/TransactionHistoryTypes';
+import { FETCH_RECENT_TRANSACTION, TransactionHistoryActionTypes, TransactionHistoryInterface, TransactionTypeInterface } from '../types/TransactionHistoryTypes';
 import { transactionHistoryService } from '../../services/TransactionHistoryService';
-import { request, failure } from './CommonActions';
+import { loading, failure } from './CommonActions';
 import { ActionCreator } from 'redux';
 
 const fetchTransactionSuccess: ActionCreator<TransactionHistoryActionTypes> = (transactions: TransactionHistoryInterface[]) => {
@@ -8,8 +8,8 @@ const fetchTransactionSuccess: ActionCreator<TransactionHistoryActionTypes> = (t
 }
 
 export function fetchChatList() {//to be called from sreen pahges
-  return (dispatch:any) => { // async action: uses Redux-Thunk middleware to return a function instead of an action creator
-    dispatch(request());
+  return (dispatch: any) => { // async action: uses Redux-Thunk middleware to return a function instead of an action creator
+    dispatch(loading());
     return transactionHistoryService.fetchTransactionHistory()
       .then(
         (response: any) => {

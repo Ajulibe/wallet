@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, StatusBar } from "react-native";
 import { StackScreenProps } from '@react-navigation/stack';
-import { StatusBar } from 'expo-status-bar';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { RootStackParamList } from '../../navigation/MainNavigator'
 import { ROUTES } from '../../navigation/Routes'
+import COLORS from '../../utils/Colors'
+import IMAGES from '../../utils/Images'
 
 
 type Props = StackScreenProps<RootStackParamList, ROUTES.SPLASH_SCREEN>;
@@ -23,13 +24,24 @@ export default function SplashScreen({ navigation, }: Props) {
 
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../../assets/images/logo.png")}
-        style={styles.logo}
-      />
-      {/* <StatusBar hidden={true}/> */}
+    // <SafeAreaView style={{ flex: 1 }}>
+
+    <View style={styles.wrapper}>
+
+      <StatusBar backgroundColor={COLORS.light.secondary} barStyle={'light-content'} />
+      <View style={styles.overlayWrapper}>
+        <Image source={IMAGES["top-overlay-dark"]} style={styles.overlayImage} />
+      </View>
+      <View style={styles.container}>
+
+        <View style={{ flex: 1 }} />
+        <Image
+          source={IMAGES.logo}
+          style={styles.logo}
+        />
+      </View>
     </View>
+    // </SafeAreaView>
   );
   // }
 }
@@ -37,11 +49,32 @@ export default function SplashScreen({ navigation, }: Props) {
 // export default SplashScreen;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: 'relative',
+    flex: 1,
+    backgroundColor: COLORS.light.secondary,
+  },
+  overlayWrapper: {
+    height: hp('60%'),
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingVertical: hp("6.13%"),
+  },
+  overlayImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain'
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingHorizontal: wp("8%"),
+    paddingVertical: hp("8%"),
   },
   logo: {
     resizeMode: "contain",

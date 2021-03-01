@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   ImageSourcePropType,
+  StatusBar
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
@@ -37,33 +38,40 @@ class AuthGetStarted extends React.PureComponent<Props> {
 
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.container}>
-          {/* <View style={{ flex: 1 }} /> */}
+        <View style={styles.wrapper}>
 
-          <RowItem
-            imgSrc={IMAGES.chat}
-            text={<Text style={styles.rowItemText}>Experience payments as <Text style={styles.rowItemBold}>simple and fast</Text> as sending chats</Text>}
-          />
-          <RowItem
-            imgSrc={IMAGES.share}
-            text={<Text style={styles.rowItemText}><Text style={styles.rowItemBold}>Transfer to</Text> your friends for free</Text>}
-          />
-          <RowItem
-            imgSrc={IMAGES.clock}
-            text={<Text style={styles.rowItemText}>Setup an account quick and easy in <Text style={styles.rowItemBold}>less than 30 seconds</Text></Text>}
-          />
-          <RowItem
-            imgSrc={IMAGES.phone}
-            text={<Text style={styles.rowItemText}> <Text style={styles.rowItemBold}>Send &amp; receive money </Text>easily using your phone number</Text>}
-          />
+          <StatusBar backgroundColor={COLORS.light.secondary} barStyle={'light-content'} />
+          <View style={styles.overlayWrapper}>
+            <Image source={IMAGES["top-overlay-dark2"]} style={styles.overlayImage} />
+          </View>
 
-          <View style={{ flex: 1 }} />
-          <CustomButton
-            bgColor={COLORS.light.primary}
-            textColor={COLORS.light.white}
-            btnText={"Get Started"}
-            onClick={() => navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)}
-          />
+          <View style={styles.container}>
+            <View style={{ flex: 1 }} />
+
+            <RowItem
+              imgSrc={IMAGES.phone}
+              text={<Text style={styles.rowItemText}> <Text style={styles.rowItemBold}>Send &amp; receive money </Text>easily using your phone number</Text>}
+            />
+            <RowItem
+              imgSrc={IMAGES.chat}
+              text={<Text style={styles.rowItemText}>Experience payments as <Text style={styles.rowItemBold}>simple and fast</Text> as sending chats</Text>}
+            />
+            <RowItem
+              imgSrc={IMAGES.clock}
+              text={<Text style={styles.rowItemText}>Setup an account quick and easy in <Text style={styles.rowItemBold}>less than 30 seconds</Text></Text>}
+            />
+            <RowItem
+              imgSrc={IMAGES.share}
+              text={<Text style={styles.rowItemText}><Text style={styles.rowItemBold}>Transfer to</Text> your friends for free</Text>}
+            />
+
+            <CustomButton
+              bgColor={COLORS.light.primary}
+              textColor={COLORS.light.white}
+              btnText={"Get Started"}
+              onClick={() => navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)}
+            />
+          </View>
         </View>
       </ScrollView>
     );
@@ -80,7 +88,6 @@ function RowItem({
   return (
     <View style={styles.rowItem}>
       <Image source={imgSrc} style={styles.icon} />
-      {/* <Text style={styles.rowItemText}>{text} </Text> */}
       {text}
     </View>
   );
@@ -89,10 +96,29 @@ function RowItem({
 export default AuthGetStarted;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: 'relative',
+    flex: 1,
+    backgroundColor: COLORS.light.secondary,
+  },
+  overlayWrapper: {
+    height: hp('29.67%'),
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  overlayImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover'
+  },
   container: {
     flex: 1,
     height: hp("100%"),
-    backgroundColor: COLORS.light.white,
+    width: '100%',
     paddingHorizontal: wp("8%"),
     paddingVertical: hp("8%"),
     // paddingTop: Platform.OS ? hp('4%') : hp('8%')
@@ -101,25 +127,25 @@ const styles = StyleSheet.create({
   rowItem: {
     width: "100%",
     alignItems: "center",
-    flexDirection: "column",
-    paddingHorizontal: 24
+    alignSelf: 'center',
+    flexDirection: "row",
+    marginBottom: hp('6.7%'),
+    flexWrap: 'wrap'
   },
   icon: {
     resizeMode: "contain",
     width: wp("8.59%"),
     height: wp("8.59%"),
-    marginTop: hp("5.16%"),
-    marginBottom: hp("1.81%")
   },
   rowItemText: {
-    color: "#52616E",
-    textAlign: 'center',
-    fontFamily: "Lato-Regular",
-    fontSize: wp('3.86%'),
-    lineHeight: hp('2.9%')
-
+    color: COLORS.light.white,
+    fontFamily: "Lato-Bold",
+    fontSize: wp('4.26%'),
+    lineHeight: hp('2.9%'),
+    marginLeft: wp('8% '),
+    flex: 1,
   },
   rowItemBold: {
-    fontFamily: "Lato-Bold",
+    color: '#B3CFFA'
   }
 });

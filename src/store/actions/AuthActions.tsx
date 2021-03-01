@@ -1,28 +1,38 @@
-import { USER_LOGIN, USER_REGISTRATION, USER_PROFILE_UPDATE, AuthActionTypes, UserInterface } from '../types/AuthTypes';
-import { authService } from '../../services/AuthService';
-import { request, failure } from './CommonActions';
+import { AUTH_TYPES, AuthActionTypes, UserInterface } from '../types/AuthTypes';
+import { AuthService } from '../../services/AuthService';
+import { loading, failure } from './CommonActions';
 import { Action, ActionCreator } from 'redux';
 import { Dispatch } from 'react';
 
+
+//ACTIONS
 const userLoginSuccess: ActionCreator<AuthActionTypes> = (user: UserInterface) => {
-  return { type: USER_LOGIN, payload: user };
+  return { type: AUTH_TYPES.USER_LOGIN, payload: user };
 }
 const userRegisterSuccess: ActionCreator<AuthActionTypes> = (user: UserInterface) => {
-  return { type: USER_REGISTRATION, payload: user };
+  return { type: AUTH_TYPES.USER_REGISTRATION, payload: user };
 }
 const userProfileUpdateSuccess: ActionCreator<AuthActionTypes> = (user: UserInterface) => {
-  return { type: USER_PROFILE_UPDATE, payload: user };
+  return { type: AUTH_TYPES.USER_PROFILE_UPDATE, payload: user };
 }
 
+
+
+//ACTION FUNCTIONS
 export function registerUser() {//to be called from sreen pahges
   return (dispatch: Dispatch<Action>) => { // async action: uses Redux-Thunk middleware to return a function instead of an action creator
-    dispatch(request());
-    return authService.userRegistrationRequest()
+    dispatch(loading(true));
+    return AuthService.userRegistrationRequest()
       .then(
         (response: any) => {
-          dispatch(userRegisterSuccess(response))
+
+          setTimeout(() => {
+            dispatch(loading(false));
+            dispatch(userRegisterSuccess(response))
+          }, 3000);
         },
         error => {
+          dispatch(loading(false));
           dispatch(failure('Server error. ' + error))
         })
   }
@@ -31,8 +41,8 @@ export function registerUser() {//to be called from sreen pahges
 
 export function loginUser({ phoneNo, pin }: { phoneNo: String, pin: String }) {
   return (dispatch: any) => {
-    dispatch(request());
-    return authService.userLoginRequest({ phoneNo, pin })
+    dispatch(loading());
+    return AuthService.userLoginRequest({ phoneNo, pin })
       .then(
         response => {
           dispatch(userLoginSuccess(response))

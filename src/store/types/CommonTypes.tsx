@@ -1,13 +1,15 @@
-
-export const FETCH_REQUEST = "FETCH_REQUEST"
-export const FETCH_FAILURE = "FETCH_FAILURE"
-
-interface FetchRequestAction  {
-    type: typeof FETCH_REQUEST
+export enum GEN_ACTIONS {
+    DATA_LOADING = "data_loading",
+    ERROR = "error"
 }
 
-interface FetchFailureAction  {
-    type: typeof FETCH_FAILURE,
+interface FetchRequestAction {
+    type: typeof GEN_ACTIONS.DATA_LOADING,
+    payload?: boolean
+}
+
+interface FetchFailureAction {
+    type: typeof GEN_ACTIONS.ERROR,
     payload: any
 }
 
