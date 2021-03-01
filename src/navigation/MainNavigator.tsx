@@ -20,12 +20,9 @@ const MainStack = createStackNavigator<RootStackParamList>();
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      {/* <MainStack.Navigator
-        initialRouteName={ROUTES.SPLASH_SCREEN}
-        headerMode={"none"}
-      > */}
       <MainStack.Navigator
-        initialRouteName={ROUTES.HOME_STACK_SCREEN}
+        // initialRouteName={ROUTES.HOME_STACK_SCREEN}
+        initialRouteName={ROUTES.SPLASH_SCREEN}
         headerMode={"none"}
       >
         <MainStack.Screen
@@ -36,7 +33,6 @@ export default function MainNavigator() {
           name={ROUTES.AUTHENTICATION_TAB}
           component={AuthStack}
         />
-        {/* <MainStack.Screen name={ROUTES.NEW_HOME_TAB} component={MainFlowTab} /> */}
         <MainStack.Screen
           name={ROUTES.HOME_STACK_SCREEN}
           component={HomeStack}
