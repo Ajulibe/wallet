@@ -22,6 +22,8 @@ const Home: React.FC = ({ navigation }: any) => {
   const HEADER_COLLAPSED_HEIGHT = hp("30.33%");
   const BODY_EXPANDED_HEIGHT = hp("69.67%");
   const BODY_COLLAPSED_HEIGHT = hp("59.67%");
+  const INVISIBLE_POSITION = -hp("30%");
+  const VISIBLE_POSITION = hp("30.33%");
   const SCREEN_WIDTH = useWindowDimensions().width;
   const SCREEN_HEIGHT = useWindowDimensions().height;
 
@@ -51,6 +53,12 @@ const Home: React.FC = ({ navigation }: any) => {
   const heroTitleOpacity = scrollY.interpolate({
     inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
     outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+
+  const newDivPosition = scrollY.interpolate({
+    inputRange: [0, HEADER_EXPANDED_HEIGHT - HEADER_COLLAPSED_HEIGHT],
+    outputRange: [INVISIBLE_POSITION, VISIBLE_POSITION],
     extrapolate: "clamp",
   });
   // console.log(headerHeight);

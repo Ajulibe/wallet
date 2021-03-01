@@ -6,13 +6,15 @@ import AddMoneyScreen from "../screens/tabScreens/AddMoneyScreen";
 import SendMoneyScreen from "../screens/tabScreens/SendMoneyScreen";
 import NotificationScreen from "../screens/tabScreens/NotificationScreen";
 import { Image, View, Text, StyleSheet } from "react-native";
-import { ROUTES } from './Routes';
+import { ROUTES } from "./Routes";
+import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import IMAGES from '../utils/Images'
-
+import IMAGES from "../utils/Images";
 
 export type RootStackParamList = {
   [ROUTES.HOME_SCREEN]: undefined;
@@ -28,8 +30,17 @@ export default function MainFlowTab() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: "#582ED7",
-        inactiveTintColor: "#52616E",
+        style: {
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowColor: "#00296B",
+          shadowOpacity: 0.2,
+          paddingTop: hp("1%"),
+        },
+        activeTintColor: "#00296B",
+        inactiveTintColor: "#8094B5",
       }}
     >
       <Tab.Screen
@@ -40,19 +51,17 @@ export default function MainFlowTab() {
             <Text
               style={[
                 styles.tabBarLabel,
-                { color: focused ? "#582ED7" : "#52616E" },
+                { color: focused ? "#00296B" : "#8094B5" },
               ]}
             >
               Home
             </Text>
           ),
           tabBarIcon: ({ focused }: any) => (
-            <Image
-              style={[
-                styles.tabBarImage,
-                { tintColor: focused ? "#582ED7" : "#52616E" },
-              ]}
-              source={IMAGES.Home}
+            <Feather
+              name="home"
+              size={18}
+              color={focused ? "#00296B" : "#8094B5"}
             />
           ),
         })}
@@ -65,19 +74,17 @@ export default function MainFlowTab() {
             <Text
               style={[
                 styles.tabBarLabel,
-                { color: focused ? "#582ED7" : "#52616E" },
+                { color: focused ? "#00296B" : "#8094B5" },
               ]}
             >
               Wallet
             </Text>
           ),
           tabBarIcon: ({ focused }: any) => (
-            <Image
-              style={[
-                styles.tabBarImage,
-                { tintColor: focused ? "#582ED7" : "#52616E" },
-              ]}
-              source={IMAGES.WalletIcon}
+            <Ionicons
+              name="ios-wallet-outline"
+              size={20}
+              color={focused ? "#00296B" : "#8094B5"}
             />
           ),
         })}
@@ -86,21 +93,24 @@ export default function MainFlowTab() {
         name={ROUTES.ADD_MONEY_SCREEN}
         component={AddMoneyScreen}
         options={{
-          tabBarLabel: () => <View />,
+          tabBarLabel: ({ focused }: any) => (
+            <Text
+              style={[
+                styles.tabBarLabel,
+                {
+                  color: focused ? "#00296B" : "#8094B5",
+                },
+              ]}
+            >
+              Add Money
+            </Text>
+          ),
           tabBarIcon: ({ focused }: any) => (
-            <View style={styles.tabBarIconView}>
-              <View style={styles.innerTabIconView}>
-                <Image
-                  style={[
-                    styles.tabBarImage,
-                    {
-                      tintColor: "#ffffff",
-                    },
-                  ]}
-                  source={IMAGES.AddMoney}
-                />
-              </View>
-            </View>
+            <Ionicons
+              name="ios-add"
+              size={22}
+              color={focused ? "#00296B" : "#8094B5"}
+            />
           ),
         }}
       />
@@ -113,7 +123,7 @@ export default function MainFlowTab() {
               style={[
                 styles.tabBarLabel,
                 {
-                  color: focused ? "#582ED7" : "#52616E",
+                  color: focused ? "#00296B" : "#8094B5",
                 },
               ]}
             >
@@ -121,12 +131,10 @@ export default function MainFlowTab() {
             </Text>
           ),
           tabBarIcon: ({ focused }: any) => (
-            <Image
-              style={[
-                styles.tabBarImage,
-                { tintColor: focused ? "#582ED7" : "#52616E" },
-              ]}
-              source={IMAGES.SendMoney}
+            <AntDesign
+              name="arrowup"
+              size={18}
+              color={focused ? "#00296B" : "#8094B5"}
             />
           ),
         }}
@@ -139,19 +147,17 @@ export default function MainFlowTab() {
             <Text
               style={[
                 styles.tabBarLabel,
-                { color: focused ? "#582ED7" : "#52616E" },
+                { color: focused ? "#00296B" : "#8094B5" },
               ]}
             >
-              Notification
+              Chats
             </Text>
           ),
           tabBarIcon: ({ focused }: any) => (
-            <Image
-              style={[
-                styles.tabBarImage,
-                { tintColor: focused ? "#582ED7" : "#52616E" },
-              ]}
-              source={IMAGES.Notification}
+            <Ionicons
+              name="chatbubbles-outline"
+              size={18}
+              color={focused ? "#00296B" : "#8094B5"}
             />
           ),
         }}
@@ -186,7 +192,7 @@ const styles = StyleSheet.create({
   innerTabIconView: {
     width: wp("10.5%%"),
     height: wp("10.5%"),
-    backgroundColor: "#582ED7",
+    backgroundColor: "#00296B",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: wp("10.5%"),
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 0,
     },
-    shadowColor: "#BCABEF",
+    shadowColor: "#00296B",
     shadowOpacity: 1,
   },
 });
