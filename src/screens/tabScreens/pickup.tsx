@@ -19,8 +19,8 @@ import {
 import { useScrollToTop } from "@react-navigation/native";
 import { GUIDE } from "../constants/StyleGuide";
 
-import QuickOptionsScreen from "./HomeScreenComponents/QuickOptionsComponent";
-import DashBoardComponent from "./HomeScreenComponents/DashBoardComponent";
+import QuickOptionsScreen from "../HomeScreenComponents/QuickOptionsComponent";
+import DashBoardComponent from "../HomeScreenComponents/DashBoardComponent";
 import IMAGES from "../../utils/Images";
 
 type Props = {

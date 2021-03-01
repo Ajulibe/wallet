@@ -150,12 +150,12 @@ export default function MainFlowTab() {
                 { color: focused ? "#00296B" : "#8094B5" },
               ]}
             >
-              Notification
+              Chats
             </Text>
           ),
           tabBarIcon: ({ focused }: any) => (
-            <Feather
-              name="bell"
+            <Ionicons
+              name="chatbubbles-outline"
               size={18}
               color={focused ? "#00296B" : "#8094B5"}
             />

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -19,7 +19,6 @@ import {
 import { useScrollToTop } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { SimpleLineIcons } from "@expo/vector-icons";
 import { ROUTES } from "../../navigation/Routes";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -39,48 +38,14 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
     <>
       <SafeAreaView style={{ flex: 0, backgroundColor: "#00296B" }} />
       <View style={styles.container}>
-        <View
-          style={{
-            width: wp("100%"),
-            height: hp("30.69%"),
-            backgroundColor: "#00296B",
-            borderBottomLeftRadius: wp("7.25%"),
-            borderBottomRightRadius: wp("7.25%"),
-            alignItems: "center",
-            shadowOffset: {
-              width: 0,
-              height: 3,
-            },
-            shadowColor: "#00296B",
-            shadowOpacity: 0.1,
-            shadowRadius: 1,
-          }}
-        >
+        <View style={styles.ImageBackgroundContainer}>
           <ImageBackground
             source={require("../../assets/images/mask.png")}
-            style={{
-              flex: 1,
-              width: wp("100%"),
-              alignItems: "center",
-              justifyContent: "center",
-              zIndex: -1000,
-            }}
+            style={styles.ImageBackground}
           >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: wp("90%"),
-              }}
-            >
+            <View style={styles.backContainer}>
               <View style={styles.contentContainer}>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <View style={styles.backView}>
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate(ROUTES.PROFILE_SCREEN);
@@ -95,66 +60,15 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                width: wp("90%"),
-                justifyContent: "center",
-                paddingLeft: wp("4.5%"),
-                paddingRight: wp("4.5%"),
-              }}
-            >
-              <Text
-                style={{
-                  color: "#ffffff",
-                  textAlign: "center",
-                  fontSize: wp("3.86%"),
-                  fontFamily: "Lato-Regular",
-                  lineHeight: hp("2.57%"),
-                }}
-              >
-                Edit Profile
-              </Text>
+            <View style={styles.editProfileContainer}>
+              <Text style={styles.editProfileText}>Edit Profile</Text>
             </View>
-            <View
-              style={{
-                marginTop: hp("2.6%"),
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: wp("24.15%"),
-                  height: wp("24.15%"),
-                  borderRadius: wp("24.15%"),
-                  backgroundColor: "#ffffff",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Feather name="user" size={40} color="black" />
-              </View>
+            <View style={styles.userContainer}>
+              <Feather name="user" size={40} color="black" />
             </View>
-            <View
-              style={{
-                marginTop: hp("2.12%"),
-                height: hp("7.59%"),
-                width: wp("90%"),
-                borderRadius: wp("3.62%"),
-                justifyContent: "center",
-                paddingLeft: wp("4.5%"),
-                paddingRight: wp("4.5%"),
-              }}
-            >
-              <Text
-                style={{
-                  color: "rgba(255,213,0,1)",
-                  textAlign: "center",
-                  fontSize: wp("3.38%"),
-                  fontFamily: "Lato-Regular",
-                  lineHeight: hp("2.57%"),
-                  marginBottom: hp("4.46%"),
-                }}
-              >
+
+            <View style={styles.changeProfileContainer}>
+              <Text style={styles.changeProfileText}>
                 Change Profile Picture
               </Text>
             </View>
@@ -162,42 +76,13 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
         </View>
         <View style={{ marginTop: hp("4.46%"), width: wp("90%") }}>
           <TouchableOpacity>
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: wp("50%"),
-                  marginLeft: wp("2%"),
-                }}
-              >
+            <View style={styles.nameMainContainer}>
+              <View style={styles.nameTextContainer}>
                 <View>
-                  <Text
-                    style={{
-                      color: "rgba(128,148,181,1)",
-                      fontSize: wp("3.38%"),
-                      lineHeight: hp("2.89%"),
-                      fontFamily: "Lato-Regular",
-                    }}
-                  >
-                    Name
-                  </Text>
+                  <Text style={styles.insideText}>Name</Text>
                 </View>
                 <View>
-                  <Text
-                    style={{
-                      color: "rgba(0,21,56,1)",
-                      fontSize: wp("3.86%"),
-                      lineHeight: hp("2.89%"),
-                      fontFamily: "Lato-Bold",
-                    }}
-                  >
-                    Jane Doe
-                  </Text>
+                  <Text style={styles.boldText}>Jane Doe</Text>
                 </View>
               </View>
               <View style={{ width: wp("10%") }}>
@@ -210,43 +95,13 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: hp("3.34%"),
-              }}
-            >
-              <View
-                style={{
-                  width: wp("50%"),
-                  marginLeft: wp("2%"),
-                }}
-              >
+            <View style={styles.mainTextContainer}>
+              <View style={styles.textContainer}>
                 <View>
-                  <Text
-                    style={{
-                      color: "rgba(128,148,181,1)",
-                      fontSize: wp("3.38%"),
-                      lineHeight: hp("2.89%"),
-                      fontFamily: "Lato-Regular",
-                    }}
-                  >
-                    Email
-                  </Text>
+                  <Text style={styles.insideText}>Email</Text>
                 </View>
                 <View>
-                  <Text
-                    style={{
-                      color: "rgba(0,21,56,1)",
-                      fontSize: wp("3.86%"),
-                      lineHeight: hp("2.89%"),
-                      fontFamily: "Lato-Bold",
-                    }}
-                  >
-                    j.doe@gmail.com
-                  </Text>
+                  <Text style={styles.boldText}>j.doe@gmail.com</Text>
                 </View>
               </View>
               <View style={{ width: wp("10%") }}>
@@ -259,43 +114,13 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: hp("3.34%"),
-              }}
-            >
-              <View
-                style={{
-                  width: wp("50%"),
-                  marginLeft: wp("2%"),
-                }}
-              >
+            <View style={styles.mainTextContainer}>
+              <View style={styles.textContainer}>
                 <View>
-                  <Text
-                    style={{
-                      color: "rgba(128,148,181,1)",
-                      fontSize: wp("3.38%"),
-                      lineHeight: hp("2.89%"),
-                      fontFamily: "Lato-Regular",
-                    }}
-                  >
-                    Password
-                  </Text>
+                  <Text style={styles.insideText}>Password</Text>
                 </View>
                 <View>
-                  <Text
-                    style={{
-                      color: "rgba(0,21,56,1)",
-                      fontSize: wp("3.86%"),
-                      lineHeight: hp("2.89%"),
-                      fontFamily: "Lato-Bold",
-                    }}
-                  >
-                    ................
-                  </Text>
+                  <Text style={styles.boldText}>................</Text>
                 </View>
               </View>
               <View style={{ width: wp("10%") }}>
@@ -346,6 +171,108 @@ const styles = StyleSheet.create({
     borderColor: "#ffffff",
     justifyContent: "center",
     alignItems: "center",
+  },
+  ImageBackground: {
+    flex: 1,
+    width: wp("100%"),
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: -1000,
+  },
+  ImageBackgroundContainer: {
+    width: wp("100%"),
+    height: hp("30.69%"),
+    backgroundColor: "#00296B",
+    borderBottomLeftRadius: wp("7.25%"),
+    borderBottomRightRadius: wp("7.25%"),
+    alignItems: "center",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowColor: "#00296B",
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+  },
+  backContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: wp("90%"),
+  },
+  backView: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  editProfileContainer: {
+    width: wp("90%"),
+    justifyContent: "center",
+    paddingLeft: wp("4.5%"),
+    paddingRight: wp("4.5%"),
+  },
+  editProfileText: {
+    color: "#ffffff",
+    textAlign: "center",
+    fontSize: wp("3.86%"),
+    fontFamily: "Lato-Regular",
+    lineHeight: hp("2.57%"),
+  },
+  userContainer: {
+    marginTop: hp("2.6%"),
+    width: wp("24.15%"),
+    height: wp("24.15%"),
+    borderRadius: wp("24.15%"),
+    backgroundColor: "#ffffff",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  changeProfileContainer: {
+    marginTop: hp("2.12%"),
+    height: hp("7.59%"),
+    width: wp("90%"),
+    borderRadius: wp("3.62%"),
+    justifyContent: "center",
+    paddingLeft: wp("4.5%"),
+    paddingRight: wp("4.5%"),
+  },
+  changeProfileText: {
+    color: "rgba(255,213,0,1)",
+    textAlign: "center",
+    fontSize: wp("3.38%"),
+    fontFamily: "Lato-Regular",
+    lineHeight: hp("2.57%"),
+    marginBottom: hp("4.46%"),
+  },
+  nameMainContainer: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  nameTextContainer: {
+    width: wp("50%"),
+    marginLeft: wp("2%"),
+  },
+  mainTextContainer: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: hp("3.34%"),
+  },
+  textContainer: {
+    width: wp("50%"),
+    marginLeft: wp("2%"),
+  },
+  insideText: {
+    color: "rgba(128,148,181,1)",
+    fontSize: wp("3.38%"),
+    lineHeight: hp("2.89%"),
+    fontFamily: "Lato-Regular",
+  },
+  boldText: {
+    color: "rgba(0,21,56,1)",
+    fontSize: wp("3.86%"),
+    lineHeight: hp("2.89%"),
+    fontFamily: "Lato-Bold",
   },
 });
 

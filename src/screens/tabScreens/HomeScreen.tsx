@@ -28,8 +28,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { ROUTES } from "../../navigation/Routes";
 
-import QuickOptionsScreen from "./HomeScreenComponents/QuickOptionsComponent";
-import DashBoardComponent from "./HomeScreenComponents/DashBoardComponent";
+import QuickOptionsScreen from "../HomeScreenComponents/QuickOptionsComponent";
+import DashBoardComponent from "../HomeScreenComponents/DashBoardComponent";
 import IMAGES from "../../utils/Images";
 
 type Props = {
