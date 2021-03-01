@@ -6,20 +6,20 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { ROUTES } from "../../navigation/Routes";;
+import { ROUTES } from "../../navigation/Routes";
 import { GUIDE } from "../constants/StyleGuide";
 
-type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FINAL_LOADING_SCREEN>;
+type Props = StackScreenProps<
+  AuthStackParamList,
+  ROUTES.AUTH_FINAL_LOADING_SCREEN
+>;
 
-export default function AuthFinalLoading({ navigation, }: Props) {
-
-
+export default function AuthFinalLoading({ navigation }: Props) {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate(ROUTES.NEW_HOME_TAB);
     }, 2000);
   });
-
 
   return (
     <View style={styles.container}>

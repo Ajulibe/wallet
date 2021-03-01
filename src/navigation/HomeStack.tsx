@@ -8,9 +8,6 @@ import { ROUTES } from "./Routes";
 
 export type HomeStackParamList = {
   [ROUTES.MAIN_FLOW_TAB]: undefined;
-  [ROUTES.PROFILE_SCREEN]: undefined;
-  [ROUTES.EDIT_PROFILE_SCREEN]: undefined;
-  [ROUTES.SECURITY]: undefined;
 };
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
@@ -25,21 +22,6 @@ export default function HomeNavigationStack() {
       <HomeStack.Screen
         name={ROUTES.MAIN_FLOW_TAB}
         component={MainFlowTab}
-        options={{ headerShown: false }}
-      />
-      <HomeStack.Screen
-        name={ROUTES.PROFILE_SCREEN}
-        component={ProfileScreen}
-        options={{ headerShown: false }}
-      />
-      <HomeStack.Screen
-        name={ROUTES.EDIT_PROFILE_SCREEN}
-        component={EditProfileScreen}
-        options={{ headerShown: false }}
-      />
-      <HomeStack.Screen
-        name={ROUTES.SECURITY}
-        component={Security}
         options={{ headerShown: false }}
       />
     </HomeStack.Navigator>

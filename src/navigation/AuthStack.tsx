@@ -9,8 +9,7 @@ import AuthCreatePin from "../screens/auth/AuthCreatePin";
 import AuthFinalLoading from "../screens/auth/AuthFinalLoading";
 import MainFlowTab from "../navigation/BottomTab";
 import { ROUTES } from "./Routes";
-import { AuthDetail } from '../models/AuthDetail'
-
+import { AuthDetail } from "../models/AuthDetail";
 
 export type AuthStackParamList = {
   [ROUTES.AUTH_GET_STARTED_SCREEN]: undefined;
