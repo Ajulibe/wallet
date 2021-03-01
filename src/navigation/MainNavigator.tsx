@@ -10,7 +10,6 @@ import { ROUTES } from "./Routes";
 export type RootStackParamList = {
   [ROUTES.SPLASH_SCREEN]: undefined;
   [ROUTES.AUTHENTICATION_TAB]: undefined;
-  [ROUTES.HOME_TAB]: undefined;
   [ROUTES.NEW_HOME_TAB]: undefined;
   [ROUTES.HOME_STACK_SCREEN]: undefined;
 };

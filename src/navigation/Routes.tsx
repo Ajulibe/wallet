@@ -2,7 +2,6 @@ export enum ROUTES {
   //TABS.....
   //NUMBER OF STACKS(ACTIVITY) THAT HOUSES/CONTAINS THE STACKS
   AUTHENTICATION_TAB = "Authentication",
-  HOME_TAB = "Home",
 
   //for splash
   SPLASH_SCREEN = "SplashScreen",
