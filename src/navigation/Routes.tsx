@@ -2,10 +2,6 @@ export enum ROUTES {
   //TABS.....
   //NUMBER OF STACKS(ACTIVITY) THAT HOUSES/CONTAINS THE STACKS
   AUTHENTICATION_TAB = "Authentication",
-  HOME_TAB = "Home",
-
-  //HOME TAB SCREENS
-  NEW_HOME_TAB = "MainFlowTab",
 
   //for splash
   SPLASH_SCREEN = "SplashScreen",
@@ -18,6 +14,9 @@ export enum ROUTES {
   AUTH_EMAIL_SCREEN = "AuthEmailScreen",
   AUTH_CREATE_PIN_SCREEN = "AuthCreatePinScreen",
   AUTH_FINAL_LOADING_SCREEN = "AuthFinalLoadingScreen",
+
+  //HOME TAB SCREENS
+  NEW_HOME_TAB = "MainFlowTab",
 
   //for main STACKS
   HOME_SCREEN = "HomeScreen",

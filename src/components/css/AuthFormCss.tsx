@@ -6,33 +6,59 @@ import {
 } from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: 'relative',
+    flex: 1,
+    backgroundColor: COLORS.light.white
+  },
+  overlayWrapper: {
+    height: hp('29.67%'),
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  overlayImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'stretch'
+  },
   container: {
     flex: 1,
-    backgroundColor: COLORS.light.white,
     paddingHorizontal: wp('8%'),
-    paddingVertical: hp("8%"),
-    paddingTop: Platform.OS ? hp('12%') : hp('8%')
+    paddingTop: Platform.OS ? hp('8.12%') : hp('8.12%'),
+    paddingBottom: hp('5.54%'),
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'transparent'
   },
   formTitle: {
-    fontSize: wp("3.86%"),
+    fontSize: wp("9.61%"),
     fontWeight: "400",
-    color: COLORS.light.blackLight,
-    marginBottom: 36,
-    marginTop: 36,
-    textAlign: 'center',
-    lineHeight: hp('2.9%')
+    color: COLORS.light.secondary,
+    fontFamily: 'Lato-Bold',
+    marginTop: hp('5.78%'),
   },
   formSubtitle: {
-    marginTop: -16,
-    marginBottom: 16,
-    color: COLORS.light.blackLight,
-
+    marginTop: hp('2.46%'),
+    marginRight: wp('13.5%'),
+    marginBottom: hp('3.69%'),
+    color: COLORS.light.secondary,
+    display: 'flex',
+    fontSize: wp("4.25%"),
+    fontFamily: 'Lato-Regular',
+    lineHeight: hp('3.18%')
   },
   inputLabel: {
-    color: COLORS.light.black,
-    marginBottom: 4,
-    fontFamily: 'Lato-Bold',
-    fontSize: wp('3.38%')
+    color: COLORS.light.secondary,
+    marginTop: hp('3.69%'),
+    textAlign: 'center',
+    fontSize: wp("4.25%"),
   },
   bold: {
     fontWeight: '700'
@@ -43,11 +69,14 @@ const styles = StyleSheet.create({
     color: '#94A4B1',
   },
   secondaryButton: {
-    color: COLORS.light.primary,
+    fontFamily: 'Lato-Bold',
     textDecorationLine: 'underline',
-    fontFamily: 'Lato-Regular',
-    fontSize: wp('3.85%'),
-  }
+    color: COLORS.light.secondary,
+    textAlign: 'center',
+    fontSize: wp("4.25%"),
+  },
+
+
 });
 
 export default styles;

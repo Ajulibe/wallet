@@ -1,27 +1,35 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StatusBar, Image, } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
-import PinInput from '../../components/InputPin';
+import { RouteProp } from '@react-navigation/native';
+import OtpCodeInput from "../../components/OtpCodeInput";
 import { AuthStackParamList } from "../../navigation/AuthStack";
 import { ROUTES } from "../../navigation/Routes";
-import CircularProgress from "../../components/CircularProgress";
+import CustomButton from "../../components/Button";
 import IMAGES from "../../utils/Images";
-import ProgressLoader from "../../components/ProgressLoader";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
-import UTILITIES from '../../utils/Utilities'
+import UTILITIES from "../../utils/Utilities";
+import COLORS from "../../utils/Colors";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 type Props = StackScreenProps<
   AuthStackParamList,
   ROUTES.AUTH_PHONE_NO_VERIFY_SCREEN
 >;
 
-const CELL_COUNT = 6;
-const AuthPhoneNoVerify = ({ navigation }: Props) => {
+const CELL_COUNT = 5;
+const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
+  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
   const [isLoading, setIsLoading] = useState(false);
   const [timer, setTimer] = useState(60);
-  const [otpCode, setOtpCode] = useState('');
-  const [errorText, setErrorText] = useState('');
+  const [otpCode, setOtpCode] = useState("");
+  const [errorText, setErrorText] = useState("");
 
+  useEffect(() => {
+    console.log(route.params)
+    // console.log(route)//route.key, route.name, route.params, 
+  }, [])
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (timer > 0) {
@@ -33,57 +41,103 @@ const AuthPhoneNoVerify = ({ navigation }: Props) => {
     };
   }, [timer]);
 
+  let onSubmit = () => {
+    if (otpCode.length != 5) {
+      if (errorText.length != 0) setErrorText("Incorrect pin");
+    } else {
+      if (otpCode != "11111") setErrorText("Incorrect pin");
+      else {
+        setErrorText("");
+        navigation.navigate(ROUTES.AUTH_FULL_NAME_SCREEN);
+      }
+    }
+
+  }
+
   //OTP CODE INPUT LISTENER
   let otpInputChangeHandler = useCallback((value) => {
+    setBtnBgColor(COLORS.light.primaryDisabled)
+
     const otp = value.toString();
-    // setOtpCode(value);
-    console.log(value)
-    if (otp.length != 6) {
-      if (errorText.length != 0)
-        setErrorText("Incorrect pin")
+    setOtpCode(value);
+    if (otp.length != 5) {
+      if (errorText.length != 0) setErrorText("Incorrect pin");
     } else {
-      if (otp != '111111')
-        setErrorText("Incorrect pin")
+      if (otp != "11111") setErrorText("Incorrect pin");
       else {
-        setErrorText('')
-        navigation.navigate(ROUTES.AUTH_FULL_NAME_SCREEN);
+        setErrorText("");
+        setBtnBgColor(COLORS.light.primary)
+        // navigation.navigate(ROUTES.AUTH_FULL_NAME_SCREEN);
       }
     }
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-    <View style={styles.container}>
-      <CircularProgress icon="phonelink-ring" progress={40} iconType={"MaterialIcons"}/>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
+      <View style={styles.wrapper}>
 
-      <Text style={styles.formTitle}>
-        Check your SMS for a <Text style={styles.bold}>6 digit code</Text> from Surepay. Enter it here to secure your account.
-      </Text>
+        <StatusBar backgroundColor={COLORS.light.white} />
+        <View style={styles.overlayWrapper}>
+          <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
+        </View>
 
-      <Text style={styles.inputLabel}>Your Code</Text>
+        <View style={styles.container}>
 
-      <PinInput
-        cellCount={CELL_COUNT}
-        onTextInputChange={otpInputChangeHandler}
-        pinVisible={true}
-        errorText={errorText}
-      />
-
-      <View style={{ justifyContent: "center", alignItems: "center", marginTop: 24 }}>
-        {timer > 0 ?
-          <Text>Waiting: {UTILITIES.formateTime(timer)}</Text> : (
-            <TouchableOpacity onPress={() => null}>
-              <Text style={styles.secondaryButton}>Resend Code</Text>
+          <View>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <MaterialIcons
+                name={"arrow-back-ios"}
+                size={24}
+                color={COLORS.light.secondary}
+              />
             </TouchableOpacity>
-          )}
+          </View>
+
+          <Text style={styles.formTitle}>
+            Verify Number
+        </Text>
+          <Text style={styles.formSubtitle}>
+            Please enter the 5 digit code  sent to  <Text style={{ fontFamily: 'Lato-Bold' }}>+234809488483</Text>
+          </Text>
+
+          {/* custom otp plugin   */}
+          <OtpCodeInput
+            cellCount={CELL_COUNT}
+            onTextInputChange={otpInputChangeHandler}
+            pinVisible={true}
+            errorText={errorText}
+          />
+
+          {/* timer and resent btn   */}
+          {!isLoading && <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 24,
+            }} >
+            {timer > 0 ? (
+              <Text style={{ color: COLORS.light.secondary, fontFamily: 'Lato-Regular' }}>Resend OTP in <Text style={{ fontFamily: 'Lato-Bold' }}>{UTILITIES.formateTime(timer)}s</Text></Text>
+            ) : (
+                <TouchableOpacity onPress={() => null}>
+                  <Text style={styles.secondaryButton}>Resend Code</Text>
+                </TouchableOpacity>
+              )}
+          </View>}
+          {/* loading spinner  */}
+          {(isLoading && <LoadingSpinner />)}
+          <View style={{ flex: 1 }} />
+          {/* continue btn  */}
+          <CustomButton
+            bgColor={isLoading ? COLORS.light.primaryDisabled : btnBgColor}
+            textColor={COLORS.light.white}
+            btnText={"Continue"}
+            onClick={() => onSubmit()}
+          />
+        </View>
+
       </View>
-
-      <View style={{ flex: 1 }} />
-
-      {/* <ProgressLoader isLoading={isLoading} imgSrc={IMAGES.loading} /> */}
-    </View>
     </ScrollView>
-    );
+  );
 };
 
 export default AuthPhoneNoVerify;

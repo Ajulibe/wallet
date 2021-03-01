@@ -9,11 +9,13 @@ import AuthCreatePin from "../screens/auth/AuthCreatePin";
 import AuthFinalLoading from "../screens/auth/AuthFinalLoading";
 import MainFlowTab from "../navigation/BottomTab";
 import { ROUTES } from "./Routes";
+import { AuthDetail } from '../models/AuthDetail'
+
 
 export type AuthStackParamList = {
   [ROUTES.AUTH_GET_STARTED_SCREEN]: undefined;
   [ROUTES.AUTH_PHONE_NO_SCREEN]: undefined;
-  [ROUTES.AUTH_PHONE_NO_VERIFY_SCREEN]: undefined;
+  [ROUTES.AUTH_PHONE_NO_VERIFY_SCREEN]: { authDetail: AuthDetail };
   [ROUTES.AUTH_FULL_NAME_SCREEN]: undefined;
   [ROUTES.AUTH_EMAIL_SCREEN]: undefined;
   [ROUTES.AUTH_CREATE_PIN_SCREEN]: undefined;

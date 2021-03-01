@@ -1,6 +1,6 @@
 import { FETCH_CONTACT_CHAT_LIST, FETCH_CHATS, ChatActionTypes, ChatListInterface, ChatsInterface } from '../types/ChatTypes';
 import { chatService } from '../../services/ChatsService';
-import { request, failure } from './CommonActions';
+import { loading, failure } from './CommonActions';
 import { Action, ActionCreator } from 'redux';
 import { Dispatch } from 'react';
 
@@ -13,7 +13,7 @@ const fetchChatSuccess: ActionCreator<ChatActionTypes> = (chats: ChatListInterfa
 
 export function fetchChatList() {//to be called from sreen pahges
   return (dispatch: Dispatch<Action>) => { // async action: uses Redux-Thunk middleware to return a function instead of an action creator
-    dispatch(request());
+    dispatch(loading());
     return chatService.fetchChatList()
       .then(
         (response: any) => {
@@ -28,7 +28,7 @@ export function fetchChatList() {//to be called from sreen pahges
 
 export function fetchChat({ postId, userId }: { postId: String, userId: String }) {
   return (dispatch: any) => {
-    dispatch(request());
+    dispatch(loading());
     return chatService.fetchChat({ postId, userId })
       .then(
         response => {

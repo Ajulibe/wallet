@@ -1,18 +1,19 @@
 import React, { useCallback, useState } from "react";
-import { View, ScrollView, Text, Image, TouchableOpacity } from "react-native";
+import { View, ScrollView, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
 import { ROUTES } from "../../navigation/Routes";
 import CustomButton from "../../components/Button";
 import COLORS from "../../utils/Colors";
 import Input from "../../components/Input";
-import CircularProgress from "../../components/CircularProgress";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
+import IMAGES from "../../utils/Images";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
 
 const AuthEmail = ({ navigation }: Props) => {
-  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primary);
+  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
   const [fullName, setFullName] = useState("");
 
   let inputChangeHandler = useCallback((id, value, isValid) => {
@@ -21,58 +22,68 @@ const AuthEmail = ({ navigation }: Props) => {
   }, []);
 
   const onSubmit = () => {
-    // if (fullName.length < 2) {
-    //   console.log("Error oooo!!!");
-    // } else {
-      navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN);
-    // }
+    navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN);
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={styles.container}>
-        <CircularProgress icon="envelope" progress={80} iconType={"SimpleLineIcons"} />
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
+      <View style={styles.wrapper}>
 
-        <Text style={styles.formTitle}>{`This is not compulsory. If you don’t have an email address, you skip this option.`}</Text>
+        <StatusBar backgroundColor={COLORS.light.white} />
+        {/* overlay bg image */}
+        <View style={styles.overlayWrapper}>
+          <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
+        </View>
+        {/* top menu  */}
+        <View style={styles.container}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* Back Button */}
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <MaterialIcons
+                name={"arrow-back-ios"}
+                size={24}
+                color={COLORS.light.secondary}
+              />
+            </TouchableOpacity>
+            {/* Skip button */}
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Text style={{ fontFamily: 'Lato-Regular', textDecorationLine: 'underline' }}>Skip</Text>
+            </TouchableOpacity>
+          </View>
 
-        <Text style={styles.inputLabel}>Email Address</Text>
-        <Input
-          id="fullName"
-          placeholder="john.okafor@gmail.com"
-          placeholderTextColor=""
-          errorText="Enter valid email address"
-          keyboardType="default"
-          autoCapitalize="sentences"
-          returnKeyType="none"
-          onSubmit={inputChangeHandler}
-          onInputChange={inputChangeHandler}
-          initialValue=""
-          initiallyValid={false}
-          required
-          secureTextEntry={false}
-          minLength={11}
-          textContentType="none"
-        />
+          <Text style={styles.formTitle}>Email address</Text>
 
-        <View style={{ flex: 1 }} />
+          <Text style={styles.formSubtitle}>Please give us your mail address ino, we finna use it to contact you</Text>
+          <Input
+            id="fullName"
+            placeholder="Email address"
+            placeholderTextColor=""
+            errorText="Enter valid email address"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            returnKeyType="none"
+            onSubmit={inputChangeHandler}
+            onInputChange={inputChangeHandler}
+            initialValue=""
+            initiallyValid={false}
+            required
+            secureTextEntry={false}
+            minLength={11}
+            textContentType="none"
+          />
 
-        <CustomButton
-          bgColor={btnBgColor}
-          textColor={COLORS.light.white}
-          btnText={"Next"}
-          onClick={onSubmit}
-        />
+          <View style={{ flex: 1 }} />
 
-        {/* <ProgressLoader isLoading={true} imgSrc={IMAGES.loading} /> */}
+          <CustomButton
+            bgColor={btnBgColor}
+            textColor={COLORS.light.white}
+            btnText={"Next"}
+            onClick={onSubmit}
+          />
+        </View>
       </View>
     </ScrollView>
   );
-};
-
-AuthEmail.navigationOptions = () => {
-  return {
-    headerShown: false,
-  };
 };
 
 export default AuthEmail;

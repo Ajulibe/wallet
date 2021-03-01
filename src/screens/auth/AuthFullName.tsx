@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { View, ScrollView, Text, Image, TouchableOpacity } from "react-native";
+import { View, ScrollView, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
 import { ROUTES } from "../../navigation/Routes";
@@ -11,7 +11,8 @@ import CircularProgress from "../../components/CircularProgress";
 import IMAGES from "../../utils/Images";
 import ProgressLoader from "../../components/ProgressLoader";
 import styles from "../../components/css/AuthFormCss";
-import UTILITIES from '../../utils/Utilities'
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { heightPercentageToDP as hp, widthPercentageToDP } from "react-native-responsive-screen";
 
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
@@ -38,59 +39,75 @@ export default function AuthEmail({ navigation }: Props) {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={styles.container}>
-        <CircularProgress icon="user" progress={60} iconType= {"FeatherIcons"} />
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
+      <View style={styles.wrapper}>
 
-        <Text style={styles.formTitle}>{`We would use this as the name for your SurePay account`}</Text>
+        <StatusBar backgroundColor={COLORS.light.white} />
+        <View style={styles.overlayWrapper}>
+          <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
+        </View>
+        <View style={styles.container}>
+          <View>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <MaterialIcons
+                name={"arrow-back-ios"}
+                size={24}
+                color={COLORS.light.secondary}
+              />
+            </TouchableOpacity>
+          </View>
 
-        <Text style={styles.inputLabel}>First Name</Text>
-        <Input
-          id="fullName"
-          placeholder="John"
-          placeholderTextColor=""
-          errorText="Enter your first name"
-          keyboardType="default"
-          autoCapitalize="sentences"
-          returnKeyType="next"
-          onInputChange={inputChangeHandler}
-          onSubmit={inputChangeHandler}
-          initialValue=""
-          initiallyValid={false}
-          required
-          secureTextEntry={false}
-          minLength={2}
-          textContentType="none"
-        />
-        <View style={{ height: 16 }} />
-        <Text style={styles.inputLabel}>Last Name</Text>
-        <Input
-          id="fullName"
-          placeholder="Okafor"
-          placeholderTextColor=""
-          errorText="Enter your last name"
-          keyboardType="default"
-          autoCapitalize="sentences"
-          returnKeyType="next"
-          onInputChange={inputChangeHandler}
-          onSubmit={inputChangeHandler}
-          initialValue=""
-          initiallyValid={false}
-          required
-          secureTextEntry={false}
-          minLength={2}
-          textContentType="none"
-        />
+          <Text style={styles.formTitle}>Personal Info</Text>
 
-        <View style={{ flex: 1 }} />
-        <CustomButton
-          bgColor={btnBgColor}
-          textColor={COLORS.light.white}
-          btnText={"Next"}
-          onClick={onSubmit}
-        />
+          <Text style={styles.formSubtitle}>We would use this as the name for your SurePay account</Text>
+          <Input
+            id="fullName"
+            placeholder="First name"
+            placeholderTextColor=""
+            errorText="Enter your first name"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            onSubmit={inputChangeHandler}
+            initialValue=""
+            initiallyValid={false}
+            required
+            secureTextEntry={false}
+            minLength={2}
+            textContentType="none"
+          />
+          <View style={{ height: hp('3.36%') }} />
+          <Input
+            id="fullName"
+            placeholder="Last name"
+            placeholderTextColor=""
+            errorText="Enter your last name"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            onSubmit={inputChangeHandler}
+            initialValue=""
+            initiallyValid={false}
+            required
+            secureTextEntry={false}
+            minLength={2}
+            textContentType="none"
+          />
 
-        {/* <ProgressLoader isLoading={true} imgSrc={IMAGES.loading} /> */}
+          <View style={{ flex: 1 }} />
+          <CustomButton
+            bgColor={btnBgColor}
+            textColor={COLORS.light.white}
+            btnText={"Next"}
+            onClick={onSubmit}
+          />
+
+          {/* <ProgressLoader isLoading={true} imgSrc={IMAGES.loading} /> */}
+        </View>
+
+
       </View>
     </ScrollView>
   );

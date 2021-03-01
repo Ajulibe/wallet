@@ -10,23 +10,35 @@ export interface UserInterface {
 }
 
 //different operation types....
-export const USER_REGISTRATION = "AUTH_REGISTRATION"
-export const USER_LOGIN = "AUTH_LOGIN"
-export const USER_PROFILE_UPDATE = "AUTH_UPDATE_PROFILE"
+export enum AUTH_TYPES {
+    USER_REGISTRATION = "AUTH_REGISTRATION",
+    USER_LOGIN = "AUTH_LOGIN",
+    USER_PROFILE_UPDATE = "AUTH_UPDATE_PROFILE",
+}
 
 interface RegisterAction {
-    type: typeof USER_REGISTRATION,
+    type: typeof AUTH_TYPES.USER_REGISTRATION,
     payload: UserInterface
 }
 
 interface LoginAction {
-    type: typeof USER_LOGIN,
+    type: typeof AUTH_TYPES.USER_LOGIN,
     payload: UserInterface
 }
 
 interface UpdateProfileAction {
-    type: typeof USER_PROFILE_UPDATE,
+    type: typeof AUTH_TYPES.USER_PROFILE_UPDATE,
     payload: UserInterface
 }
+// //loading action
+// interface LoadingAction {
+//     type: typeof AUTH_TYPES.DATA_LOADING,
+//     payload: any
+// }
+// //fetch error(maybe n/w or server error)
+// interface FetchFailureAction {
+//     type: typeof AUTH_TYPES.ERROR,
+//     payload: any
+// }
 
 export type AuthActionTypes = RegisterAction | LoginAction | UpdateProfileAction

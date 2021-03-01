@@ -121,10 +121,10 @@ const Input: React.FC<Props> = (props) => {
         },
         styles.input
         ]}
-        placeholderTextColor={COLORS.light.blackLight}
+        placeholderTextColor={COLORS.light.inputText}
         value={inputState.value!}
         onChangeText={textChangeHandler}
-        onBlur={lostFocusHandler}
+        // onBlur={lostFocusHandler}
         onSubmitEditing={() => onSubmit(id, inputState.value, inputState.isValid)}
       />
       {!inputState.isValid && (inputState.touched || isTouched) && (
@@ -140,11 +140,15 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   input: {
-    paddingHorizontal: 12,
-    paddingVertical: 16,
     borderWidth: 1,
     borderRadius: 4,
-    fontSize: 18,
+    backgroundColor: COLORS.light.inputBg,
+    borderColor: COLORS.light.inputBorder,
+    fontSize: wp('4.26%'),
+    fontFamily: 'Lato-Regular',
+    paddingHorizontal: wp('5.6%'),
+    paddingVertical: hp('1.47%'),
+    color: COLORS.light.inputText
   },
   errorContainer: {
     marginVertical: 0,

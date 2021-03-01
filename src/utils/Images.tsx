@@ -7,7 +7,10 @@ const IMAGES = {
   "share": require("../assets/images/icon-share.png"),
   "phone": require("../assets/images/icon-phone.png"),
   "clock": require("../assets/images/icon-clock.png"),
-  "loading": require("../assets/images/loading.png"),
+  "loading": require("../assets/images/loader3.gif"),
+  "top-overlay-white": require("../assets/images/top-overlay-white.png"),
+  "top-overlay-dark": require("../assets/images/top-overlay-dark.png"),
+  "top-overlay-dark2": require("../assets/images/top-overlay-dark2.png"),
 
   "WalletIcon": require("../assets/images/WalletIcon.png"),
   "newAvatar": require("../assets/images/newAvatar.png"),
