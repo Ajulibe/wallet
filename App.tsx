@@ -2,8 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppLoading from "expo-app-loading";
-import { Provider } from 'react-redux';
-import { store } from './src/store/store';
+import { Provider } from "react-redux";
+import { store } from "./src/store/store";
 import * as Font from "expo-font";
 import Navigation from "./src/navigation/MainNavigator";
 
@@ -39,7 +39,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <StatusBar hidden={false} backgroundColor="#582ED7" />
+        <StatusBar hidden={true} backgroundColor="#582ED7" />
         <Navigation />
       </SafeAreaProvider>
     </Provider>
