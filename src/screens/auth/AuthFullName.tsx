@@ -23,6 +23,7 @@ export default function AuthEmail({ navigation, route }: Props) {
   const [lastName, setLastName] = useState('')
   const [fNameErrorText, setFNameErrorText] = useState("");
   const [lNameErrorText, setLNameErrorText] = useState("");
+  const [touchedAction, setTouchedAction] = useState(false);
   const [authDetail, setAuthDetail] = useState({} as AuthDetail);
 
   // set the navigation prop authDetail
@@ -50,13 +51,18 @@ export default function AuthEmail({ navigation, route }: Props) {
   }, []);
 
   const onSubmit = () => {
+    setTouchedAction(true)
     setFNameErrorText('')
     setLNameErrorText('')
 
     if (firstName == "") {
       setFNameErrorText("Enter your first name")
+    } else if (firstName.length < 2) {
+      setFNameErrorText("Name too short")
     } else if (lastName == "") {
-      setFNameErrorText('Enter your last name')
+      setLNameErrorText('Enter your last name')
+    } else if (lastName.length < 2) {
+      setLNameErrorText("Name too short")
     } else {
       authDetail.firstName = firstName;
       authDetail.lastName = lastName
@@ -87,7 +93,7 @@ export default function AuthEmail({ navigation, route }: Props) {
 
           <Text style={styles.formSubtitle}>We would use this as the name for your SurePay account</Text>
           <Input
-            id="fullName"
+            id="firstName"
             placeholder="First name"
             placeholderTextColor=""
             errorText={fNameErrorText}
@@ -97,6 +103,7 @@ export default function AuthEmail({ navigation, route }: Props) {
             onInputChange={fNameInputChangeHandler}
             onSubmit={onSubmit}
             initialValue=""
+            touched={touchedAction}
             initiallyValid={false}
             required
             secureTextEntry={false}
@@ -105,7 +112,7 @@ export default function AuthEmail({ navigation, route }: Props) {
           />
           <View style={{ height: hp('3.36%') }} />
           <Input
-            id="fullName"
+            id="lastName"
             placeholder="Last name"
             placeholderTextColor=""
             errorText={lNameErrorText}
@@ -115,6 +122,7 @@ export default function AuthEmail({ navigation, route }: Props) {
             onInputChange={lNameInputChangeHandler}
             onSubmit={onSubmit}
             initialValue=""
+            touched={touchedAction}
             initiallyValid={false}
             required
             secureTextEntry={false}

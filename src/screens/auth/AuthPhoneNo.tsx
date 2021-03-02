@@ -25,12 +25,6 @@ import IMAGES from "../../utils/Images";
 import { CountryPicker } from "../../components/CountryPicker";
 import Animated from 'react-native-reanimated';
 import { CountryData } from '../../extra/CountryData'
-
-//redux wahala
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/reducers/RootReducer";
-import { loginUser, registerUser } from "../../store/actions/AuthActions";
-import { UserInterface } from "../../store/types/AuthTypes";
 // api service 
 import { AuthService } from "../../services/AuthService";
 import { AuthDetail } from '../../models/AuthDetail'
@@ -45,26 +39,6 @@ const AuthPhoneNo = ({ navigation }: Props) => {
   const [openCountry, setOpenCountry] = useState(false);
   const [country, setCountry] = useState(CountryData.africaCountries[0]);
 
-
-  //reducer dispath starts
-  const dispatch = useDispatch();
-  const { user, error, loading } = useSelector(
-    (state: RootState) => state.user
-  );
-
-  function regUser() {
-    dispatch(registerUser());
-  }
-
-  function logUser() {
-    dispatch(loginUser({ phoneNo: "dfdf", pin: "dfdf" }));
-  }
-
-  useEffect(() => {
-    regUser();
-    // logUser()
-  }, []);
-  //reducer dispath ends
 
   //on input text change handler
   let inputChangeHandler = (value: string) => {

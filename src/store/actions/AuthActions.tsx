@@ -3,6 +3,7 @@ import { AuthService } from '../../services/AuthService';
 import { loading, failure } from './CommonActions';
 import { Action, ActionCreator } from 'redux';
 import { Dispatch } from 'react';
+import { AuthDetail } from '../../models/AuthDetail';
 
 
 //ACTIONS
@@ -19,10 +20,10 @@ const userProfileUpdateSuccess: ActionCreator<AuthActionTypes> = (user: UserInte
 
 
 //ACTION FUNCTIONS
-export function registerUser() {//to be called from sreen pahges
+export function registerUser({ authDetail }: { authDetail: AuthDetail }) {//to be called from sreen pahges
   return (dispatch: Dispatch<Action>) => { // async action: uses Redux-Thunk middleware to return a function instead of an action creator
     dispatch(loading(true));
-    return AuthService.userRegistrationRequest()
+    return AuthService.userRegistration({ authDetail: authDetail })
       .then(
         (response: any) => {
 
@@ -42,13 +43,13 @@ export function registerUser() {//to be called from sreen pahges
 export function loginUser({ phoneNo, pin }: { phoneNo: String, pin: String }) {
   return (dispatch: any) => {
     dispatch(loading());
-    return AuthService.userLoginRequest({ phoneNo, pin })
-      .then(
-        response => {
-          dispatch(userLoginSuccess(response))
-        },
-        error => {
-          dispatch(failure('Server error. ' + error))
-        })
+    // return AuthService.userLoginRequest({ phoneNo, pin })
+    //   .then(
+    //     response => {
+    //       dispatch(userLoginSuccess(response))
+    //     },
+    //     error => {
+    //       dispatch(failure('Server error. ' + error))
+    //     })
   }
 }

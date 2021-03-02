@@ -5,6 +5,7 @@ export const URLHOLDER = {
   // AUTH URLs 
   SEND_OTP: BASE_URL + "send_otp",
   VERIFY_OTP: BASE_URL + "validate_otp",
+  REGISTER: BASE_URL + "register",
 };
 
 export default URLHOLDER;

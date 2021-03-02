@@ -3,6 +3,8 @@ import axios from "axios";
 import ServerResponse from "../models/ServerResponse";
 import URLHOLDER from "../utils/UrlHolder";
 import { ServiceConstants } from "./ServiceConstants";
+import { AuthDetail } from "../models/AuthDetail";
+import { Platform } from "react-native";
 
 const dummyUser: UserInterface = {
     id: "123",
@@ -14,68 +16,38 @@ const dummyUser: UserInterface = {
 };
 
 export class AuthService {
-    /** @function Auth Functions */
-    static userRegistrationRequest = (): Promise<UserInterface> => {
-        // const result = await regUser('/api/');
-        // return result;
-        return Promise.resolve(dummyUser);
-    };
-
-    static async userLoginRequest({
-        phoneNo,
-        pin,
-    }: {
-        phoneNo: String;
-        pin: String;
-    }): Promise<UserInterface> {
-        return await this.getFromServer("/api/");
-    }
 
     //SERVICE HELPERS
-    static regUser = async (path: string, body = {}) => {
-        let responseData = null;
-        try {
-            const response = await fetch(path, {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-            });
-            if (!response.ok) return Promise.reject(response);
-            else {
-                const contentType = response.headers.get("content-type");
-                if (contentType && contentType.indexOf("application/json") !== -1) {
-                    responseData = await response.json();
-                } else {
-                    responseData = await response.text();
-                }
+    static userRegistration = async ({ authDetail }: { authDetail: AuthDetail }) => {
+        const reqBody = {
+            "first_name": authDetail.firstName,
+            "last_name": authDetail.lastName,
+            "pin": authDetail.userPin,
+            "pin_confirm": authDetail.userPin,
+            "verify_id": authDetail.verifyId,
+            "phone_number": authDetail.phoneNo,
+            "email": authDetail.emailAddress,
+            "meta": {
+                "device_type": Platform.OS,//ios or android
+                "ip-adress": "8.8.8.8"
             }
-        } catch (error) {
-            return Promise.reject(error);
         }
+        let responseData: ServerResponse = new ServerResponse();
+        await fetch(
+            URLHOLDER.REGISTER,
+            ServiceConstants.fetchApiPostData(reqBody)
+        )
+            .then((result) => result.json())
+            .then((response) => {
+                responseData.status = response.status;
+                responseData.success = response.success;
+                responseData.message = response.message;
+            })
+            .catch((error) => {
+                responseData.message = error.toString();
+            });
         return responseData;
     };
-
-    static async getFromServer(path: string) {
-        let responseData = null;
-        try {
-            const response = await fetch(path);
-            if (!response.ok) return Promise.reject(response);
-            else {
-                const contentType = response.headers.get("content-type");
-                if (contentType && contentType.indexOf("application/json") !== -1) {
-                    responseData = await response.json();
-                } else {
-                    responseData = await response.text();
-                }
-            }
-        } catch (error) {
-            return Promise.reject(error);
-        }
-        return responseData;
-    }
 
     //SEND OTP REQUEST
     static async sendOtp({
