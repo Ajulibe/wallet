@@ -42,7 +42,7 @@ interface Props {
   placeholder?: string;
   placeholderTextColor?: any;
   onInputChange: (id: string, x?: string | null, y?: boolean) => void;
-  onSubmit: (id: string, x?: string | null, y?: boolean) => void;
+  onSubmit: () => void;
 }
 
 const inputReducer = (state: InitialStateType, action: IAction) => {
@@ -125,7 +125,7 @@ const Input: React.FC<Props> = (props) => {
         value={inputState.value!}
         onChangeText={textChangeHandler}
         // onBlur={lostFocusHandler}
-        onSubmitEditing={() => onSubmit(id, inputState.value, inputState.isValid)}
+        onSubmitEditing={() => onSubmit()}
       />
       {!inputState.isValid && (inputState.touched || isTouched) && (
         <View style={styles.errorContainer}>

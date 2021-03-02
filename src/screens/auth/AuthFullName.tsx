@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { View, ScrollView, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
@@ -13,29 +13,55 @@ import ProgressLoader from "../../components/ProgressLoader";
 import styles from "../../components/css/AuthFormCss";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { heightPercentageToDP as hp, widthPercentageToDP } from "react-native-responsive-screen";
+import { AuthDetail } from "../../models/AuthDetail";
 
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
-export default function AuthEmail({ navigation }: Props) {
-  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primary);
-  const [fullName, setFullName] = useState('')
+export default function AuthEmail({ navigation, route }: Props) {
+  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [fNameErrorText, setFNameErrorText] = useState("");
+  const [lNameErrorText, setLNameErrorText] = useState("");
+  const [authDetail, setAuthDetail] = useState({} as AuthDetail);
 
-  let inputChangeHandler = useCallback((id, value, isValid) => {
-    setFullName(value.toString())
+  // set the navigation prop authDetail
+  useEffect(() => {
+    setAuthDetail(route.params.authDetail); //route.key, route.name, route.params,
+  }, []);
 
-    // if (UTILITIES.isFullName(value)) {
-    //   setBtnBgColor(COLORS.light.primary);
-    // } else {
-    //   setBtnBgColor(COLORS.light.primaryDisabled);
-    // }
+  let fNameInputChangeHandler = useCallback((id, value, isValid) => {
+    setFirstName(value)
+    if (value.toString() != "" && lastName != "") {
+      setBtnBgColor(COLORS.light.primary);
+    } else {
+      setBtnBgColor(COLORS.light.primaryDisabled);
+    }
+  }, []);
+
+  let lNameInputChangeHandler = useCallback((id, value, isValid) => {
+    setLastName(value.toString())
+
+    if (value.toString() != "" && firstName != "") {
+      setBtnBgColor(COLORS.light.primary);
+    } else {
+      setBtnBgColor(COLORS.light.primaryDisabled);
+    }
   }, []);
 
   const onSubmit = () => {
-    // if (fullName.length < 11) {
-    //   console.log("Error oooo!!!");
-    // } else {
-    navigation.navigate(ROUTES.AUTH_EMAIL_SCREEN);
-    // }
+    setFNameErrorText('')
+    setLNameErrorText('')
+
+    if (firstName == "") {
+      setFNameErrorText("Enter your first name")
+    } else if (lastName == "") {
+      setFNameErrorText('Enter your last name')
+    } else {
+      authDetail.firstName = firstName;
+      authDetail.lastName = lastName
+      navigation.navigate(ROUTES.AUTH_EMAIL_SCREEN, { authDetail: authDetail })
+    }
   };
 
   return (
@@ -64,12 +90,12 @@ export default function AuthEmail({ navigation }: Props) {
             id="fullName"
             placeholder="First name"
             placeholderTextColor=""
-            errorText="Enter your first name"
+            errorText={fNameErrorText}
             keyboardType="default"
             autoCapitalize="sentences"
             returnKeyType="next"
-            onInputChange={inputChangeHandler}
-            onSubmit={inputChangeHandler}
+            onInputChange={fNameInputChangeHandler}
+            onSubmit={onSubmit}
             initialValue=""
             initiallyValid={false}
             required
@@ -82,12 +108,12 @@ export default function AuthEmail({ navigation }: Props) {
             id="fullName"
             placeholder="Last name"
             placeholderTextColor=""
-            errorText="Enter your last name"
+            errorText={lNameErrorText}
             keyboardType="default"
             autoCapitalize="sentences"
             returnKeyType="next"
-            onInputChange={inputChangeHandler}
-            onSubmit={inputChangeHandler}
+            onInputChange={lNameInputChangeHandler}
+            onSubmit={onSubmit}
             initialValue=""
             initiallyValid={false}
             required
@@ -100,21 +126,14 @@ export default function AuthEmail({ navigation }: Props) {
           <CustomButton
             bgColor={btnBgColor}
             textColor={COLORS.light.white}
-            btnText={"Next"}
+            btnText={"Continue"}
             onClick={onSubmit}
           />
 
-          {/* <ProgressLoader isLoading={true} imgSrc={IMAGES.loading} /> */}
         </View>
 
 
       </View>
     </ScrollView>
   );
-};
-
-AuthEmail.navigationOptions = () => {
-  return {
-    headerShown: false,
-  };
 };

@@ -15,9 +15,9 @@ export type AuthStackParamList = {
   [ROUTES.AUTH_GET_STARTED_SCREEN]: undefined;
   [ROUTES.AUTH_PHONE_NO_SCREEN]: undefined;
   [ROUTES.AUTH_PHONE_NO_VERIFY_SCREEN]: { authDetail: AuthDetail };
-  [ROUTES.AUTH_FULL_NAME_SCREEN]: undefined;
-  [ROUTES.AUTH_EMAIL_SCREEN]: undefined;
-  [ROUTES.AUTH_CREATE_PIN_SCREEN]: undefined;
+  [ROUTES.AUTH_FULL_NAME_SCREEN]: { authDetail: AuthDetail };
+  [ROUTES.AUTH_EMAIL_SCREEN]: { authDetail: AuthDetail };
+  [ROUTES.AUTH_CREATE_PIN_SCREEN]: { authDetail: AuthDetail };
   [ROUTES.AUTH_FINAL_LOADING_SCREEN]: undefined;
   [ROUTES.NEW_HOME_TAB]: undefined;
 };

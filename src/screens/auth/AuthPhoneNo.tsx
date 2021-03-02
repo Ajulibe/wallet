@@ -22,16 +22,17 @@ import {
 import libphonenumber from "google-libphonenumber";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import IMAGES from "../../utils/Images";
+import { CountryPicker } from "../../components/CountryPicker";
+import Animated from 'react-native-reanimated';
+import { CountryData } from '../../extra/CountryData'
 
 //redux wahala
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/reducers/RootReducer";
 import { loginUser, registerUser } from "../../store/actions/AuthActions";
 import { UserInterface } from "../../store/types/AuthTypes";
+// api service 
 import { AuthService } from "../../services/AuthService";
-import { CountryPicker } from "../../components/CountryPicker";
-import Animated from 'react-native-reanimated';
-import { CountryInterface, CountryDataAfrica } from '../../extra/CountryData'
 import { AuthDetail } from '../../models/AuthDetail'
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_PHONE_NO_SCREEN>;
@@ -42,7 +43,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
   const [errorText, setErrorText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
-  const [country, setCountry] = useState(CountryDataAfrica[0]);
+  const [country, setCountry] = useState(CountryData.africaCountries[0]);
 
 
   //reducer dispath starts
@@ -93,10 +94,11 @@ const AuthPhoneNo = ({ navigation }: Props) => {
   //otp submit handler
   const submit = (phone: string) => {
     setIsLoading(true)
-    let nigPhone = '0' + parseInt(phoneNumber);
+    let nigPhone = CountryData.nigPhoneFormat(phone!);
     AuthService.sendOtp({ phoneNo: nigPhone }).then((response) => {//'nigPhone' to be replaced with 'phone'
       setIsLoading(false)
-      if (response.success) {
+
+      if (Boolean(response.success) === true) {
         let authDetail = new AuthDetail();
         authDetail.phoneNo = phone;
         authDetail.verifyId = response.additionalParam;
