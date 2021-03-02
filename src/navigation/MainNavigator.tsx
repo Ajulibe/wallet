@@ -3,9 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "../screens/splashscreen/SplashScreen";
 import HomeStack from "./HomeStack";
-import ProfileScreen from "../screens/tabScreens/ProfileScreen";
-import EditProfileScreen from "../screens/tabScreens/EditProfileScreen";
-import Security from "../screens/tabScreens/Security";
+import ProfileScreen from "../screens/ProfileComponents/MainScreen/ProfileScreen";
+import EditProfileScreen from "../screens/ProfileComponents/Sections/EditProfile/Sections/EditProfileScreen";
+import Security from "../screens/ProfileComponents/Sections/Security/Sections/Security";
 
 import AuthStack from "./AuthStack";
 import { ROUTES } from "./Routes";
@@ -30,14 +30,14 @@ export default function MainNavigator() {
         initialRouteName={ROUTES.SPLASH_SCREEN}
         headerMode={"none"}
       >
-        <MainStack.Screen
+        {/* <MainStack.Screen
           name={ROUTES.SPLASH_SCREEN}
           component={SplashScreen}
         />
         <MainStack.Screen
           name={ROUTES.AUTHENTICATION_TAB}
           component={AuthStack}
-        />
+        /> */}
         <MainStack.Screen
           name={ROUTES.HOME_STACK_SCREEN}
           component={HomeStack}

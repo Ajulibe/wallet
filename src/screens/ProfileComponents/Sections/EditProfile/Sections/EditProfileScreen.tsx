@@ -19,7 +19,7 @@ import {
 import { useScrollToTop } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { ROUTES } from "../../navigation/Routes";
+import { ROUTES } from "../../../../../navigation/Routes";
 import { MaterialIcons } from "@expo/vector-icons";
 
 type Props = {
@@ -40,7 +40,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
       <View style={styles.container}>
         <View style={styles.ImageBackgroundContainer}>
           <ImageBackground
-            source={require("../../assets/images/mask.png")}
+            source={require("../../../../../assets/images/mask.png")}
             style={styles.ImageBackground}
           >
             <View style={styles.backContainer}>
@@ -66,7 +66,6 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
             <View style={styles.userContainer}>
               <Feather name="user" size={40} color="black" />
             </View>
-
             <View style={styles.changeProfileContainer}>
               <Text style={styles.changeProfileText}>
                 Change Profile Picture
@@ -74,6 +73,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
             </View>
           </ImageBackground>
         </View>
+
         <View style={{ marginTop: hp("4.46%"), width: wp("90%") }}>
           <TouchableOpacity>
             <View style={styles.nameMainContainer}>
@@ -94,6 +94,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
               </View>
             </View>
           </TouchableOpacity>
+
           <TouchableOpacity>
             <View style={styles.mainTextContainer}>
               <View style={styles.textContainer}>
@@ -113,6 +114,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
               </View>
             </View>
           </TouchableOpacity>
+
           <TouchableOpacity>
             <View style={styles.mainTextContainer}>
               <View style={styles.textContainer}>

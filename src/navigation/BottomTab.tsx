@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/tabScreens/HomeScreen";
-import WalletScreen from "../screens/tabScreens/WalletScreen";
-import AddMoneyScreen from "../screens/tabScreens/AddMoneyScreen";
-import SendMoneyScreen from "../screens/tabScreens/SendMoneyScreen";
-import NotificationScreen from "../screens/tabScreens/NotificationScreen";
+import HomeScreen from "../screens/tabScreens/Home/HomeScreen";
+import WalletScreen from "../screens/tabScreens/Wallet/WalletScreen";
+import AddMoneyScreen from "../screens/tabScreens/AddMoney/AddMoneyScreen";
+import SendMoneyScreen from "../screens/tabScreens/SendMoney/SendMoneyScreen";
+import NotificationScreen from "../screens/tabScreens/Chats/NotificationScreen";
 import { Image, View, Text, StyleSheet } from "react-native";
 import { ROUTES } from "./Routes";
 import { Feather } from "@expo/vector-icons";
@@ -14,7 +14,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import IMAGES from "../utils/Images";
 
 export type RootStackParamList = {
   [ROUTES.HOME_SCREEN]: undefined;
