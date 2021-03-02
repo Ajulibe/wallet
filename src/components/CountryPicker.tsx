@@ -11,7 +11,6 @@ import {
 import FeatherIcon from "react-native-vector-icons/Feather";
 import {
   CountryData,
-  CountryDataAfrica,
   CountryInterface,
 } from "../extra/CountryData";
 import COLORS from "../utils/Colors";
@@ -28,7 +27,7 @@ interface Props {
 }
 
 export function CountryPicker(props: Props) {
-  const [countries, setCountries] = useState(CountryData)
+  const [countries, setCountries] = useState(CountryData.allCountries)
   let bsRef: any = React.createRef();
 
   useEffect(() => {
@@ -36,7 +35,7 @@ export function CountryPicker(props: Props) {
   }, [props.initialSnap]);
 
   const onTextChange = (text: string) => {
-    let newCountries = CountryData.filter(function (item) {
+    let newCountries = CountryData.allCountries.filter(function (item) {
       return item.name.toLocaleLowerCase().includes(text.toLocaleLowerCase());
     });
     setCountries(newCountries)
