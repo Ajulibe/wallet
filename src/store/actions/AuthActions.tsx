@@ -26,11 +26,12 @@ export function registerUser({ authDetail }: { authDetail: AuthDetail }) {//to b
     return AuthService.userRegistration({ authDetail: authDetail })
       .then(
         (response: any) => {
-
-          setTimeout(() => {
-            dispatch(loading(false));
+          dispatch(loading(false));
+          if (typeof response === 'object' && response !== null) {
             dispatch(userRegisterSuccess(response))
-          }, 3000);
+          } else {
+            dispatch(failure(response));
+          }
         },
         error => {
           dispatch(loading(false));

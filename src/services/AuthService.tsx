@@ -6,14 +6,6 @@ import { ServiceConstants } from "./ServiceConstants";
 import { AuthDetail } from "../models/AuthDetail";
 import { Platform } from "react-native";
 
-const dummyUser: UserInterface = {
-    id: "123",
-    phoneNo: "08185468532",
-    firstName: "Edu Odo",
-    lastName: "Dumboy",
-    emailAddress: "edu@gmail.com",
-    userPin: "5673",
-};
 
 export class AuthService {
 
@@ -32,22 +24,43 @@ export class AuthService {
                 "ip-adress": "8.8.8.8"
             }
         }
-        let responseData: ServerResponse = new ServerResponse();
+        let responseData: any = null
         await fetch(
             URLHOLDER.REGISTER,
             ServiceConstants.fetchApiPostData(reqBody)
         )
             .then((result) => result.json())
             .then((response) => {
-                responseData.status = response.status;
-                responseData.success = response.success;
-                responseData.message = response.message;
+
+                if (String(response.success) && String(response.status) == '201') {
+                    let user = response.data.user;
+                    let tokens = response.data.tokens;
+
+                    let userData: UserInterface = {
+                        id: user.id,
+                        uuid: user.uuid,
+                        userType: user.user_type,
+                        phoneNumber: user.phone_number,
+                        firstName: user.first_name,
+                        lastName: user.last_name,
+                        emailAddress: user.email,
+                        accessToken: tokens.access.token,
+                        accessTokenExpires: tokens.access.expires,
+                        refreshToken: tokens.refresh.token,
+                        refreshTokenExpires: tokens.refresh.expires,
+                    };
+
+                    responseData = userData;
+                } else {
+                    responseData = response.message;
+                }
             })
             .catch((error) => {
-                responseData.message = error.toString();
+                responseData = error.toString();
             });
         return responseData;
     };
+
 
     //SEND OTP REQUEST
     static async sendOtp({
@@ -71,6 +84,7 @@ export class AuthService {
         return Promise.resolve(responseData);
     }
 
+
     //VERIFY OTP REQUEST
     static async verifyOtp(props: {
         phoneNo: string;
@@ -78,7 +92,7 @@ export class AuthService {
         otpCode: string;
     }): Promise<ServerResponse> {
         const reqBody = {
-            phone: props.phoneNo,
+            phone_number: props.phoneNo,
             verify_id: props.verifyId,
             code: props.otpCode,
         };

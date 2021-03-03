@@ -42,7 +42,7 @@ interface Props {
   returnKeyType: any;
   placeholder?: string;
   placeholderTextColor?: any;
-  onInputChange: (id: string, x?: string | null, y?: boolean) => void;
+  onInputChange: (id?: string, x?: string, y?: boolean) => void;
   onSubmit: () => void;
 }
 

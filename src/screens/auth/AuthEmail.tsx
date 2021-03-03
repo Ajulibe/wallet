@@ -14,26 +14,27 @@ import InputValidation from "../../utils/InputValidation";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
 
-const AuthEmail = ({ navigation }: Props) => {
+const AuthEmail = ({ navigation, route }: Props) => {
   const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
   const [email, setEmail] = useState("");
   const [errorText, setErrorText] = useState("");
   const [touchedAction, setTouchedAction] = useState(false);
-  const [authDetail, setAuthDetail] = useState({} as AuthDetail);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
 
-  let inputChangeHandler = useCallback((id, value, isValid) => {
-    setEmail(value.toString());
+  let inputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setEmail(value!);
 
-    if (InputValidation.isValidEmail(value.toString())) {
+    if (InputValidation.isValidEmail(value!)) {
       setBtnBgColor(COLORS.light.primary)
       setErrorText('')
     } else {
       setBtnBgColor(COLORS.light.primaryDisabled)
     }
-  }, []);
+  }
 
   const onSubmit = () => {
     setTouchedAction(true)
+
     if (email == "") {
       setErrorText('Enter your email')
     } else if (!InputValidation.isValidEmail(email)) {
@@ -72,7 +73,7 @@ const AuthEmail = ({ navigation }: Props) => {
 
           <Text style={styles.formTitle}>Email address</Text>
 
-          <Text style={styles.formSubtitle}>Please give us your mail address ino, we finna use it to contact you</Text>
+          <Text style={styles.formSubtitle}>Almost done! Please enter a valid email address that we can use to reach you</Text>
           <Input
             id="fullName"
             placeholder="Email address"

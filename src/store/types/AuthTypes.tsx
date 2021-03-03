@@ -2,11 +2,16 @@ import { ImageSourcePropType } from "react-native"
 
 export interface UserInterface {
     id?: String,
-    phoneNo: string,
+    uuid?: String,
+    userType?: "user|merchant",
+    phoneNumber: string,
     firstName: string,
     lastName: string,
-    emailAddress: string,
-    userPin: string
+    emailAddress?: string,
+    accessToken?: string,
+    accessTokenExpires?: string,
+    refreshToken?: string,
+    refreshTokenExpires?: string,
 }
 
 //different operation types....

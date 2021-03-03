@@ -14,22 +14,24 @@ import UTILITIES from '../../utils/Utilities'
 import * as LocalAuthentication from 'expo-local-authentication';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { CheckBox } from 'react-native-elements';
-import { AuthService } from '../../services/AuthService';
+import { STORAGE_KEYS } from '../../utils/StorageKeys';
 import { AuthDetail } from '../../models/AuthDetail';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //redux wahala
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/reducers/RootReducer";
-import { loginUser, registerUser } from "../../store/actions/AuthActions";
+import { registerUser } from "../../store/actions/AuthActions";
 import { UserInterface } from "../../store/types/AuthTypes";
+import { CountryData } from '../../extra/CountryData';
 
 const CELL_COUNT = 4;
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_CREATE_PIN_SCREEN>;
 
-const AuthCreatePin = ({ navigation }: Props) => {
+const AuthCreatePin = ({ navigation, route }: Props) => {
   const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primary);
-  const [authDetail, setAuthDetail] = useState({} as AuthDetail);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
   const [pinValue, setPinValue] = useState('');//PIN CODE
   const [pinValueConfirm, setPinValueConfirm] = useState('');//CONFIRM PIN
   //FOR FORM ERROR DISPLAY
@@ -43,7 +45,7 @@ const AuthCreatePin = ({ navigation }: Props) => {
 
   //REDUCER DISPATCH
   const dispatch = useDispatch();
-  const { user, error, loading } = useSelector(
+  const { user, error, loading, success } = useSelector(
     (state: RootState) => state.user
   );
 
@@ -102,7 +104,9 @@ const AuthCreatePin = ({ navigation }: Props) => {
       setIsFingerPrintCaptured(false);
     }
   }
+  //submit/registring the user via redux store
   const onSubmit = () => {
+    setErrorText('');
     if (pinValue == "" || pinValueConfirm == "") {
       setErrorText('Enter your pin')
     } else if (pinValueConfirm == "") {
@@ -111,18 +115,29 @@ const AuthCreatePin = ({ navigation }: Props) => {
       setErrorText('Pin mismatch')
     } else if (pinValue === pinValueConfirm && pinValue != "") {
       authDetail.userPin = pinValue
+      authDetail.phoneNo = CountryData.nigPhoneFormat(authDetail.phoneNo!)
+      //dispatching to the user
       dispatch(registerUser({ authDetail: authDetail }));
-
-      // navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN);
     } else {
       setErrorText('Enter your pin')
     }
   }
 
+  useEffect(() => {
+    if (success) {
+      if (user.phoneNumber != "") {
+        AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
+        AsyncStorage.setItem(STORAGE_KEYS.UUID, String(user.uuid));
+        // navigate the next screen 
+        navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
+      }
+    }
+  })
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
       <View style={styles.wrapper}>
+        {/* redirect user  */}
 
         <StatusBar backgroundColor={COLORS.light.white} />
         {/* overlay bg image */}
@@ -143,13 +158,17 @@ const AuthCreatePin = ({ navigation }: Props) => {
           </View>
           <Text style={styles.formTitle}>{`Create Pin`}</Text>
 
-          <Text style={styles.formSubtitle}>{`Well, this is entirely up to you, you can either secure your account or not.`}{JSON.stringify(user)}-{error}-{loading?.toString()}</Text>
+          <Text style={styles.formSubtitle}>{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>
 
           <Text style={[styles.inputLabel, { textAlign: 'left' }]}>Enter Pin</Text>
           <PinInput cellCount={CELL_COUNT} onTextInputChange={pinInputChangeHandler} errorText={errorText} />
 
           <Text style={[styles.inputLabel, { textAlign: 'left' }]}>Confirm Pin</Text>
           <PinInput cellCount={CELL_COUNT} onTextInputChange={pinConfirmInputChangeHandler} errorText={errorText} />
+
+          <Text style={{ color: COLORS.light.red, display: error ? 'flex' : 'none' }}>
+            {error}
+          </Text>
 
 
           <CheckBox
@@ -163,12 +182,12 @@ const AuthCreatePin = ({ navigation }: Props) => {
             onPress={() => onSwitchChange()}
           />
 
-
           <View style={{ flex: 1 }} />
 
           <CustomButton
             bgColor={loading ? COLORS.light.primaryDisabled : btnBgColor}
             textColor={COLORS.light.white}
+            isLoading={loading ? true : false}
             btnText={"Finish"}
             onClick={onSubmit}
           />
@@ -179,18 +198,3 @@ const AuthCreatePin = ({ navigation }: Props) => {
 };
 
 export default AuthCreatePin;
-
-
-const stylesSwitch = StyleSheet.create({
-  switchWrapper: {
-    marginTop: widthPercentageToDP('3.69%'),
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  label: {
-    marginLeft: 0,
-    fontFamily: 'Lato-Regular',
-    flexWrap: 'wrap',
-    flexShrink: 1,
-  }
-})

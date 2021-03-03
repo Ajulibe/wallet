@@ -1,4 +1,3 @@
-import { NativeViewGestureHandler } from "react-native-gesture-handler";
 
 export interface CountryInterface {
   name: string;
@@ -23,6 +22,8 @@ export class CountryData {
 
   //get NIG phone number format from full phone code(eg '+2349021324321' will give '9021324321')
   static nigPhoneFormat = (completePhone: string) => {
+    if(!completePhone.includes('+'))return completePhone;
+
     let country = CountryData.countryFromPhone(completePhone);
     let phone = completePhone?.replace(country!.dial_code, "");//trim off the country phone code
     return "0" + phone;//prepend 0 to get NIG format

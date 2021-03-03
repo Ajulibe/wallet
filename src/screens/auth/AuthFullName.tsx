@@ -24,31 +24,33 @@ export default function AuthEmail({ navigation, route }: Props) {
   const [fNameErrorText, setFNameErrorText] = useState("");
   const [lNameErrorText, setLNameErrorText] = useState("");
   const [touchedAction, setTouchedAction] = useState(false);
-  const [authDetail, setAuthDetail] = useState({} as AuthDetail);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
 
   // set the navigation prop authDetail
   useEffect(() => {
     setAuthDetail(route.params.authDetail); //route.key, route.name, route.params,
   }, []);
 
-  let fNameInputChangeHandler = useCallback((id, value, isValid) => {
-    setFirstName(value)
-    if (value.toString() != "" && lastName != "") {
-      setBtnBgColor(COLORS.light.primary);
-    } else {
-      setBtnBgColor(COLORS.light.primaryDisabled);
-    }
-  }, []);
+  let fNameInputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setFirstName(value!)
+  }
 
-  let lNameInputChangeHandler = useCallback((id, value, isValid) => {
-    setLastName(value.toString())
+  let lNameInputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setLastName(value!)
+  }
 
-    if (value.toString() != "" && firstName != "") {
-      setBtnBgColor(COLORS.light.primary);
-    } else {
+  // checking the inputs on text change 
+  useEffect(() => {
+    if (firstName == "") {
       setBtnBgColor(COLORS.light.primaryDisabled);
+    } else if (lastName == "") {
+      setFNameErrorText('')
+      setBtnBgColor(COLORS.light.primaryDisabled);
+    } else {
+      setLNameErrorText('')
+      setBtnBgColor(COLORS.light.primary);
     }
-  }, []);
+  }, [firstName, lastName]);
 
   const onSubmit = () => {
     setTouchedAction(true)
@@ -91,7 +93,7 @@ export default function AuthEmail({ navigation, route }: Props) {
 
           <Text style={styles.formTitle}>Personal Info</Text>
 
-          <Text style={styles.formSubtitle}>We would use this as the name for your SurePay account</Text>
+          <Text style={styles.formSubtitle}>We would use this as the name for your Surepay account</Text>
           <Input
             id="firstName"
             placeholder="First name"
