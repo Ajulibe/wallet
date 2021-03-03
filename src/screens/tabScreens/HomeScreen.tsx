@@ -381,6 +381,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
         >
           <ScrollView
             showsVerticalScrollIndicator={false}
+            ref={ref}
             style={{
               width: wp("90%"),
               height: hp("70%"),
