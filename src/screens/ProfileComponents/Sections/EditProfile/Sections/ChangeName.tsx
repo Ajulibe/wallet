@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -17,15 +17,24 @@ import {
 } from "react-navigation-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { ROUTES } from "../../../../../navigation/Routes";
-import { MaterialIcons } from "@expo/vector-icons";
+import CustomButton from "../../../../../components/Button";
+import COLORS from "../../../../../utils/Colors";
+import Input from "../../../../../components/Input";
 
 type Props = {
   navigation: NavigationTabProp<"Shop">;
 };
 
-const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
+const ChangeName: NavigationBottomTabScreenComponent<Props> = ({
   navigation,
 }) => {
+  const [btnBgColor, setBtnBgColor] = useState<string>(COLORS.light.primary);
+  const [firstname, setFirstname] = useState<string | null>("");
+  const [lastname, setLastName] = useState<string | null>("");
+
+  const onSubmit = () => {};
+  const inputChangeHandler = (value: any) => {};
+
   return (
     <>
       <SafeAreaView style={{ flex: 0, backgroundColor: "#00296B" }} />
@@ -40,7 +49,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                 <View style={styles.backContainer}>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate(ROUTES.PROFILE_SCREEN);
+                      navigation.navigate(ROUTES.EDIT_PROFILE_SCREEN);
                     }}
                   >
                     <Ionicons
@@ -54,69 +63,63 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
             </View>
 
             <View style={styles.securityTextContainer}>
-              <Text style={styles.securityText}>Security</Text>
+              <Text style={styles.securityText}>Edit Profile Name</Text>
             </View>
           </ImageBackground>
         </View>
 
         <View style={{ marginTop: hp("4.46%"), width: wp("90%") }}>
-          <TouchableOpacity>
-            <View style={styles.mainContainer}>
-              <View
-                style={{
-                  width: wp("80%"),
-                  marginLeft: wp("2%"),
-                }}
-              >
-                <View>
-                  <Text style={styles.insideText}>2FA</Text>
-                </View>
-                <View>
-                  <Text style={styles.boldText}>
-                    Setup 2-Factor Authentication
-                  </Text>
-                </View>
-              </View>
+          <Input
+            id="firstname"
+            placeholder="Firstname"
+            placeholderTextColor="rgb(134,146,185,1)"
+            errorText="Enter your first name"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            onSubmit={onSubmit}
+            initialValue=""
+            initiallyValid={false}
+            required
+            secureTextEntry={false}
+            minLength={2}
+            textContentType="none"
+          />
+          <View style={{ height: hp("3.36%") }} />
+          <Input
+            id="lastname"
+            placeholder="LastName"
+            placeholderTextColor="rgb(134,146,185,1)"
+            errorText="Enter your last name"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            onSubmit={onSubmit}
+            initialValue=""
+            initiallyValid={false}
+            required
+            secureTextEntry={false}
+            minLength={2}
+            textContentType="none"
+          />
+          <View style={{ height: hp("3.36%") }} />
+        </View>
 
-              <View style={{ width: wp("10%") }}>
-                <MaterialIcons
-                  name="keyboard-arrow-right"
-                  size={24}
-                  color="#4D6997"
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(ROUTES.SECURITY_QUESTION_SETUP);
-            }}
-          >
-            <View style={styles.mainTextContainer}>
-              <View
-                style={{
-                  width: wp("80%"),
-                  marginLeft: wp("2%"),
-                }}
-              >
-                <View>
-                  <Text style={styles.insideText}>Security Question</Text>
-                </View>
-                <View>
-                  <Text style={styles.boldText}>Setup Security Question</Text>
-                </View>
-              </View>
-
-              <View style={{ width: wp("10%") }}>
-                <MaterialIcons
-                  name="keyboard-arrow-right"
-                  size={24}
-                  color="#4D6997"
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
+        <View
+          style={{
+            width: wp("90%"),
+            marginTop: hp("78.56%"),
+            position: "absolute",
+          }}
+        >
+          <CustomButton
+            bgColor={btnBgColor}
+            textColor={COLORS.light.white}
+            btnText="Save"
+            onClick={onSubmit}
+          />
         </View>
       </View>
     </>
@@ -137,48 +140,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: wp("33%"),
     backgroundColor: "#00296B",
-  },
-  profileName: {
-    fontSize: wp("4.35%"),
-    fontFamily: "Lato-Bold",
-    color: "#ffffff",
-  },
-  welcomeMessage: {
-    color: "#ffffff",
-    textAlign: "center",
-    fontSize: wp("2.9%"),
-    fontFamily: "Lato-Regular",
-    lineHeight: hp("2.12%"),
-  },
-  Notification: {
-    width: wp("10%"),
-    height: wp("10%"),
-    borderColor: "#ffffff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  boldText: {
-    color: "rgba(0,21,56,1)",
-    fontSize: wp("3.86%"),
-    lineHeight: hp("2.89%"),
-    fontFamily: "Lato-Bold",
-  },
-  insideText: {
-    color: "rgba(128,148,181,1)",
-    fontSize: wp("3.38%"),
-    lineHeight: hp("2.89%"),
-    fontFamily: "Lato-Regular",
-  },
-  mainTextContainer: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: hp("3.34%"),
-  },
-  mainContainer: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
   },
   securityText: {
     color: "#ffffff",
@@ -228,4 +189,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ChangeName;

@@ -75,7 +75,11 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
         </View>
 
         <View style={{ marginTop: hp("4.46%"), width: wp("90%") }}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ROUTES.CHANGE_NAME);
+            }}
+          >
             <View style={styles.nameMainContainer}>
               <View style={styles.nameTextContainer}>
                 <View>
@@ -95,7 +99,11 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ROUTES.CHANGE_EMAIL);
+            }}
+          >
             <View style={styles.mainTextContainer}>
               <View style={styles.textContainer}>
                 <View>
@@ -115,7 +123,11 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ROUTES.CHANGE_PASSWORD);
+            }}
+          >
             <View style={styles.mainTextContainer}>
               <View style={styles.textContainer}>
                 <View>

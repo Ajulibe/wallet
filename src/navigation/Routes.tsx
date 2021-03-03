@@ -34,6 +34,10 @@ export enum ROUTES {
 
   EDIT_PROFILE_SCREEN = "EditProfileScreen",
   SECURITY = "Security",
+  SECURITY_QUESTION_SETUP = "SecurityQuestionSetup",
+  CHANGE_NAME = "ChangeName",
+  CHANGE_EMAIL = "ChangeEmail",
+  CHANGE_PASSWORD = "ChangePassword",
 
   //TAB
   MAIN_FLOW_TAB = "MainFlowTab",
