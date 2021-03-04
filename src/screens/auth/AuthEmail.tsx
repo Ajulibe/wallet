@@ -9,7 +9,6 @@ import Input from "../../components/Input";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
 import IMAGES from "../../utils/Images";
-import { AuthDetail } from "../../models/AuthDetail";
 import InputValidation from "../../utils/InputValidation";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;

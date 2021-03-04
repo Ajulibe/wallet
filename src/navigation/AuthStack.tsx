@@ -8,9 +8,9 @@ import AuthEmail from "../screens/auth/AuthEmail";
 import AuthCreatePin from "../screens/auth/AuthCreatePin";
 import AuthFinalLoading from "../screens/auth/AuthFinalLoading";
 import MainFlowTab from "../navigation/BottomTab";
+import AuthLogin from "../screens/auth/AuthLogin";
 import { ROUTES } from "./Routes";
 import { AuthDetail } from '../models/AuthDetail'
-import AuthLogin from "../screens/auth/AuthLogin";
 
 
 export type AuthStackParamList = {
