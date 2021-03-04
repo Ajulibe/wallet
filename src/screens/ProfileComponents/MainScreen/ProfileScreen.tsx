@@ -9,12 +9,12 @@ import {
   NavigationBottomTabScreenComponent,
 } from "react-navigation-tabs";
 import { useScrollToTop } from "@react-navigation/native";
-import { ROUTES } from "../../navigation/Routes";
-import EditProfile from "../HomeScreenComponents/ProfileScreenSections/EditProfile";
-import Security from "../HomeScreenComponents/ProfileScreenSections/Security";
-import Settings from "../HomeScreenComponents/ProfileScreenSections/Settings";
-import CustomerSupport from "../HomeScreenComponents/ProfileScreenSections/CustomerSupport";
-import ImageBackgroundScreen from "./ImageBackground";
+import { ROUTES } from "../../../navigation/Routes";
+import EditProfile from "../Sections/EditProfile/EditProfile";
+import Security from "../Sections/Security/Security";
+import Settings from "../Sections/Settings/Settings";
+import CustomerSupport from "../Sections/CustomerSupport/CustomerSupport";
+import ImageBackgroundScreen from "../../tabScreens/ImageBackground";
 
 type Props = {
   navigation: NavigationTabProp<"Shop">;

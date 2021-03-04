@@ -16,7 +16,7 @@ import {
   NavigationBottomTabScreenComponent,
 } from "react-navigation-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { ROUTES } from "../../navigation/Routes";
+import { ROUTES } from "../../../../../navigation/Routes";
 import { MaterialIcons } from "@expo/vector-icons";
 
 type Props = {
@@ -32,7 +32,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
       <View style={styles.container}>
         <View style={styles.ImageBackgroundContainer}>
           <ImageBackground
-            source={require("../../assets/images/mask.png")}
+            source={require("../../../../../assets/images/mask.png")}
             style={styles.ImageBackground}
           >
             <View style={styles.backMainContainer}>
@@ -52,11 +52,13 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                 </View>
               </View>
             </View>
+
             <View style={styles.securityTextContainer}>
               <Text style={styles.securityText}>Security</Text>
             </View>
           </ImageBackground>
         </View>
+
         <View style={{ marginTop: hp("4.46%"), width: wp("90%") }}>
           <TouchableOpacity>
             <View style={styles.mainContainer}>
@@ -75,6 +77,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                   </Text>
                 </View>
               </View>
+
               <View style={{ width: wp("10%") }}>
                 <MaterialIcons
                   name="keyboard-arrow-right"
@@ -84,7 +87,12 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
               </View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ROUTES.SECURITY_QUESTION_SETUP);
+            }}
+          >
             <View style={styles.mainTextContainer}>
               <View
                 style={{
@@ -99,6 +107,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                   <Text style={styles.boldText}>Setup Security Question</Text>
                 </View>
               </View>
+
               <View style={{ width: wp("10%") }}>
                 <MaterialIcons
                   name="keyboard-arrow-right"

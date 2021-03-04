@@ -16,7 +16,7 @@ export default {
     green: "#6FCF97",
 
     // inputBorder: '#47CCAF',
-    inputBorder: "transparent",
+    inputBorder: "#EFF7FB",
     inputBorderError: "#E39092",
     // inputBg: '#FAFEFD',
     inputBg: "#EFF7FB",
