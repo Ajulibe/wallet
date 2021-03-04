@@ -7,6 +7,7 @@ import {
   FlatList,
   TextInput,
   StyleSheet,
+  Platform,
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import {
@@ -119,11 +120,11 @@ const styles = StyleSheet.create({
     shadowColor: "#333333",
     shadowOffset: { width: -1, height: -3 },
     shadowRadius: 2,
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.2,
     // elevation: 5,
     paddingTop: 20,
     borderTopColor: '#eee',
-    borderTopWidth: 1,
+    borderTopWidth: Platform.OS == "android" ? 1 : 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },

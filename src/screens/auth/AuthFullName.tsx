@@ -23,40 +23,48 @@ export default function AuthEmail({ navigation, route }: Props) {
   const [lastName, setLastName] = useState('')
   const [fNameErrorText, setFNameErrorText] = useState("");
   const [lNameErrorText, setLNameErrorText] = useState("");
-  const [authDetail, setAuthDetail] = useState({} as AuthDetail);
+  const [touchedAction, setTouchedAction] = useState(false);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
 
   // set the navigation prop authDetail
   useEffect(() => {
     setAuthDetail(route.params.authDetail); //route.key, route.name, route.params,
   }, []);
 
-  let fNameInputChangeHandler = useCallback((id, value, isValid) => {
-    setFirstName(value)
-    if (value.toString() != "" && lastName != "") {
-      setBtnBgColor(COLORS.light.primary);
-    } else {
-      setBtnBgColor(COLORS.light.primaryDisabled);
-    }
-  }, []);
+  let fNameInputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setFirstName(value!)
+  }
 
-  let lNameInputChangeHandler = useCallback((id, value, isValid) => {
-    setLastName(value.toString())
+  let lNameInputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setLastName(value!)
+  }
 
-    if (value.toString() != "" && firstName != "") {
-      setBtnBgColor(COLORS.light.primary);
-    } else {
+  // checking the inputs on text change 
+  useEffect(() => {
+    if (firstName == "") {
       setBtnBgColor(COLORS.light.primaryDisabled);
+    } else if (lastName == "") {
+      setFNameErrorText('')
+      setBtnBgColor(COLORS.light.primaryDisabled);
+    } else {
+      setLNameErrorText('')
+      setBtnBgColor(COLORS.light.primary);
     }
-  }, []);
+  }, [firstName, lastName]);
 
   const onSubmit = () => {
+    setTouchedAction(true)
     setFNameErrorText('')
     setLNameErrorText('')
 
     if (firstName == "") {
       setFNameErrorText("Enter your first name")
+    } else if (firstName.length < 2) {
+      setFNameErrorText("Name too short")
     } else if (lastName == "") {
-      setFNameErrorText('Enter your last name')
+      setLNameErrorText('Enter your last name')
+    } else if (lastName.length < 2) {
+      setLNameErrorText("Name too short")
     } else {
       authDetail.firstName = firstName;
       authDetail.lastName = lastName
@@ -85,9 +93,9 @@ export default function AuthEmail({ navigation, route }: Props) {
 
           <Text style={styles.formTitle}>Personal Info</Text>
 
-          <Text style={styles.formSubtitle}>We would use this as the name for your SurePay account</Text>
+          <Text style={styles.formSubtitle}>We would use this as the name for your Surepay account</Text>
           <Input
-            id="fullName"
+            id="firstName"
             placeholder="First name"
             placeholderTextColor=""
             errorText={fNameErrorText}
@@ -97,6 +105,7 @@ export default function AuthEmail({ navigation, route }: Props) {
             onInputChange={fNameInputChangeHandler}
             onSubmit={onSubmit}
             initialValue=""
+            touched={touchedAction}
             initiallyValid={false}
             required
             secureTextEntry={false}
@@ -105,7 +114,7 @@ export default function AuthEmail({ navigation, route }: Props) {
           />
           <View style={{ height: hp('3.36%') }} />
           <Input
-            id="fullName"
+            id="lastName"
             placeholder="Last name"
             placeholderTextColor=""
             errorText={lNameErrorText}
@@ -115,6 +124,7 @@ export default function AuthEmail({ navigation, route }: Props) {
             onInputChange={lNameInputChangeHandler}
             onSubmit={onSubmit}
             initialValue=""
+            touched={touchedAction}
             initiallyValid={false}
             required
             secureTextEntry={false}

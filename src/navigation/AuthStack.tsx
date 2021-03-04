@@ -9,7 +9,9 @@ import AuthCreatePin from "../screens/auth/AuthCreatePin";
 import AuthFinalLoading from "../screens/auth/AuthFinalLoading";
 import MainFlowTab from "../navigation/BottomTab";
 import { ROUTES } from "./Routes";
-import { AuthDetail } from "../models/AuthDetail";
+import { AuthDetail } from '../models/AuthDetail'
+import AuthLogin from "../screens/auth/AuthLogin";
+
 
 export type AuthStackParamList = {
   [ROUTES.AUTH_GET_STARTED_SCREEN]: undefined;
@@ -19,6 +21,7 @@ export type AuthStackParamList = {
   [ROUTES.AUTH_EMAIL_SCREEN]: { authDetail: AuthDetail };
   [ROUTES.AUTH_CREATE_PIN_SCREEN]: { authDetail: AuthDetail };
   [ROUTES.AUTH_FINAL_LOADING_SCREEN]: undefined;
+  [ROUTES.AUTH_LOGIN]: undefined;
   [ROUTES.NEW_HOME_TAB]: undefined;
 };
 
@@ -64,6 +67,11 @@ export default function AuthNavigationStack() {
       <AuthStack.Screen
         name={ROUTES.AUTH_FINAL_LOADING_SCREEN}
         component={AuthFinalLoading}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name={ROUTES.AUTH_LOGIN}
+        component={AuthLogin}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen

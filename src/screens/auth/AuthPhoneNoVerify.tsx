@@ -34,7 +34,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
   const [timer, setTimer] = useState(60);
   const [otpCode, setOtpCode] = useState("");
   const [errorText, setErrorText] = useState("");
-  const [authDetail, setAuthDetail] = useState({} as AuthDetail);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
 
   // set the navigation prop authDetail
   useEffect(() => {
@@ -84,7 +84,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
     let nigPhone = CountryData.nigPhoneFormat(authDetail.phoneNo!);
     AuthService.verifyOtp({ phoneNo: nigPhone, otpCode: otpCode, verifyId: authDetail.verifyId! }).then((response) => {
       setIsLoading(false);
-      if (Boolean(response.success) === true) {
+      if (String(response.success) === 'true') {
         setErrorText('');
         authDetail.phoneOtp = otpCode;
         navigation.navigate(ROUTES.AUTH_FULL_NAME_SCREEN, {
@@ -138,8 +138,8 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
 
           <Text style={styles.formTitle}>Verify Number</Text>
           <Text style={styles.formSubtitle}>
-            Please enter the 5 digit code sent to{" "}
-            <Text style={{ fontFamily: "Lato-Bold" }}>{authDetail.phoneNo}</Text>
+            Please enter the 5-digit pin sent to
+            <Text style={{ fontFamily: "Lato-Bold" }}> {authDetail.phoneNo}</Text>
           </Text>
 
           {/* custom otp plugin   */}

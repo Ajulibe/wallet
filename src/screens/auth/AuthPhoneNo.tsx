@@ -25,15 +25,11 @@ import IMAGES from "../../utils/Images";
 import { CountryPicker } from "../../components/CountryPicker";
 import Animated from 'react-native-reanimated';
 import { CountryData } from '../../extra/CountryData'
-
-//redux wahala
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/reducers/RootReducer";
-import { loginUser, registerUser } from "../../store/actions/AuthActions";
-import { UserInterface } from "../../store/types/AuthTypes";
 // api service 
 import { AuthService } from "../../services/AuthService";
 import { AuthDetail } from '../../models/AuthDetail'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import STORAGE_KEYS from "../../utils/StorageKeys";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_PHONE_NO_SCREEN>;
 
@@ -45,26 +41,6 @@ const AuthPhoneNo = ({ navigation }: Props) => {
   const [openCountry, setOpenCountry] = useState(false);
   const [country, setCountry] = useState(CountryData.africaCountries[0]);
 
-
-  //reducer dispath starts
-  const dispatch = useDispatch();
-  const { user, error, loading } = useSelector(
-    (state: RootState) => state.user
-  );
-
-  function regUser() {
-    dispatch(registerUser());
-  }
-
-  function logUser() {
-    dispatch(loginUser({ phoneNo: "dfdf", pin: "dfdf" }));
-  }
-
-  useEffect(() => {
-    regUser();
-    // logUser()
-  }, []);
-  //reducer dispath ends
 
   //on input text change handler
   let inputChangeHandler = (value: string) => {
@@ -98,7 +74,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
     AuthService.sendOtp({ phoneNo: nigPhone }).then((response) => {//'nigPhone' to be replaced with 'phone'
       setIsLoading(false)
 
-      if (Boolean(response.success) === true) {
+      if (String(response.success) === 'true') {
         let authDetail = new AuthDetail();
         authDetail.phoneNo = phone;
         authDetail.verifyId = response.additionalParam;
@@ -110,6 +86,12 @@ const AuthPhoneNo = ({ navigation }: Props) => {
       }
     });
   };
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem(STORAGE_KEYS.PHONE_NUMBER).then((value) => {
+  //     console.log(value);
+  //   })
+  // })
 
   return (
     // <ScrollView
@@ -214,10 +196,12 @@ const AuthPhoneNo = ({ navigation }: Props) => {
             <Text style={inputStyles.errorText}>{errorText}</Text>
           </View>
         )}
-        <Text style={styles.inputLabel}>
-          Already have an account?{" "}
-          <Text style={{ fontFamily: "Lato-Bold" }}>Login</Text>
-        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate(ROUTES.AUTH_LOGIN)}>
+          <Text style={styles.inputLabel}>
+            Already have an account?{" "}
+            <Text style={{ fontFamily: "Lato-Bold" }}>Login</Text>
+          </Text>
+        </TouchableOpacity>
 
         <View style={{ flex: 1 }} />
         <CustomButton
@@ -251,7 +235,7 @@ const inputStyles = StyleSheet.create({
     alignItems: "center",
     borderRightColor: "rgba(0,63,136,0.1)",
     borderRightWidth: 1,
-    paddingHorizontal: wp("5.6%"),
+    paddingHorizontal: wp("2.2%"),
     paddingVertical: hp("1.47%"),
   },
   input: {

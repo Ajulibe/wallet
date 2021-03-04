@@ -4,7 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import COLORS from '../utils/Colors'
+import COLORS from "../utils/Colors";
 import InputValidation from "../utils/InputValidation";
 
 const INPUT_CHANGE = "INPUT_CHANGE";
@@ -28,6 +28,7 @@ interface Props {
   secureTextEntry: boolean;
   required: boolean;
   minLength: number;
+  // autoCompleteType?: any;
   autoCapitalize: any;
   errorText: string;
   initialValue: string;
@@ -41,7 +42,7 @@ interface Props {
   returnKeyType: any;
   placeholder?: string;
   placeholderTextColor?: any;
-  onInputChange: (id: string, x?: string | null, y?: boolean) => void;
+  onInputChange: (id?: string, x?: string, y?: boolean) => void;
   onSubmit: () => void;
 }
 
@@ -72,7 +73,6 @@ const Input: React.FC<Props> = (props) => {
 
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
   const [isTouched, setIsTouched] = useState(false);
-  const [errorText, setErrorText] = useState('');
 
   const { onInputChange, onSubmit, id, touched } = props;
 
@@ -88,13 +88,7 @@ const Input: React.FC<Props> = (props) => {
     if (props.required && text.trim().length === 0) {
       isValid = false;
     }
-    //Email Validation
-    if (props.email) {
-      if (!InputValidation.isValidEmail(text.toLowerCase()).isValid) {
-        isValid = false;
-        setErrorText(InputValidation.isValidEmail(text.toLocaleLowerCase()).message);
-      }
-    }
+
     if (props.min != null && +text < props.min) {
       isValid = false;
     }
@@ -107,27 +101,30 @@ const Input: React.FC<Props> = (props) => {
     dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
   };
 
-  const lostFocusHandler = () => {
-    dispatch({ type: INPUT_BLUR });
-  };
-
   return (
-    <View style={styles.formControl}>
+    <View
+      style={[
+        styles.formControl,
+      ]}
+    >
       <TextInput
         {...props}
-        style={[{
-          fontWeight: (inputState.value != "" ? '700' : '400'),
-          borderColor: !inputState.isValid && (inputState.touched || isTouched) ? COLORS.light.red : COLORS.light.primaryLight,
-        },
-        styles.input
+        style={[
+          styles.input,
+          {
+            fontWeight: inputState.value != "" ? "700" : "400",
+            backgroundColor:
+              (props.errorText != "" && (inputState.touched || isTouched)) ? COLORS.light.inputBgError : COLORS.light.inputBg,
+            borderColor:
+              (props.errorText != "" && (inputState.touched || isTouched)) ? COLORS.light.red : COLORS.light.inputBorder,
+          },
         ]}
         placeholderTextColor={COLORS.light.inputText}
         value={inputState.value!}
         onChangeText={textChangeHandler}
-        // onBlur={lostFocusHandler}
         onSubmitEditing={() => onSubmit()}
       />
-      {!inputState.isValid && (inputState.touched || isTouched) && (
+      {props.errorText != "" && (inputState.touched || isTouched) && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{props.errorText}</Text>
         </View>
@@ -144,11 +141,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: COLORS.light.inputBg,
     borderColor: COLORS.light.inputBorder,
-    fontSize: wp('4.26%'),
-    fontFamily: 'Lato-Regular',
-    paddingHorizontal: wp('5.6%'),
-    paddingVertical: hp('1.47%'),
-    color: COLORS.light.inputText
+    fontSize: wp("4.26%"),
+    fontFamily: "Lato-Regular",
+    paddingHorizontal: wp("5.6%"),
+    paddingVertical: hp("1.47%"),
+    color: COLORS.light.inputText,
   },
   errorContainer: {
     marginVertical: 0,
@@ -162,4 +159,3 @@ const styles = StyleSheet.create({
 });
 
 export default Input;
-

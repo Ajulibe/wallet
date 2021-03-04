@@ -14,6 +14,7 @@ export enum ROUTES {
   AUTH_EMAIL_SCREEN = "AuthEmailScreen",
   AUTH_CREATE_PIN_SCREEN = "AuthCreatePinScreen",
   AUTH_FINAL_LOADING_SCREEN = "AuthFinalLoadingScreen",
+  AUTH_LOGIN = "AuthLogin",
 
   //HOME TAB SCREENS
   NEW_HOME_TAB = "MainFlowTab",
