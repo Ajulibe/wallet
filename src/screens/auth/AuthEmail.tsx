@@ -9,20 +9,40 @@ import Input from "../../components/Input";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
 import IMAGES from "../../utils/Images";
+import { AuthDetail } from "../../models/AuthDetail";
+import InputValidation from "../../utils/InputValidation";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
 
-const AuthEmail = ({ navigation }: Props) => {
+const AuthEmail = ({ navigation, route }: Props) => {
   const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
-  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorText, setErrorText] = useState("");
+  const [touchedAction, setTouchedAction] = useState(false);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
 
-  let inputChangeHandler = useCallback((id, value, isValid) => {
-    setFullName(value.toString());
+  let inputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setEmail(value!);
 
-  }, []);
+    if (InputValidation.isValidEmail(value!)) {
+      setBtnBgColor(COLORS.light.primary)
+      setErrorText('')
+    } else {
+      setBtnBgColor(COLORS.light.primaryDisabled)
+    }
+  }
 
   const onSubmit = () => {
-    navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN);
+    setTouchedAction(true)
+
+    if (email == "") {
+      setErrorText('Enter your email')
+    } else if (!InputValidation.isValidEmail(email)) {
+      setErrorText('Enter a valid email address')
+    } else {
+      authDetail.emailAddress = email.toLocaleLowerCase()
+      navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN, { authDetail: authDetail });
+    }
   };
 
   return (
@@ -46,29 +66,30 @@ const AuthEmail = ({ navigation }: Props) => {
               />
             </TouchableOpacity>
             {/* Skip button */}
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={{ fontFamily: 'Lato-Regular', textDecorationLine: 'underline' }}>Skip</Text>
+            <TouchableOpacity onPress={() => navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN, { authDetail: authDetail })}>
+              <Text style={{ fontFamily: 'Lato-Regular', textDecorationLine: 'underline', color: COLORS.light.secondary }}>Skip</Text>
             </TouchableOpacity>
           </View>
 
           <Text style={styles.formTitle}>Email address</Text>
 
-          <Text style={styles.formSubtitle}>Please give us your mail address ino, we finna use it to contact you</Text>
+          <Text style={styles.formSubtitle}>Almost done! Please enter a valid email address that we can use to reach you</Text>
           <Input
             id="fullName"
             placeholder="Email address"
             placeholderTextColor=""
-            errorText="Enter valid email address"
-            keyboardType="default"
+            errorText={errorText}
+            keyboardType="email-address"
             autoCapitalize="sentences"
             returnKeyType="none"
-            onSubmit={inputChangeHandler}
+            onSubmit={onSubmit}
             onInputChange={inputChangeHandler}
             initialValue=""
+            touched={touchedAction}
             initiallyValid={false}
             required
             secureTextEntry={false}
-            minLength={11}
+            minLength={2}
             textContentType="none"
           />
 
@@ -77,7 +98,7 @@ const AuthEmail = ({ navigation }: Props) => {
           <CustomButton
             bgColor={btnBgColor}
             textColor={COLORS.light.white}
-            btnText={"Next"}
+            btnText={"Continue"}
             onClick={onSubmit}
           />
         </View>

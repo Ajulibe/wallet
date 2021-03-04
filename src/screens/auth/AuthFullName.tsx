@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { View, ScrollView, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
@@ -13,29 +13,63 @@ import ProgressLoader from "../../components/ProgressLoader";
 import styles from "../../components/css/AuthFormCss";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { heightPercentageToDP as hp, widthPercentageToDP } from "react-native-responsive-screen";
+import { AuthDetail } from "../../models/AuthDetail";
 
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
-export default function AuthEmail({ navigation }: Props) {
-  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primary);
-  const [fullName, setFullName] = useState('')
+export default function AuthEmail({ navigation, route }: Props) {
+  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [fNameErrorText, setFNameErrorText] = useState("");
+  const [lNameErrorText, setLNameErrorText] = useState("");
+  const [touchedAction, setTouchedAction] = useState(false);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
 
-  let inputChangeHandler = useCallback((id, value, isValid) => {
-    setFullName(value.toString())
-
-    // if (UTILITIES.isFullName(value)) {
-    //   setBtnBgColor(COLORS.light.primary);
-    // } else {
-    //   setBtnBgColor(COLORS.light.primaryDisabled);
-    // }
+  // set the navigation prop authDetail
+  useEffect(() => {
+    setAuthDetail(route.params.authDetail); //route.key, route.name, route.params,
   }, []);
 
+  let fNameInputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setFirstName(value!)
+  }
+
+  let lNameInputChangeHandler = (id?: string, value?: string, isValid?: boolean) => {
+    setLastName(value!)
+  }
+
+  // checking the inputs on text change 
+  useEffect(() => {
+    if (firstName == "") {
+      setBtnBgColor(COLORS.light.primaryDisabled);
+    } else if (lastName == "") {
+      setFNameErrorText('')
+      setBtnBgColor(COLORS.light.primaryDisabled);
+    } else {
+      setLNameErrorText('')
+      setBtnBgColor(COLORS.light.primary);
+    }
+  }, [firstName, lastName]);
+
   const onSubmit = () => {
-    // if (fullName.length < 11) {
-    //   console.log("Error oooo!!!");
-    // } else {
-    navigation.navigate(ROUTES.AUTH_EMAIL_SCREEN);
-    // }
+    setTouchedAction(true)
+    setFNameErrorText('')
+    setLNameErrorText('')
+
+    if (firstName == "") {
+      setFNameErrorText("Enter your first name")
+    } else if (firstName.length < 2) {
+      setFNameErrorText("Name too short")
+    } else if (lastName == "") {
+      setLNameErrorText('Enter your last name')
+    } else if (lastName.length < 2) {
+      setLNameErrorText("Name too short")
+    } else {
+      authDetail.firstName = firstName;
+      authDetail.lastName = lastName
+      navigation.navigate(ROUTES.AUTH_EMAIL_SCREEN, { authDetail: authDetail })
+    }
   };
 
   return (
@@ -59,18 +93,19 @@ export default function AuthEmail({ navigation }: Props) {
 
           <Text style={styles.formTitle}>Personal Info</Text>
 
-          <Text style={styles.formSubtitle}>We would use this as the name for your SurePay account</Text>
+          <Text style={styles.formSubtitle}>We would use this as the name for your Surepay account</Text>
           <Input
-            id="fullName"
+            id="firstName"
             placeholder="First name"
             placeholderTextColor=""
-            errorText="Enter your first name"
+            errorText={fNameErrorText}
             keyboardType="default"
             autoCapitalize="sentences"
             returnKeyType="next"
-            onInputChange={inputChangeHandler}
-            onSubmit={inputChangeHandler}
+            onInputChange={fNameInputChangeHandler}
+            onSubmit={onSubmit}
             initialValue=""
+            touched={touchedAction}
             initiallyValid={false}
             required
             secureTextEntry={false}
@@ -79,16 +114,17 @@ export default function AuthEmail({ navigation }: Props) {
           />
           <View style={{ height: hp('3.36%') }} />
           <Input
-            id="fullName"
+            id="lastName"
             placeholder="Last name"
             placeholderTextColor=""
-            errorText="Enter your last name"
+            errorText={lNameErrorText}
             keyboardType="default"
             autoCapitalize="sentences"
             returnKeyType="next"
-            onInputChange={inputChangeHandler}
-            onSubmit={inputChangeHandler}
+            onInputChange={lNameInputChangeHandler}
+            onSubmit={onSubmit}
             initialValue=""
+            touched={touchedAction}
             initiallyValid={false}
             required
             secureTextEntry={false}
@@ -100,21 +136,14 @@ export default function AuthEmail({ navigation }: Props) {
           <CustomButton
             bgColor={btnBgColor}
             textColor={COLORS.light.white}
-            btnText={"Next"}
+            btnText={"Continue"}
             onClick={onSubmit}
           />
 
-          {/* <ProgressLoader isLoading={true} imgSrc={IMAGES.loading} /> */}
         </View>
 
 
       </View>
     </ScrollView>
   );
-};
-
-AuthEmail.navigationOptions = () => {
-  return {
-    headerShown: false,
-  };
 };

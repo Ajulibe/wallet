@@ -1,8 +1,11 @@
 const BASE_URL =
-  "https://2janwjh983.execute-api.eu-west-2.amazonaws.com/dev/auth/wallet/";
+  "https://2janwjh983.execute-api.eu-west-2.amazonaws.com/dev/auth/";
 
-export const URLHOLDER = {
-  SEND_OTP: BASE_URL + "send_otp",
+const URLHOLDER = {
+  // AUTH URLs 
+  SEND_OTP: BASE_URL + "wallet/send_otp",
+  VERIFY_OTP: BASE_URL + "wallet/validate_otp",
+  REGISTER: BASE_URL + "wallet/register",
 };
 
 export default URLHOLDER;

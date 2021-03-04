@@ -13,13 +13,25 @@ import styles from "../../components/css/AuthFormCss";
 import UTILITIES from '../../utils/Utilities'
 import * as LocalAuthentication from 'expo-local-authentication';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
+import { CheckBox } from 'react-native-elements';
+import { STORAGE_KEYS } from '../../utils/StorageKeys';
+import { AuthDetail } from '../../models/AuthDetail';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+//redux wahala
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/reducers/RootReducer";
+import { registerUser } from "../../store/actions/AuthActions";
+import { UserInterface } from "../../store/types/AuthTypes";
+import { CountryData } from '../../extra/CountryData';
 
 const CELL_COUNT = 4;
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_CREATE_PIN_SCREEN>;
 
-const AuthCreatePin = ({ navigation }: Props) => {
+const AuthCreatePin = ({ navigation, route }: Props) => {
   const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primary);
+  const [authDetail, setAuthDetail] = useState(route.params.authDetail);
   const [pinValue, setPinValue] = useState('');//PIN CODE
   const [pinValueConfirm, setPinValueConfirm] = useState('');//CONFIRM PIN
   //FOR FORM ERROR DISPLAY
@@ -30,6 +42,14 @@ const AuthCreatePin = ({ navigation }: Props) => {
 
   //CHECKING IF FINGER PRINT AUTHENTICATION WAS SETUP/ACTIVATED ON THE USER's DEVICE
   const [isFingerPrintActive, setIsFingerPrintActive] = useState(false)
+
+  //REDUCER DISPATCH
+  const dispatch = useDispatch();
+  const { user, error, loading, success } = useSelector(
+    (state: RootState) => state.user
+  );
+
+
 
   //PIN CODE INPUT LISTENER
   let pinInputChangeHandler = useCallback((value) => {
@@ -55,7 +75,7 @@ const AuthCreatePin = ({ navigation }: Props) => {
   //pin code setup check
   useEffect(() => {
     if (pinValue.length == CELL_COUNT && pinValueConfirm.length == CELL_COUNT) {
-      if (pinValue == pinValueConfirm) {
+      if (pinValue === pinValueConfirm) {
         setBtnBgColor(COLORS.light.primary)
       } else {
         setErrorText("Pin mismatch")
@@ -67,12 +87,6 @@ const AuthCreatePin = ({ navigation }: Props) => {
     }
   }, [pinValue, pinValueConfirm])
 
-  const onSubmit = () => {
-    // console.log(pinValue + "-----" + pinValueConfirm)
-    if (pinValue === pinValueConfirm && pinValue != "") {
-      navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN);
-    }
-  }
 
   const scanFingerprint = async () => {
     await LocalAuthentication.authenticateAsync()
@@ -83,17 +97,47 @@ const AuthCreatePin = ({ navigation }: Props) => {
       })
   };
 
-  const onSwitchChange = (val: boolean) => {
+  const onSwitchChange = () => {
     if (isFingerPrintActive == false) {
       scanFingerprint()
     } else {
       setIsFingerPrintCaptured(false);
     }
   }
+  //submit/registring the user via redux store
+  const onSubmit = () => {
+    setErrorText('');
+    if (pinValue == "" || pinValueConfirm == "") {
+      setErrorText('Enter your pin')
+    } else if (pinValueConfirm == "") {
+      setErrorText('Enter your pin')
+    } else if (pinValueConfirm != pinValueConfirm) {
+      setErrorText('Pin mismatch')
+    } else if (pinValue === pinValueConfirm && pinValue != "") {
+      authDetail.userPin = pinValue
+      authDetail.phoneNo = CountryData.nigPhoneFormat(authDetail.phoneNo!)
+      //dispatching to the user
+      dispatch(registerUser({ authDetail: authDetail }));
+    } else {
+      setErrorText('Enter your pin')
+    }
+  }
+
+  useEffect(() => {
+    if (success) {
+      if (user.phoneNumber != "") {
+        AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
+        AsyncStorage.setItem(STORAGE_KEYS.UUID, String(user.uuid));
+        // navigate the next screen 
+        navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
+      }
+    }
+  })
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
       <View style={styles.wrapper}>
+        {/* redirect user  */}
 
         <StatusBar backgroundColor={COLORS.light.white} />
         {/* overlay bg image */}
@@ -114,48 +158,36 @@ const AuthCreatePin = ({ navigation }: Props) => {
           </View>
           <Text style={styles.formTitle}>{`Create Pin`}</Text>
 
-          <Text style={styles.formSubtitle}>{`Well, this is entirely up to you, you can either secure your account or not.`}</Text>
+          <Text style={styles.formSubtitle}>{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>
 
-          <Text style={[styles.inputLabel]}>Enter Pin</Text>
+          <Text style={[styles.inputLabel, { textAlign: 'left' }]}>Enter Pin</Text>
           <PinInput cellCount={CELL_COUNT} onTextInputChange={pinInputChangeHandler} errorText={errorText} />
 
-          <Text style={[styles.inputLabel]}>Confirm Pin</Text>
+          <Text style={[styles.inputLabel, { textAlign: 'left' }]}>Confirm Pin</Text>
           <PinInput cellCount={CELL_COUNT} onTextInputChange={pinConfirmInputChangeHandler} errorText={errorText} />
 
-          <View style={[{ display: isFingerPrintActive ? "flex" : "none" }, stylesSwitch.switchWrapper]}>
-            <Switch
-              value={isFingerPrintCaptured}
-              onValueChange={onSwitchChange}
-              disabled={false}
-              activeText={'On'}
-              inActiveText={'Off'}
-              circleSize={30}
-              barHeight={0}
-              circleBorderWidth={0}
-              backgroundActive={COLORS.light.blackLight}
-              backgroundInactive={COLORS.light.lightGrey}
-              circleActiveColor={COLORS.light.primary}
-              circleInActiveColor={'#000000'}
-              activeTextStyle={{ fontSize: 12, color: COLORS.light.primaryDisabled }}
-              inactiveTextStyle={{ fontSize: 12, color: COLORS.light.blackLight }}
-              changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete
-              innerCircleStyle={{ alignItems: "center", justifyContent: "center" }} // style for inner animated circle for what you (may) be rendering inside the circle
-              outerCircleStyle={{}} // style for outer animated circle
-              renderActiveText={true}
-              renderInActiveText={true}
-              switchLeftPx={6} // denominator for logic when sliding to TRUE position. Higher number = more space from RIGHT of the circle to END of the slider
-              switchRightPx={6} // denominator for logic when sliding to FALSE position. Higher number = more space from LEFT of the circle to BEGINNING of the slider
-              switchWidthMultiplier={2} // multipled by the `circleSize` prop to calculate total width of the Switch
-              switchBorderRadius={30} // Sets the border Radius of the switch slider. If unset, it remains the circleSize.
-            />
-            <Text style={stylesSwitch.label}>Enable fingerprint for authorization</Text>
-          </View>
+          <Text style={{ color: COLORS.light.red, display: error ? 'flex' : 'none' }}>
+            {error}
+          </Text>
+
+
+          <CheckBox
+            checked={isFingerPrintCaptured}
+            checkedColor={COLORS.light.secondary}
+            size={24}
+            containerStyle={{ marginHorizontal: 0, padding: 0, backgroundColor: 'transparent', borderWidth: 0, display: isFingerPrintActive ? "flex" : "none" }}
+            checkedTitle="Biometric enabled"
+            title="Enable Biometric authentication"
+            titleProps={{ style: { fontFamily: 'Lato-Regular', color: isFingerPrintCaptured ? COLORS.light.secondary : COLORS.light.blackLight } }}
+            onPress={() => onSwitchChange()}
+          />
 
           <View style={{ flex: 1 }} />
 
           <CustomButton
-            bgColor={btnBgColor}
+            bgColor={loading ? COLORS.light.primaryDisabled : btnBgColor}
             textColor={COLORS.light.white}
+            isLoading={loading ? true : false}
             btnText={"Finish"}
             onClick={onSubmit}
           />
@@ -166,17 +198,3 @@ const AuthCreatePin = ({ navigation }: Props) => {
 };
 
 export default AuthCreatePin;
-
-
-const stylesSwitch = StyleSheet.create({
-  switchWrapper: {
-    marginTop: widthPercentageToDP('3.69%'),
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  label: {
-    marginLeft: 8,
-    flexWrap: 'wrap',
-    flexShrink: 1,
-  }
-})
