@@ -5,7 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-import { GUIDE } from "../constants/StyleGuide";
+import { GUIDE } from "../../../../constants/StyleGuide";
 
 const HomeScreen: React.FC = () => {
   const WIDTH = wp("90.08%");

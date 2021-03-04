@@ -1,9 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import MainFlowTab from "./BottomTab";
-import ProfileScreen from "../screens/tabScreens/ProfileScreen";
-import EditProfileScreen from "../screens/tabScreens/EditProfileScreen";
-import Security from "../screens/tabScreens/Security";
 import { ROUTES } from "./Routes";
 
 export type HomeStackParamList = {

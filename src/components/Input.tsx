@@ -73,6 +73,7 @@ const Input: React.FC<Props> = (props) => {
 
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
   const [isTouched, setIsTouched] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   const { onInputChange, onSubmit, id, touched } = props;
 
@@ -88,16 +89,28 @@ const Input: React.FC<Props> = (props) => {
     if (props.required && text.trim().length === 0) {
       isValid = false;
     }
+    //Email Validation
+    if (props.email) {
+      if (!InputValidation.isValidEmail(text.toLowerCase()).isValid) {
+        isValid = false;
+        setErrorText(
+          InputValidation.isValidEmail(text.toLocaleLowerCase()).message
+        );
+      }
+    }
 
     if (props.min != null && +text < props.min) {
       isValid = false;
     }
+
     if (props.max != null && +text > props.max) {
       isValid = false;
     }
+
     if (props.minLength != null && text.length < props.minLength) {
       isValid = false;
     }
+
     dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
   };
 
@@ -110,19 +123,22 @@ const Input: React.FC<Props> = (props) => {
       <TextInput
         {...props}
         style={[
-          styles.input,
           {
             fontWeight: inputState.value != "" ? "700" : "400",
-            backgroundColor:
-              (props.errorText != "" && (inputState.touched || isTouched)) ? COLORS.light.inputBgError : COLORS.light.inputBg,
             borderColor:
-              (props.errorText != "" && (inputState.touched || isTouched)) ? COLORS.light.red : COLORS.light.inputBorder,
+              !inputState.isValid && (inputState.touched || isTouched)
+                ? COLORS.light.red
+                : COLORS.light.primaryLight,
           },
+          styles.input,
         ]}
         placeholderTextColor={COLORS.light.inputText}
         value={inputState.value!}
         onChangeText={textChangeHandler}
-        onSubmitEditing={() => onSubmit()}
+        // onBlur={lostFocusHandler}
+        onSubmitEditing={() =>
+          onSubmit(id, inputState.value, inputState.isValid)
+        }
       />
       {props.errorText != "" && (inputState.touched || isTouched) && (
         <View style={styles.errorContainer}>
@@ -137,15 +153,14 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   input: {
-    borderWidth: 1,
     borderRadius: 4,
     backgroundColor: COLORS.light.inputBg,
-    borderColor: COLORS.light.inputBorder,
     fontSize: wp("4.26%"),
     fontFamily: "Lato-Regular",
     paddingHorizontal: wp("5.6%"),
     paddingVertical: hp("1.47%"),
     color: COLORS.light.inputText,
+    height: hp("6.15%"),
   },
   errorContainer: {
     marginVertical: 0,
