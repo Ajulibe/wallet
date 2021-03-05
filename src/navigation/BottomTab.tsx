@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/tabScreens/Home/HomeScreen";
-import WalletScreen from "../screens/tabScreens/Wallet/WalletScreen";
-import AddMoneyScreen from "../screens/tabScreens/AddMoney/AddMoneyScreen";
-import SendMoneyScreen from "../screens/tabScreens/SendMoney/SendMoneyScreen";
-import NotificationScreen from "../screens/tabScreens/Chats/NotificationScreen";
+import HomeScreen from "../screens/tabscreens/home/HomeScreen";
+import WalletScreen from "../screens/tabscreens/wallet/WalletScreen";
+import AddMoneyScreen from "../screens/tabscreens/addmoney/AddMoneyScreen";
+import SendMoneyScreen from "../screens/tabscreens/SendMoney/SendMoneyScreen";
+import NotificationScreen from "../screens/tabscreens/chats/NotificationScreen";
 import { Image, View, Text, StyleSheet } from "react-native";
 import { ROUTES } from "./Routes";
 import { Feather } from "@expo/vector-icons";

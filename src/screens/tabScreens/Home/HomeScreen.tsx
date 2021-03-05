@@ -19,18 +19,18 @@ import { useScrollToTop } from "@react-navigation/native";
 import { ROUTES } from "../../../navigation/Routes";
 
 //COMPONENT IMPORTS
-import RecentTransactionsView from "./HomeScreenComponents/RecentTransactionsView";
-import QuickOptions from "./HomeScreenComponents/QuickOptions";
-import ImageBackgroundView from "./HomeScreenComponents/ImageBackgroundView";
+import RecentTransactionsView from "./homescreencomponents/RecentTransactionsView";
+import QuickOptions from "./homescreencomponents/QuickOptions";
+import ImageBackgroundView from "./homescreencomponents/ImageBackgroundView";
 
 //ANIMATION IMPORTS
-import { headerHeight } from "./Animation/Constants";
-import { BottomViewHeight } from "./Animation/Constants";
-import { heroTitleOpacity } from "./Animation/Constants";
-import { rewardsTitleOpacity } from "./Animation/Constants";
-import { newDivPosition } from "./Animation/Constants";
-import { newDivOpacity } from "./Animation/Constants";
-import { increaseMarginTop } from "./Animation/Constants";
+import { headerHeight } from "./animation/Constants";
+import { BottomViewHeight } from "./animation/Constants";
+import { heroTitleOpacity } from "./animation/Constants";
+import { rewardsTitleOpacity } from "./animation/Constants";
+import { newDivPosition } from "./animation/Constants";
+import { newDivOpacity } from "./animation/Constants";
+import { increaseMarginTop } from "./animation/Constants";
 
 type Props = {
   navigation: NavigationTabProp<"Shop">;

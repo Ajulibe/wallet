@@ -3,16 +3,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "../screens/splashscreen/SplashScreen";
 import HomeStack from "./HomeStack";
-import ProfileScreen from "../screens/ProfileComponents/MainScreen/ProfileScreen";
-import EditProfileScreen from "../screens/ProfileComponents/Sections/EditProfile/Sections/EditProfileScreen";
-import Security from "../screens/ProfileComponents/Sections/Security/Sections/Security";
+import ProfileScreen from "../screens/profilecomponents/mainscreen/ProfileScreen";
+import EditProfileScreen from "../screens/profilecomponents/sections/EditProfile/Sections/EditProfileScreen";
+import Security from "../screens/profilecomponents/sections/Security/Sections/Security";
 
 import AuthStack from "./AuthStack";
 import { ROUTES } from "./Routes";
-import SecurityQuestionSetup from "../screens/ProfileComponents/Sections/Security/Sections/SecurityQuestionSetup";
-import ChangeName from "../screens/ProfileComponents/Sections/EditProfile/Sections/ChangeName";
-import ChangeEmail from "../screens/ProfileComponents/Sections/EditProfile/Sections/ChangeEmail";
-import ChangePassword from "../screens/ProfileComponents/Sections/EditProfile/Sections/ChangePassword";
+import SecurityQuestionSetup from "../screens/profilecomponents/sections/Security/Sections/SecurityQuestionSetup";
+import ChangeName from "../screens/profilecomponents/sections/EditProfile/Sections/ChangeName";
+import ChangeEmail from "../screens/profilecomponents/sections/EditProfile/Sections/ChangeEmail";
+import ChangePassword from "../screens/profilecomponents/sections/EditProfile/Sections/ChangePassword";
 import Home from "../screens/home/Home";
 
 export type RootStackParamList = {

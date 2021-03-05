@@ -10,11 +10,11 @@ import {
 } from "react-navigation-tabs";
 import { useScrollToTop } from "@react-navigation/native";
 import { ROUTES } from "../../../navigation/Routes";
-import EditProfile from "../Sections/EditProfile/EditProfile";
-import Security from "../Sections/Security/Security";
-import Settings from "../Sections/Settings/Settings";
-import CustomerSupport from "../Sections/CustomerSupport/CustomerSupport";
-import ImageBackgroundScreen from "../../tabScreens/ImageBackground";
+import EditProfile from "../sections/EditProfile/EditProfile";
+import Security from "../sections/Security/Security";
+import Settings from "../sections/Settings/Settings";
+import CustomerSupport from "../sections/CustomerSupport/CustomerSupport";
+import ImageBackgroundScreen from "../../tabscreens/ImageBackground";
 
 type Props = {
   navigation: NavigationTabProp<"Shop">;
