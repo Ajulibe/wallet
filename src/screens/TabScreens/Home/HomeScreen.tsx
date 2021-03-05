@@ -97,7 +97,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                     styles.recentText,
                     {
                       fontSize: wp("3.38%"),
-                      fontFamily: "Lato-Regular",
+                      fontFamily: "Inter-Regular",
                     },
                   ]}
                 >
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("3.38%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.57%"),
   },
   bottomView: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     color: "rgba(128,148,181,1)",
     lineHeight: hp("2.57%"),
     fontSize: wp("3.9%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
   },
 });
 

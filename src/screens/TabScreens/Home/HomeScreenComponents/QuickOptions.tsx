@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: hp("0.56%"),
     lineHeight: hp("2.12%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
   },
   withdrawDiv: {
     height: wp("14.5%"),

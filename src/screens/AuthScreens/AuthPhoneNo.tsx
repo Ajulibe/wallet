@@ -267,7 +267,7 @@ const inputStyles = StyleSheet.create({
    },
    errorText: {
       marginTop: hp("1%"),
-      fontFamily: "Lato-Regular",
+      fontFamily: "Inter-Regular",
       color: COLORS.light.red,
       fontSize: wp("3.5%")
    }

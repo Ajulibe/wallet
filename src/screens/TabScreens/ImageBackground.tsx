@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  ImageBackground,
+  ImageBackground
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -111,14 +111,14 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("3.86%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Interr-Bold",
     lineHeight: hp("2.9%"),
   },
   janeDoeEmail: {
     color: "rgba(128,148,181,1)",
     textAlign: "center",
     fontSize: wp("2.9%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.16%"),
   },
   logoutContainer: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     color: "rgba(255,213,0,1)",
     textAlign: "center",
     fontSize: wp("3.38%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.57%"),
     marginBottom: hp("4.46%"),
   },

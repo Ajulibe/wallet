@@ -31,8 +31,8 @@ const ChangeName: NavigationBottomTabScreenComponent<Props> = ({
   const [btnBgColor, setBtnBgColor] = useState<string>(COLORS.light.primary);
   const [email, setEmail] = useState<string | null>("");
 
-  const onSubmit = () => {};
-  const inputChangeHandler = (value: any) => {};
+  const onSubmit = () => { };
+  const inputChangeHandler = (value: any) => { };
 
   return (
     <>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("3.86%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.57%"),
     marginBottom: hp("5.69%"),
   },

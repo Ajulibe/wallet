@@ -167,7 +167,7 @@ export default function MainFlowTab() {
 
 const styles = StyleSheet.create({
    tabBarLabel: {
-      fontFamily: "Lato-Regular",
+      fontFamily: "Inter-Regular",
       fontSize: hp("1%"),
       marginBottom: hp("1%")
    },

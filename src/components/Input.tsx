@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: COLORS.light.inputBg,
     fontSize: wp("4.26%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     paddingHorizontal: wp("5.6%"),
     paddingVertical: hp("1.47%"),
     color: COLORS.light.inputText,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginTop: hp("1%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     color: COLORS.light.red,
     fontSize: 13,
   },

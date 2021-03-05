@@ -66,7 +66,7 @@ const AuthEmail = ({ navigation, route }: Props) => {
             </TouchableOpacity>
             {/* Skip button */}
             <TouchableOpacity onPress={() => navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN, { authDetail: authDetail })}>
-              <Text style={{ fontFamily: 'Lato-Regular', textDecorationLine: 'underline', color: COLORS.light.secondary }}>Skip</Text>
+              <Text style={{ fontFamily: 'Inter-Regular', textDecorationLine: 'underline', color: COLORS.light.secondary }}>Skip</Text>
             </TouchableOpacity>
           </View>
 

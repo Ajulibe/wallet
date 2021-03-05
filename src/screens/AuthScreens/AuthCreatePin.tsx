@@ -178,7 +178,7 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
             containerStyle={{ marginHorizontal: 0, padding: 0, backgroundColor: 'transparent', borderWidth: 0, display: isFingerPrintActive ? "flex" : "none" }}
             checkedTitle="Biometric enabled"
             title="Enable Biometric authentication"
-            titleProps={{ style: { fontFamily: 'Lato-Regular', color: isFingerPrintCaptured ? COLORS.light.secondary : COLORS.light.blackLight } }}
+            titleProps={{ style: { fontFamily: 'Inter-Regular', color: isFingerPrintCaptured ? COLORS.light.secondary : COLORS.light.blackLight } }}
             onPress={() => onSwitchChange()}
           />
 

@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     color: "rgba(128,148,181,1)",
     lineHeight: hp("2.57%"),
     fontSize: wp("3.9%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
   },
   recentMainContainer: {
     width: wp("90%"),
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   recentNames: {
     color: "rgba(1,35,86,1)",
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.9%"),
     fontSize: wp("3.86%"),
   },
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     color: "#219653",
     lineHeight: hp("2.9%"),
     fontSize: wp("3.86%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
   },
 });
 

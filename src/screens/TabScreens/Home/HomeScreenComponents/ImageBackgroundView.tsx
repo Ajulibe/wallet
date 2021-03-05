@@ -178,14 +178,14 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontSize: wp("4.35%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
     color: "#ffffff",
   },
   welcomeMessage: {
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("2.9%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.12%"),
   },
   Notification: {
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("7%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
     lineHeight: hp("4.35%"),
   },
   notification: {
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("7%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
     lineHeight: hp("4.35%"),
   },
   mainHeadingContainer: {
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("3.38%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.57%"),
   },
 });

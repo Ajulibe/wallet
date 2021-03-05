@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     marginLeft: wp("2.2%"),
     lineHeight: hp("2.9%"),
     fontSize: wp("3.86%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
   },
   quickOptionsDiv: {
     flexDirection: "row",
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     marginLeft: wp("4.83%"),
     lineHeight: hp("2.57%"),
     fontSize: wp("3.3%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
   },
   viewOptions: {
     marginTop: hp("1.23%"),
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     lineHeight: hp("2.57%"),
     fontSize: wp("2.8%"),
     textDecorationLine: "underline",
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
   },
 });
 

@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   loading: {
     fontSize: hp("3.35%"),
     color: "white",
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
     marginTop: hp("2.35%"),
     lineHeight: hp("3.79%"),
   },

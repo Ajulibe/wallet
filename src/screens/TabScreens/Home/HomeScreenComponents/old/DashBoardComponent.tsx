@@ -40,7 +40,7 @@ const HomeScreen: React.FC = () => {
                 style={{
                   lineHeight: hp("1.23%"),
                   fontSize: wp("2.17%"),
-                  fontFamily: "Lato-Regular",
+                  fontFamily: "Inter-Regular",
                   color: GUIDE.SECONDARY_COLOR,
                 }}
               >
@@ -66,19 +66,19 @@ const styles = StyleSheet.create({
   },
   balanceText: {
     fontSize: wp("2.6%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     color: "#202344",
     lineHeight: hp("2.57%"),
   },
   balance: {
     fontSize: wp("5.8%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
 
     lineHeight: hp("4.35%"),
   },
   phoneNumber: {
     fontSize: wp("2.42%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     color: "#101223",
     lineHeight: hp("1.80%"),
     opacity: 0.6,

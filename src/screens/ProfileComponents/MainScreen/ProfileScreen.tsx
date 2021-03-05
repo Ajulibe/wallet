@@ -64,14 +64,14 @@ const styles = StyleSheet.create({
    },
    profileName: {
       fontSize: wp("4.35%"),
-      fontFamily: "Lato-Bold",
+      fontFamily: "Inter-Bold",
       color: "#ffffff"
    },
    welcomeMessage: {
       color: "#ffffff",
       textAlign: "center",
       fontSize: wp("2.9%"),
-      fontFamily: "Lato-Regular",
+      fontFamily: "Inter-Regular",
       lineHeight: hp("2.12%")
    },
    Notification: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
       color: "rgba(77,105,151,1)",
       fontSize: wp("3.86%"),
       lineHeight: hp("2.89%"),
-      fontFamily: "Lato-Regular"
+      fontFamily: "Inter-Regular"
    }
 });
 
