@@ -8,40 +8,36 @@ import * as Font from "expo-font";
 import Navigation from "./src/navigation/MainNavigator";
 
 export default function App() {
-  const fetchFonts = () => {
-    return Font.loadAsync({
-      "Lato-Black": require("./src/assets/fonts/Lato-Black.ttf"),
-      "Lato-BlackItalic": require("./src/assets/fonts/Lato-BlackItalic.ttf"),
-      "Lato-Bold": require("./src/assets/fonts/Lato-Bold.ttf"),
-      "Lato-BoldItalic": require("./src/assets/fonts/Lato-BoldItalic.ttf"),
-      "Lato-Italic": require("./src/assets/fonts/Lato-Italic.ttf"),
-      "Lato-Light": require("./src/assets/fonts/Lato-Light.ttf"),
-      "Lato-LightItalic": require("./src/assets/fonts/Lato-LightItalic.ttf"),
-      "Lato-Regular": require("./src/assets/fonts/Lato-Regular.ttf"),
-      "Lato-Thin": require("./src/assets/fonts/Lato-Thin.ttf"),
-      "Lato-ThinItalic": require("./src/assets/fonts/Lato-ThinItalic.ttf"),
-    });
-  };
+   const fetchFonts = () => {
+      return Font.loadAsync({
+         "Inter-Black": require("./src/assets/fonts/Inter-Black.ttf"),
+         "Inter-Bold": require("./src/assets/fonts/Inter-Bold.ttf"),
+         "Inter-SemiBold": require("./src/assets/fonts/Inter-SemiBold.ttf"),
+         "Inter-Light": require("./src/assets/fonts/Inter-Light.ttf"),
+         "Inter-Medium": require("./src/assets/fonts/Inter-Medium.ttf"),
+         "Inter-Regular": require("./src/assets/fonts/Inter-Regular.ttf"),
+         "Inter-Thin": require("./src/assets/fonts/Inter-Thin.ttf")
+      });
+   };
 
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  if (!fontLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => {
-          setFontLoaded(true);
-        }}
-        onError={console.warn}
-      />
-    );
-  }
-  return (
-    <Provider store={store}>
-      <SafeAreaProvider>
-        <StatusBar hidden={true} backgroundColor="#582ED7" />
-        <Navigation />
-      </SafeAreaProvider>
-    </Provider>
-  );
+   const [fontLoaded, setFontLoaded] = useState(false);
+   if (!fontLoaded) {
+      return (
+         <AppLoading
+            startAsync={fetchFonts}
+            onFinish={() => {
+               setFontLoaded(true);
+            }}
+            onError={console.warn}
+         />
+      );
+   }
+   return (
+      <Provider store={store}>
+         <SafeAreaProvider>
+            <StatusBar hidden={true} backgroundColor="#582ED7" />
+            <Navigation />
+         </SafeAreaProvider>
+      </Provider>
+   );
 }

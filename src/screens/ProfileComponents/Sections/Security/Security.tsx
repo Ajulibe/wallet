@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     color: "rgba(77,105,151,1)",
     fontSize: wp("3.86%"),
     lineHeight: hp("2.89%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
   },
 });
 

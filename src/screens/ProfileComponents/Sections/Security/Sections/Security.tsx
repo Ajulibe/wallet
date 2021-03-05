@@ -140,14 +140,14 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontSize: wp("4.35%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
     color: "#ffffff",
   },
   welcomeMessage: {
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("2.9%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.12%"),
   },
   Notification: {
@@ -161,13 +161,13 @@ const styles = StyleSheet.create({
     color: "rgba(0,21,56,1)",
     fontSize: wp("3.86%"),
     lineHeight: hp("2.89%"),
-    fontFamily: "Lato-Bold",
+    fontFamily: "Inter-Bold",
   },
   insideText: {
     color: "rgba(128,148,181,1)",
     fontSize: wp("3.38%"),
     lineHeight: hp("2.89%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
   },
   mainTextContainer: {
     justifyContent: "space-between",
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("3.86%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.57%"),
     marginBottom: hp("5.69%"),
   },

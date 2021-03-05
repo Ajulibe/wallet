@@ -32,8 +32,8 @@ const ChangeName: NavigationBottomTabScreenComponent<Props> = ({
   const [firstname, setFirstname] = useState<string | null>("");
   const [lastname, setLastName] = useState<string | null>("");
 
-  const onSubmit = () => {};
-  const inputChangeHandler = (value: any) => {};
+  const onSubmit = () => { };
+  const inputChangeHandler = (value: any) => { };
 
   return (
     <>
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontSize: wp("3.86%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     lineHeight: hp("2.57%"),
     marginBottom: hp("5.69%"),
   },

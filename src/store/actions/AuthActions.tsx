@@ -4,6 +4,7 @@ import { loading, failure } from './CommonActions';
 import { Action, ActionCreator } from 'redux';
 import { Dispatch } from 'react';
 import { AuthDetail } from '../../models/AuthDetail';
+import { PhoneNumber } from 'google-libphonenumber';
 
 
 //ACTIONS
@@ -41,16 +42,22 @@ export function registerUser({ authDetail }: { authDetail: AuthDetail }) {//to b
 }
 
 
-export function loginUser({ phoneNo, pin }: { phoneNo: String, pin: String }) {
+export function loginUser({ PhoneNumber, pin }: { PhoneNumber: String, pin: String }) {
   return (dispatch: any) => {
-    dispatch(loading());
-    // return AuthService.userLoginRequest({ phoneNo, pin })
-    //   .then(
-    //     response => {
-    //       dispatch(userLoginSuccess(response))
-    //     },
-    //     error => {
-    //       dispatch(failure('Server error. ' + error))
-    //     })
+    dispatch(loading(true));
+    return AuthService.userLogin({ phoneNumber: PhoneNumber, pin: pin })
+      .then(
+        (response: any) => {
+          dispatch(loading(false));
+          if (typeof response === 'object' && response !== null) {
+            dispatch(userLoginSuccess(response))
+          } else {
+            dispatch(failure(response));
+          }
+        },
+        error => {
+          dispatch(loading(false));
+          dispatch(failure('Server error. ' + error))
+        })
   }
 }
