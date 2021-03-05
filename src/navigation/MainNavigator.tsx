@@ -13,7 +13,7 @@ import SecurityQuestionSetup from "../screens/profilecomponents/sections/Securit
 import ChangeName from "../screens/profilecomponents/sections/EditProfile/Sections/ChangeName";
 import ChangeEmail from "../screens/profilecomponents/sections/EditProfile/Sections/ChangeEmail";
 import ChangePassword from "../screens/profilecomponents/sections/EditProfile/Sections/ChangePassword";
-import Home from "../screens/home/Home";
+import HomeScreen from "../screens/tabscreens/home/HomeScreen";
 
 export type RootStackParamList = {
   [ROUTES.SPLASH_SCREEN]: undefined;
@@ -48,11 +48,11 @@ export default function MainNavigator() {
           name={ROUTES.AUTHENTICATION_TAB}
           component={AuthStack}
         /> */}
-        {/* <MainStack.Screen
+        <MainStack.Screen
           name={ROUTES.HOME_STACK_SCREEN}
           component={HomeStack}
-        />*/}
-        <MainStack.Screen name={ROUTES.HOME_SCREEN} component={Home} />
+        />
+        <MainStack.Screen name={ROUTES.HOME_SCREEN} component={HomeScreen} />
         <MainStack.Screen
           name={ROUTES.PROFILE_SCREEN}
           component={ProfileScreen}
