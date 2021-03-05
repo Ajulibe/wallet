@@ -28,7 +28,7 @@ const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false,
     setValue,
   });
   const renderCell = ({ index, symbol, isFocused }: { index: number, symbol: string, isFocused: boolean }) => {
-    let textChild = <Text style={{ fontFamily: 'Lato-Regular', color: COLORS.light.inputText }}>0</Text>;
+    let textChild = <Text style={{ fontFamily: 'Inter-Regular', color: COLORS.light.inputText }}>0</Text>;
 
     if (symbol) {
       textChild = (
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginTop: hp("1%"),
-    fontFamily: "Lato-Regular",
+    fontFamily: "Inter-Regular",
     color: COLORS.light.red,
     fontSize: 13,
   },

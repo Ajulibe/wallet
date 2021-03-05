@@ -1,17 +1,16 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import AuthGetStarted from "../screens/auth/AuthGetStarted";
-import AuthPhoneNo from "../screens/auth/AuthPhoneNo";
-import AuthPhoneNoVerify from "../screens/auth/AuthPhoneNoVerify";
-import AuthFullName from "../screens/auth/AuthFullName";
-import AuthEmail from "../screens/auth/AuthEmail";
-import AuthCreatePin from "../screens/auth/AuthCreatePin";
-import AuthFinalLoading from "../screens/auth/AuthFinalLoading";
+import AuthGetStarted from "../screens/AuthScreens/AuthGetStarted";
+import AuthPhoneNo from "../screens/AuthScreens/AuthPhoneNo";
+import AuthPhoneNoVerify from "../screens/AuthScreens/AuthPhoneNoVerify";
+import AuthFullName from "../screens/AuthScreens/AuthFullName";
+import AuthEmail from "../screens/AuthScreens/AuthEmail";
+import AuthCreatePin from "../screens/AuthScreens/AuthCreatePin";
+import AuthFinalLoading from "../screens/AuthScreens/AuthFinalLoading";
 import MainFlowTab from "../navigation/BottomTab";
 import { ROUTES } from "./Routes";
-import { AuthDetail } from '../models/AuthDetail'
-import AuthLogin from "../screens/auth/AuthLogin";
-
+import { AuthDetail } from "../models/AuthDetail";
+import AuthLogin from "../screens/AuthScreens/AuthLogin";
 
 export type AuthStackParamList = {
   [ROUTES.AUTH_GET_STARTED_SCREEN]: undefined;
