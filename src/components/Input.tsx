@@ -28,6 +28,7 @@ interface Props {
   secureTextEntry: boolean;
   required: boolean;
   minLength: number;
+  // autoCompleteType?: any;
   autoCapitalize: any;
   errorText: string;
   initialValue: string;
@@ -41,8 +42,8 @@ interface Props {
   returnKeyType: any;
   placeholder?: string;
   placeholderTextColor?: any;
-  onInputChange: (id: string, x?: string | null, y?: boolean) => void;
-  onSubmit: (id: string, x?: string | null, y?: boolean) => void;
+  onInputChange: (id?: string, x?: string, y?: boolean) => void;
+  onSubmit: () => void;
 }
 
 const inputReducer = (state: InitialStateType, action: IAction) => {
@@ -113,12 +114,12 @@ const Input: React.FC<Props> = (props) => {
     dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
   };
 
-  const lostFocusHandler = () => {
-    dispatch({ type: INPUT_BLUR });
-  };
-
   return (
-    <View style={styles.formControl}>
+    <View
+      style={[
+        styles.formControl,
+      ]}
+    >
       <TextInput
         {...props}
         style={[
@@ -139,7 +140,7 @@ const Input: React.FC<Props> = (props) => {
           onSubmit(id, inputState.value, inputState.isValid)
         }
       />
-      {!inputState.isValid && (inputState.touched || isTouched) && (
+      {props.errorText != "" && (inputState.touched || isTouched) && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{props.errorText}</Text>
         </View>

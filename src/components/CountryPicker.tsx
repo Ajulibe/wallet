@@ -7,11 +7,11 @@ import {
   FlatList,
   TextInput,
   StyleSheet,
+  Platform,
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import {
   CountryData,
-  CountryDataAfrica,
   CountryInterface,
 } from "../extra/CountryData";
 import COLORS from "../utils/Colors";
@@ -28,7 +28,7 @@ interface Props {
 }
 
 export function CountryPicker(props: Props) {
-  const [countries, setCountries] = useState(CountryData)
+  const [countries, setCountries] = useState(CountryData.allCountries)
   let bsRef: any = React.createRef();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export function CountryPicker(props: Props) {
   }, [props.initialSnap]);
 
   const onTextChange = (text: string) => {
-    let newCountries = CountryData.filter(function (item) {
+    let newCountries = CountryData.allCountries.filter(function (item) {
       return item.name.toLocaleLowerCase().includes(text.toLocaleLowerCase());
     });
     setCountries(newCountries)
@@ -120,11 +120,11 @@ const styles = StyleSheet.create({
     shadowColor: "#333333",
     shadowOffset: { width: -1, height: -3 },
     shadowRadius: 2,
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.2,
     // elevation: 5,
     paddingTop: 20,
     borderTopColor: '#eee',
-    borderTopWidth: 1,
+    borderTopWidth: Platform.OS == "android" ? 1 : 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
