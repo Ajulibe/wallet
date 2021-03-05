@@ -40,18 +40,18 @@ export default function MainNavigator() {
         initialRouteName={ROUTES.SPLASH_SCREEN}
         headerMode={"none"}
       >
-        {/* <MainStack.Screen
+        <MainStack.Screen
           name={ROUTES.SPLASH_SCREEN}
           component={SplashScreen}
         />
         <MainStack.Screen
           name={ROUTES.AUTHENTICATION_TAB}
           component={AuthStack}
-        /> */}
-        {/* <MainStack.Screen
+        />
+        <MainStack.Screen
           name={ROUTES.HOME_STACK_SCREEN}
           component={HomeStack}
-        />*/}
+        />
         <MainStack.Screen name={ROUTES.HOME_SCREEN} component={Home} />
         <MainStack.Screen
           name={ROUTES.PROFILE_SCREEN}

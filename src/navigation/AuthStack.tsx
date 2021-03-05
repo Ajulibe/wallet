@@ -1,5 +1,5 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import AuthGetStarted from "../screens/auth/AuthGetStarted";
 import AuthPhoneNo from "../screens/auth/AuthPhoneNo";
 import AuthPhoneNoVerify from "../screens/auth/AuthPhoneNoVerify";
@@ -11,6 +11,8 @@ import MainFlowTab from "../navigation/BottomTab";
 import AuthLogin from "../screens/auth/AuthLogin";
 import { ROUTES } from "./Routes";
 import { AuthDetail } from '../models/AuthDetail'
+import { Easing } from "react-native-reanimated";
+import SCREEN_TRANSITION from "./ScreenTransitionConfigs";
 
 
 export type AuthStackParamList = {
@@ -31,8 +33,17 @@ export default function AuthNavigationStack() {
   return (
     <AuthStack.Navigator
       initialRouteName={ROUTES.AUTH_GET_STARTED_SCREEN}
-      screenOptions={{ gestureEnabled: false, headerShown: false }}
       headerMode={"none"}
+      screenOptions={{
+        gestureEnabled: true,
+        headerShown: false,
+        gestureDirection: "horizontal",
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        // cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        // cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+      }}
+    // headerMode="float"
+    // animation="fade"
     >
       <AuthStack.Screen
         name={ROUTES.AUTH_GET_STARTED_SCREEN}

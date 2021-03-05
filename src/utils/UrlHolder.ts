@@ -6,6 +6,7 @@ const URLHOLDER = {
   SEND_OTP: BASE_URL + "wallet/send_otp",
   VERIFY_OTP: BASE_URL + "wallet/validate_otp",
   REGISTER: BASE_URL + "wallet/register",
+  LOGIN: BASE_URL + "wallet/login",
 };
 
 export default URLHOLDER;

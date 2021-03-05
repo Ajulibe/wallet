@@ -9,7 +9,7 @@ import { Platform } from "react-native";
 
 export class AuthService {
 
-    //SERVICE HELPERS
+    //USER REGISTRATION
     static userRegistration = async ({ authDetail }: { authDetail: AuthDetail }) => {
         const reqBody = {
             "first_name": authDetail.firstName,
@@ -31,6 +31,55 @@ export class AuthService {
         )
             .then((result) => result.json())
             .then((response) => {
+
+                if (String(response.success) && String(response.status) == '201') {
+                    let user = response.data.user;
+                    let tokens = response.data.tokens;
+
+                    let userData: UserInterface = {
+                        id: user.id,
+                        uuid: user.uuid,
+                        userType: user.user_type,
+                        phoneNumber: user.phone_number,
+                        firstName: user.first_name,
+                        lastName: user.last_name,
+                        emailAddress: user.email,
+                        accessToken: tokens.access.token,
+                        accessTokenExpires: tokens.access.expires,
+                        refreshToken: tokens.refresh.token,
+                        refreshTokenExpires: tokens.refresh.expires,
+                    };
+
+                    responseData = userData;
+                } else {
+                    responseData = response.message;
+                }
+            })
+            .catch((error) => {
+                responseData = error.toString();
+            });
+        return responseData;
+    };
+
+    //USER LOGIN
+    static userLogin = async ({ phoneNumber, pin }: { phoneNumber: String, pin: String }) => {
+        const reqBody = {
+            "pin": pin,
+            "phone_number": phoneNumber,
+        }
+        console.log();
+
+        let responseData: any = null
+        await fetch(
+            URLHOLDER.LOGIN,
+            ServiceConstants.fetchApiPostData(reqBody)
+        )
+            .then((result) => result.json())
+            .then((response) => {
+                console.log(`\n\nLogin Starts-------`);
+                console.log(response);
+                console.log("Login Ends---------");
+
 
                 if (String(response.success) && String(response.status) == '201') {
                     let user = response.data.user;

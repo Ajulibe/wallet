@@ -16,8 +16,10 @@ import IMAGES from "../../utils/Images";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
 import UTILITIES from "../../utils/Utilities";
+import CryptoJS from 'crypto-js'
 import COLORS from "../../utils/Colors";
-import { AuthService } from "../../services/AuthService";
+import aesjs from "aes-js";
+import bcrypt from "bcrypt";
 import { AuthDetail } from "../../models/AuthDetail";
 import { CountryData } from "../../extra/CountryData";
 
@@ -74,14 +76,59 @@ const AuthLogin = ({ navigation }: Props) => {
     const login = () => {
         setIsLoading(true);
         //dispatching to the user
-        dispatch(loginUser({ phoneNo: '0812876546', pin: '1234' }));
-        if (user.phoneNo != "") {
+        dispatch(loginUser({ PhoneNumber: '08066184545', pin: '1111' }));
+        if (user.phoneNumber != "") {
             console.log('User don login ooooooo!!!!!!!');
-
         }
     };
 
+    useEffect(() => {
+        // encrypt_decrypt3()
+    })
 
+    const encrypt_decrypt1 = () => {
+        // An example 128-bit key
+        var key = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+        // The initialization vector (must be 16 bytes)
+        var iv = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
+
+        // Convert text to bytes (text must be a multiple of 16 bytes)
+        var text = 'TextMustBe16Byte';
+        var textBytes = aesjs.utils.utf8.toBytes(text);
+
+        var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
+        var encryptedBytes = aesCbc.encrypt(textBytes);
+
+        // To print or store the binary data, you may convert it to hex
+        var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
+        console.log(encryptedHex);
+        // "104fb073f9a131f2cab49184bb864ca2"
+
+        // When ready to decrypt the hex string, convert it back to bytes
+        var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
+
+        // The cipher-block chaining mode of operation maintains internal
+        // state, so to decrypt a new instance must be instantiated.
+        var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
+        var decryptedBytes = aesCbc.decrypt(encryptedBytes);
+
+        // Convert our bytes back into text
+        var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+        console.log(decryptedText);
+        // "TextMustBe16Byte"
+    }
+
+    const encrypt_decrypt2 = () => {
+        var encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase");
+        //U2FsdGVkX18ZUVvShFSES21qHsQEqZXMxQ9zgHy+bu0=
+
+        var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+        //4d657373616765
+    }
+    const encrypt_decrypt3 = () => {
+
+    }
     return (
         <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
@@ -109,7 +156,7 @@ const AuthLogin = ({ navigation }: Props) => {
 
                     <Text style={styles.formTitle}>Welcome back, Ray!</Text>
                     <Text style={styles.formSubtitle}>
-                        Enter your pin to continue or use your fingerprint.
+                        Enter your pin to continue or use your fingerprint. {JSON.stringify(user)}=={JSON.stringify(loading)}=={JSON.stringify(error)}
                     </Text>
 
                     {/* custom otp plugin   */}

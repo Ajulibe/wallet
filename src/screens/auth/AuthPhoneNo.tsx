@@ -87,11 +87,11 @@ const AuthPhoneNo = ({ navigation }: Props) => {
     });
   };
 
-  // useEffect(() => {
-  //   AsyncStorage.getItem(STORAGE_KEYS.PHONE_NUMBER).then((value) => {
-  //     console.log(value);
-  //   })
-  // })
+  useEffect(() => {
+    AsyncStorage.getItem(STORAGE_KEYS.PHONE_NUMBER).then((value) => {
+      console.log(value);
+    })
+  })
 
   return (
     // <ScrollView
