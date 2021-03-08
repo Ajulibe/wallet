@@ -17,6 +17,7 @@ import {
 } from "react-navigation-tabs";
 import { useScrollToTop } from "@react-navigation/native";
 import { ROUTES } from "../../../navigation/Routes";
+import COLORS from "../../../utils/Colors";
 
 //COMPONENT IMPORTS
 import RecentTransactionsView from "./HomeCcreenComponents/RecentTransactionsView";
@@ -46,7 +47,9 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
 
    return (
       <>
-         <SafeAreaView style={{ flex: 0, backgroundColor: "#00296B" }} />
+         <SafeAreaView
+            style={{ flex: 0, backgroundColor: COLORS.light.secondary }}
+         />
          <Animated.View style={styles.container}>
             <ImageBackgroundView
                newDivOpacity={newDivOpacity}
