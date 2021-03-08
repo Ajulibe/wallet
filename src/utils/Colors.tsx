@@ -14,7 +14,7 @@ export default {
       black: "#000",
       blackLight: "#52616E",
       background: "#fff",
-      tint: "SE",
+      tint: "#f7f7f7",
       red: "#EB5757",
       green: "#6FCF97",
 

@@ -7,6 +7,7 @@ export enum ROUTES {
    SPLASH_SCREEN = "SplashScreen",
 
    //for login/registration STACKS
+   AUTH_VALUE_PROPOSITION = "AuthValueProposition",
    AUTH_GET_STARTED_SCREEN = "AuthGetStartedScreen",
    AUTH_PHONE_NO_SCREEN = "AuthPhoneNoScreen",
    AUTH_PHONE_NO_VERIFY_SCREEN = "AuthPhoneNoVerifyScreen",

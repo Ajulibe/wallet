@@ -90,7 +90,7 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
               <Text style={authStyles.formTitle}>
                 {"Welcome, \nRay"}
               </Text>
-              <CircularProgress icon={"phone"} progress={92} size={70} />
+              <CircularProgress icon={"check"} progress={100} size={60} iconType={"FontAwesome5"} />
             </View>
             <Text
               style={authStyles.formSubtitle}
@@ -141,7 +141,7 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
               bgColor={COLORS.light.primary}
               textColor={COLORS.light.white}
               btnText={"Finish"}
-              onClick={() => null}
+              onClick={() => navigation.navigate(ROUTES.NEW_HOME_TAB)}
             />
             <View
               style={{

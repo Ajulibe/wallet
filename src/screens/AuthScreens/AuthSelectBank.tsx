@@ -51,18 +51,18 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
 
     //submit/registring the user via redux store
     const onSubmit = () => {
-        navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
 
-        // setErrorText('');
-        // if (bank == null) {
-        //     setErrorText('Select a bank')
-        // } else if (bank.bankCode === undefined || Object.keys(bank).length === 0) {
-        //     setErrorText('Select a bank')
-        // } else {
-        //     authDetail.phoneNo = CountryData.nigPhoneFormat(authDetail.phoneNo!)
-        //     //dispatching to the user
-        //     dispatch(registerUser({ authDetail: authDetail }));
-        // }
+        setErrorText('');
+        if (bank == null) {
+            setErrorText('Select a bank')
+        } else if (bank.bankCode === undefined || Object.keys(bank).length === 0) {
+            setErrorText('Select a bank')
+        } else {
+            navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
+            // authDetail.phoneNo = CountryData.nigPhoneFormat(authDetail.phoneNo!)
+            // //dispatching to the user
+            // dispatch(registerUser({ authDetail: authDetail }));
+        }
     }
 
     useEffect(() => {
@@ -100,14 +100,14 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
                 </View>
                 <View style={styles.formTitleWrapper}>
                     <Text style={styles.formTitle}>{"Choose a \nBank"}</Text>
-                    <CircularProgress icon={"phone"} progress={92} size={70} />
+                    <CircularProgress icon={"bank"} progress={78} size={60} iconSize={20} />
                 </View>
 
                 <Text style={styles.formSubtitle}>{`We partner with banks to make sure your funds are safe and secure`}</Text>
 
                 <BankPicker onBankChange={onBankSelect} current={bank} />
 
-                <Text style={{ color: COLORS.light.red, display: error ? 'flex' : 'none' }}>
+                <Text style={{ color: COLORS.light.red, display: error || errorText ? 'flex' : 'none' }}>
                     {(errorText != "" ? errorText : error)}
                 </Text>
 
@@ -115,7 +115,7 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
                     bgColor={loading ? COLORS.light.disabled : btnBgColor}
                     textColor={COLORS.light.white}
                     isLoading={loading ? true : false}
-                    btnText={"Continue"}
+                    btnText={"Register"}
                     onClick={onSubmit}
                 />
             </View>

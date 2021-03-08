@@ -46,66 +46,64 @@ const AuthEmail = ({ navigation, route }: Props) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
-      <View style={styles.wrapper}>
+    <View style={styles.wrapper}>
 
-        <StatusBar backgroundColor={COLORS.light.white} />
-        {/* overlay bg image */}
-        <View style={styles.overlayWrapper}>
-          <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
-        </View>
-        {/* top menu  */}
-        <View style={styles.container}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-            {/* Back Button */}
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <MaterialIcons
-                name={"arrow-back-ios"}
-                size={24}
-                color={COLORS.light.blackLight}
-              />
-            </TouchableOpacity>
-            {/* Skip button */}
-            <TouchableOpacity onPress={() => navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN, { authDetail: authDetail })}>
-              <Text style={{ fontFamily: 'Inter-Regular', textDecorationLine: 'underline', color: COLORS.light.secondary }}>Skip</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.formTitleWrapper}>
-            <Text style={styles.formTitle}>{"Email \nAddress"}</Text>
-            <CircularProgress icon={"phone"} progress={12} size={70} />
-          </View>
-
-          <Text style={styles.formSubtitle}>Almost done! Please enter a valid email address that we can use to reach you</Text>
-          <Input
-            id="fullName"
-            placeholder="Email address"
-            placeholderTextColor=""
-            errorText={errorText}
-            keyboardType="email-address"
-            autoCapitalize="sentences"
-            returnKeyType="none"
-            onSubmit={onSubmit}
-            onInputChange={inputChangeHandler}
-            initialValue=""
-            touched={touchedAction}
-            initiallyValid={false}
-            required
-            secureTextEntry={false}
-            minLength={2}
-            textContentType="none"
-          />
-
-
-          <CustomButton
-            bgColor={btnBgColor}
-            textColor={COLORS.light.white}
-            btnText={"Continue"}
-            onClick={onSubmit}
-          />
-        </View>
+      <StatusBar backgroundColor={COLORS.light.white} />
+      {/* overlay bg image */}
+      <View style={styles.overlayWrapper}>
+        <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
       </View>
-    </ScrollView>
+      {/* top menu  */}
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          {/* Back Button */}
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <MaterialIcons
+              name={"arrow-back-ios"}
+              size={24}
+              color={COLORS.light.blackLight}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.formTitleWrapper}>
+          <Text style={styles.formTitle}>{"Email \nAddress"}</Text>
+          <CircularProgress icon={"envelope"} progress={48} size={60} iconSize={24} />
+        </View>
+
+        <Text style={styles.formSubtitle}>Almost done! Please enter a valid email address that we can use to reach you</Text>
+        <Input
+          id="fullName"
+          placeholder="Email address"
+          placeholderTextColor=""
+          errorText={errorText}
+          keyboardType="email-address"
+          autoCapitalize="sentences"
+          returnKeyType="none"
+          onSubmit={onSubmit}
+          onInputChange={inputChangeHandler}
+          initialValue=""
+          touched={touchedAction}
+          initiallyValid={false}
+          required
+          secureTextEntry={false}
+          minLength={2}
+          textContentType="none"
+        />
+
+
+        <CustomButton
+          bgColor={btnBgColor}
+          textColor={COLORS.light.white}
+          btnText={"Continue"}
+          onClick={onSubmit}
+        />
+        {/* Skip button */}
+        <TouchableOpacity onPress={() => navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN, { authDetail: authDetail })}>
+          <Text style={styles.secondaryButton}>I don’t have an e-mail address</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 

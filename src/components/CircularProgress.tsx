@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import IconSimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FeatherIcons from "react-native-vector-icons/Feather";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import COLORS from "../utils/Colors";
 
@@ -12,13 +13,15 @@ interface Props {
    icon: string;
    size: number;
    iconType?: string;
+   iconSize?: number;
 }
 
 export default function CircularProgress({
    progress,
    icon,
-   size = 70,
-   iconType = "FontAwesome"
+   size = 60,
+   iconType = "FontAwesome",
+   iconSize = 28,
 }: Props) {
    return (
       <>
@@ -32,35 +35,41 @@ export default function CircularProgress({
                backgroundColor={COLORS.light.tint}
             >
                {(fill) => (
-                  <View style={styles.wrapper}>
-                     <View style={styles.wrapperChild}>
-                        {iconType == "FontAwesome" ? (
-                           <Icon
-                              name={icon}
-                              size={20}
-                              color={COLORS.light.white}
-                           />
-                        ) : iconType == "SimpleLineIcons" ? (
-                           <IconSimpleLineIcons
-                              name={icon}
-                              size={20}
-                              color={COLORS.light.white}
-                           />
-                        ) : iconType == "MaterialIcons" ? (
-                           <MaterialIcons
-                              name={icon}
-                              size={20}
-                              color={COLORS.light.white}
-                           />
-                        ) : iconType == "FeatherIcons" ? (
-                           <FeatherIcons
-                              name={icon}
-                              size={20}
-                              color={COLORS.light.white}
-                           />
-                        ) : null}
-                     </View>
+                  // <View style={styles.wrapper}>
+                  <View style={[styles.wrapperChild, { backgroundColor: progress == 100 ? COLORS.light.primary : COLORS.light.tint }]}>
+                     {iconType == "FontAwesome" ? (
+                        <Icon
+                           name={icon}
+                           size={iconSize}
+                           color={COLORS.light.black}
+                        />
+                     ) : iconType == "SimpleLineIcons" ? (
+                        <IconSimpleLineIcons
+                           name={icon}
+                           size={iconSize}
+                           color={COLORS.light.black}
+                        />
+                     ) : iconType == "MaterialIcons" ? (
+                        <MaterialIcons
+                           name={icon}
+                           size={iconSize}
+                           color={COLORS.light.black}
+                        />
+                     ) : iconType == "FeatherIcons" ? (
+                        <FeatherIcons
+                           name={icon}
+                           size={iconSize}
+                           color={COLORS.light.black}
+                        />
+                     ) : iconType == "FontAwesome5" ? (
+                        <FontAwesome5
+                           name={icon}
+                           size={iconSize}
+                           color={COLORS.light.white}
+                        />
+                     ) : null}
                   </View>
+                  // </View>
                )}
             </AnimatedCircularProgress>
          </View>
@@ -80,7 +89,7 @@ const styles = StyleSheet.create({
    wrapperChild: {
       height: "100%",
       width: "100%",
-      backgroundColor: COLORS.dark.background,
+      backgroundColor: COLORS.light.tint,
       alignItems: "center",
       justifyContent: "center",
       padding: 6,

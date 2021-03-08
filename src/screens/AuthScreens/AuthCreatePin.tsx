@@ -66,11 +66,11 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
         setBtnBgColor(COLORS.light.primary)
       } else {
         setErrorText("Pin mismatch")
-        setBtnBgColor(COLORS.light.primaryDisabled)
+        setBtnBgColor(COLORS.light.disabled)
       }
     } else {
       setErrorText('')
-      setBtnBgColor(COLORS.light.primaryDisabled)
+      setBtnBgColor(COLORS.light.disabled)
     }
   }, [pinValue, pinValueConfirm])
 
@@ -109,62 +109,60 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
   }
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
-      <View style={styles.wrapper}>
-        {/* redirect user  */}
+    <View style={styles.wrapper}>
+      {/* redirect user  */}
 
-        <StatusBar backgroundColor={COLORS.light.white} />
-        {/* overlay bg image */}
-        <View style={styles.overlayWrapper}>
-          <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
-        </View>
-        {/* top menu  */}
-        <View style={styles.container}>
-          <View style={{ flexDirection: 'row' }}>
-            {/* Back Button */}
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <MaterialIcons
-                name={"arrow-back-ios"}
-                size={24}
-                color={COLORS.light.blackLight}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.formTitleWrapper}>
-            <Text style={styles.formTitle}>{"Create \nPin"}</Text>
-            <CircularProgress icon={"phone"} progress={12} size={70} />
-          </View>
-
-          <Text style={styles.formSubtitle}>{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>
-
-          <Text style={[styles.inputLabelTop, { textAlign: 'left' }]}>Enter Pin</Text>
-          <PinInput cellCount={CELL_COUNT} onTextInputChange={pinInputChangeHandler} errorText={errorText} />
-
-          <Text style={[styles.inputLabelTop, { textAlign: 'left' }]}>Confirm Pin</Text>
-          <PinInput cellCount={CELL_COUNT} onTextInputChange={pinConfirmInputChangeHandler} errorText={errorText} />
-
-
-
-          <CheckBox
-            checked={isFingerPrintCaptured}
-            checkedColor={COLORS.light.secondary}
-            size={24}
-            containerStyle={{ marginHorizontal: 0, padding: 0, backgroundColor: 'transparent', borderWidth: 0, display: isFingerPrintActive ? "flex" : "none" }}
-            checkedTitle="Biometric enabled"
-            title="Enable Biometric authentication"
-            titleProps={{ style: { fontFamily: 'Inter-Regular', color: isFingerPrintCaptured ? COLORS.light.secondary : COLORS.light.blackLight } }}
-            onPress={() => onSwitchChange()}
-          />
-
-          <CustomButton
-            bgColor={btnBgColor}
-            textColor={COLORS.light.white}
-            btnText={"Continue"}
-            onClick={onSubmit}
-          />
-        </View>
+      <StatusBar backgroundColor={COLORS.light.white} />
+      {/* overlay bg image */}
+      <View style={styles.overlayWrapper}>
+        <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
       </View>
-    </ScrollView>
+      {/* top menu  */}
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row' }}>
+          {/* Back Button */}
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <MaterialIcons
+              name={"arrow-back-ios"}
+              size={24}
+              color={COLORS.light.blackLight}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.formTitleWrapper}>
+          <Text style={styles.formTitle}>{"Create \nPin"}</Text>
+          <CircularProgress icon={"lock"} progress={12} size={64} iconType={"MaterialIcons"} />
+        </View>
+
+        <Text style={styles.formSubtitle}>{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>
+
+        <Text style={[styles.inputLabelTop, { textAlign: 'left' }]}>Enter Pin</Text>
+        <PinInput cellCount={CELL_COUNT} onTextInputChange={pinInputChangeHandler} errorText={errorText} />
+
+        <Text style={[styles.inputLabelTop, { textAlign: 'left' }]}>Confirm Pin</Text>
+        <PinInput cellCount={CELL_COUNT} onTextInputChange={pinConfirmInputChangeHandler} errorText={errorText} />
+
+
+
+        <CheckBox
+          checked={isFingerPrintCaptured}
+          checkedColor={COLORS.light.secondary}
+          size={24}
+          containerStyle={{ marginHorizontal: 0, padding: 0, backgroundColor: 'transparent', borderWidth: 0, display: isFingerPrintActive ? "flex" : "none" }}
+          checkedTitle="Biometric enabled"
+          title="Enable Biometric authentication"
+          titleProps={{ style: { fontFamily: 'Inter-Regular', color: isFingerPrintCaptured ? COLORS.light.secondary : COLORS.light.blackLight } }}
+          onPress={() => onSwitchChange()}
+        />
+
+        <CustomButton
+          bgColor={btnBgColor}
+          textColor={COLORS.light.white}
+          btnText={"Continue"}
+          onClick={onSubmit}
+        />
+      </View>
+    </View>
   );
 };
 

@@ -141,11 +141,11 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                   <View style={{ alignItems: "center" }}>
                      <Image
                         source={IMAGES["logo"]}
-                        style={{ height: 120, width: 120 }}
+                        style={{ height: wp('28%'), width: wp('28%') }}
                      />
                   </View>
-                  <View style={{ height: "60%", width: "100%" }}>
-                     {/* <Carousel
+                  {/* <View style={{ height: "60%", width: "100%" }}>
+                     <Carousel
                         layout={"default"}
                         data={carouselItems}
                         sliderWidth={width * 0.85}
@@ -156,31 +156,29 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                         }
                      /> */}
 
-                     <View style={{ height: "100%", width: "100%" }}>
-                        <Carousel
-                           data={carouselItems}
-                           renderItem={this._renderItem}
-                           loop={true}
-                           sliderWidth={width * 0.85}
-                           itemWidth={width * 0.85}
-                           autoplay={true}
-                           enableMomentum={false}
-                           lockScrollWhileSnapping={true}
-                           onSnapToItem={(index) =>
-                              this.setState({ activeIndex: index })
-                           }
-                        />
-                        {this.pagination}
-                     </View>
+                  <View style={{ height: "60%", width: "100%" }}>
+                     <Carousel
+                        data={carouselItems}
+                        renderItem={this._renderItem}
+                        loop={true}
+                        sliderWidth={width * 0.85}
+                        itemWidth={width * 0.85}
+                        autoplay={true}
+                        enableMomentum={false}
+                        lockScrollWhileSnapping={true}
+                        onSnapToItem={(index) =>
+                           this.setState({ activeIndex: index })
+                        }
+                     />
+                     {/* {this.pagination} */}
                   </View>
+                  {/* </View> */}
 
                   <CustomButton
                      bgColor={COLORS.light.primary}
                      textColor={COLORS.light.white}
-                     btnText={activeIndex == 0 ? 'Next' : 'Get Started'}
-                     onClick={() =>
-                        activeIndex == 0 ? this.setState({ activeIndex: 1, flicker: false }) : navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
-                     }
+                     btnText={'Get Started'}
+                     onClick={() => navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)}
                   />
                   <View
                      style={{
@@ -191,7 +189,7 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                      }}
                   >
                      <Text>Already have an account? </Text>
-                     <TouchableOpacity>
+                     <TouchableOpacity onPress={() => navigation.navigate(ROUTES.AUTH_LOGIN)}>
                         <Text style={{ fontFamily: "Inter-Medium" }}>
                            Login
                         </Text>

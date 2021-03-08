@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
       fontFamily: "Inter-Bold",
       color: COLORS.light.secondary,
       textAlign: "center",
-      fontSize: wp("4%")
+      fontSize: wp("4%"),
+      marginTop: hp('5.29%')
    }
 });
 

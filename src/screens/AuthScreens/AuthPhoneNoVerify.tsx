@@ -140,7 +140,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
 
                <View style={styles.formTitleWrapper}>
                   <Text style={styles.formTitle}>{`Verify \nNumber`}</Text>
-                  <CircularProgress icon={"phone"} progress={24} size={70} />
+                  <CircularProgress icon={"screen-lock-portrait"} progress={24} size={60} iconType={"MaterialIcons"} />
                </View>
 
                <Text style={styles.formSubtitle}>
@@ -191,7 +191,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
                               <Text>Didnt get code?</Text>
                            </View>
                            <TouchableOpacity onPress={() => resendOtp()}>
-                              <Text style={styles.secondaryButton}>
+                              <Text style={[styles.secondaryButton, { marginTop: 0 }]}>
                                  {" "}Resend Code
                               </Text>
                            </TouchableOpacity>

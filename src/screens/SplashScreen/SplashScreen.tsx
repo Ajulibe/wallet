@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
    wrapper: {
       position: "relative",
       flex: 1,
-      backgroundColor: COLORS.light.secondary
+      backgroundColor: COLORS.light.white
    },
    overlayWrapper: {
       height: hp("60%"),
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       alignItems: "center",
       paddingHorizontal: wp("8%"),
-      paddingVertical: hp("8%")
+      paddingVertical: hp("12%")
    },
    logo: {
       resizeMode: "contain",

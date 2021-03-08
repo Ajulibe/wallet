@@ -142,7 +142,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
 
             <View style={styles.formTitleWrapper}>
                <Text style={styles.formTitle}>{"Get \nStarted"}</Text>
-               <CircularProgress icon={"phone"} progress={12} size={70} />
+               <CircularProgress icon={"phone-iphone"} progress={12} size={60} iconType="MaterialIcons" />
             </View>
             <Text style={styles.formSubtitle}>
                {`Enter your phone number to get started`}
