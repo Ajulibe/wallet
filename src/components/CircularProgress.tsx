@@ -25,10 +25,10 @@ export default function CircularProgress({
          <View style={{ alignItems: "center" }}>
             <AnimatedCircularProgress
                size={size}
-               width={2}
+               width={4}
                fill={progress}
-               rotation={270}
-               tintColor={COLORS.light.accent}
+               rotation={0}
+               tintColor={COLORS.light.primary}
                backgroundColor={COLORS.light.tint}
             >
                {(fill) => (
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
    wrapperChild: {
       height: "100%",
       width: "100%",
-      backgroundColor: COLORS.light.accent,
+      backgroundColor: COLORS.dark.background,
       alignItems: "center",
       justifyContent: "center",
       padding: 6,
