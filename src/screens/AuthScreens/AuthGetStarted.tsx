@@ -92,32 +92,6 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
       );
    }
 
-   //PAGINATION
-   pagination() {
-      const { carouselItems, activeIndex } = this.state;
-      return (
-         <Pagination
-            dotsLength={carouselItems.length}
-            activeDotIndex={activeIndex}
-            containerStyle={{ backgroundColor: "rgba(255, 255, 255, 0.92)" }}
-            dotStyle={{
-               width: 10,
-               height: 10,
-               borderRadius: 5,
-               marginHorizontal: 8,
-               backgroundColor: "#EA5F33"
-            }}
-            inactiveDotStyle={
-               {
-                  // Define styles for inactive dots here
-               }
-            }
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-         />
-      );
-   }
-
    render() {
       // Destruct navigation from props
       const { navigation } = this.props;
@@ -166,11 +140,11 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                            autoplay={true}
                            enableMomentum={false}
                            lockScrollWhileSnapping={true}
+                           autoplayInterval={5000}
                            onSnapToItem={(index) =>
                               this.setState({ activeIndex: index })
                            }
                         />
-                        {this.pagination}
                      </View>
                   </View>
 
@@ -190,9 +164,16 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                         justifyContent: "center"
                      }}
                   >
-                     <Text>Already have an account? </Text>
+                     <Text style={{ color: "#55585A" }}>
+                        Already have an account?{" "}
+                     </Text>
                      <TouchableOpacity>
-                        <Text style={{ fontFamily: "Inter-Medium" }}>
+                        <Text
+                           style={{
+                              fontFamily: "Inter-Medium",
+                              color: "#55585A"
+                           }}
+                        >
                            Login
                         </Text>
                      </TouchableOpacity>
