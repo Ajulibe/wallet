@@ -21,7 +21,7 @@ import { ROUTES } from "../../navigation/Routes";
 import CustomButton from "../../components/Button";
 import COLORS from "../../utils/Colors";
 import IMAGES from "../../utils/Images";
-import Carousel from "react-native-snap-carousel";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 import * as Animatable from "react-native-animatable";
 type Props = StackScreenProps<
    AuthStackParamList,
@@ -91,6 +91,33 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
          </View>
       );
    }
+
+   //PAGINATION
+   pagination() {
+      const { carouselItems, activeIndex } = this.state;
+      return (
+         <Pagination
+            dotsLength={carouselItems.length}
+            activeDotIndex={activeIndex}
+            containerStyle={{ backgroundColor: "rgba(255, 255, 255, 0.92)" }}
+            dotStyle={{
+               width: 10,
+               height: 10,
+               borderRadius: 5,
+               marginHorizontal: 8,
+               backgroundColor: "#EA5F33"
+            }}
+            inactiveDotStyle={
+               {
+                  // Define styles for inactive dots here
+               }
+            }
+            inactiveDotOpacity={0.4}
+            inactiveDotScale={0.6}
+         />
+      );
+   }
+
    render() {
       // Destruct navigation from props
       const { navigation } = this.props;
@@ -118,7 +145,7 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                      />
                   </View>
                   <View style={{ height: "60%", width: "100%" }}>
-                     <Carousel
+                     {/* <Carousel
                         layout={"default"}
                         data={carouselItems}
                         sliderWidth={width * 0.85}
@@ -127,7 +154,24 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                         onSnapToItem={(index) =>
                            this.setState({ activeIndex: index, flicker: false })
                         }
-                     />
+                     /> */}
+
+                     <View style={{ height: "100%", width: "100%" }}>
+                        <Carousel
+                           data={carouselItems}
+                           renderItem={this._renderItem}
+                           loop={true}
+                           sliderWidth={width * 0.85}
+                           itemWidth={width * 0.85}
+                           autoplay={true}
+                           enableMomentum={false}
+                           lockScrollWhileSnapping={true}
+                           onSnapToItem={(index) =>
+                              this.setState({ activeIndex: index })
+                           }
+                        />
+                        {this.pagination}
+                     </View>
                   </View>
 
                   <CustomButton
@@ -222,11 +266,14 @@ const styles = StyleSheet.create({
    },
    rowItemText: {
       fontFamily: "Inter-Regular",
-      fontSize: wp("3.9%")
+      fontSize: wp("3.9%"),
+      color: "#55585A",
+      lineHeight: hp("3.2%")
    },
    rowItemBold: {
       fontFamily: "Inter-Bold",
       fontSize: wp("6.8%"),
-      marginBottom: 10
+      marginBottom: 10,
+      color: "#FF5703"
    }
 });

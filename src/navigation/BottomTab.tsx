@@ -14,6 +14,7 @@ import {
    widthPercentageToDP as wp,
    heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+import COLORS from "../utils/Colors";
 
 export type RootStackParamList = {
    [ROUTES.HOME_SCREEN]: undefined;
@@ -34,12 +35,12 @@ export default function MainFlowTab() {
                   width: 0,
                   height: 1
                },
-               shadowColor: "#00296B",
+               shadowColor: COLORS.light.lightGrey,
                shadowOpacity: 0.2,
                paddingTop: hp("1%")
             },
-            activeTintColor: "#00296B",
-            inactiveTintColor: "#8094B5"
+            activeTintColor: COLORS.light.secondary,
+            inactiveTintColor: COLORS.light.light_black
          }}
       >
          <Tab.Screen
@@ -50,7 +51,11 @@ export default function MainFlowTab() {
                   <Text
                      style={[
                         styles.tabBarLabel,
-                        { color: focused ? "#00296B" : "#8094B5" }
+                        {
+                           color: focused
+                              ? COLORS.light.secondary
+                              : COLORS.light.light_black
+                        }
                      ]}
                   >
                      Home
@@ -60,7 +65,11 @@ export default function MainFlowTab() {
                   <Feather
                      name="home"
                      size={18}
-                     color={focused ? "#00296B" : "#8094B5"}
+                     color={
+                        focused
+                           ? COLORS.light.secondary
+                           : COLORS.light.light_black
+                     }
                   />
                )
             })}
@@ -73,7 +82,11 @@ export default function MainFlowTab() {
                   <Text
                      style={[
                         styles.tabBarLabel,
-                        { color: focused ? "#00296B" : "#8094B5" }
+                        {
+                           color: focused
+                              ? COLORS.light.secondary
+                              : COLORS.light.light_black
+                        }
                      ]}
                   >
                      Wallet
@@ -83,7 +96,11 @@ export default function MainFlowTab() {
                   <Ionicons
                      name="ios-wallet-outline"
                      size={20}
-                     color={focused ? "#00296B" : "#8094B5"}
+                     color={
+                        focused
+                           ? COLORS.light.secondary
+                           : COLORS.light.light_black
+                     }
                   />
                )
             })}
@@ -97,7 +114,9 @@ export default function MainFlowTab() {
                      style={[
                         styles.tabBarLabel,
                         {
-                           color: focused ? "#00296B" : "#8094B5"
+                           color: focused
+                              ? COLORS.light.secondary
+                              : COLORS.light.light_black
                         }
                      ]}
                   >
@@ -108,7 +127,11 @@ export default function MainFlowTab() {
                   <Ionicons
                      name="ios-add"
                      size={22}
-                     color={focused ? "#00296B" : "#8094B5"}
+                     color={
+                        focused
+                           ? COLORS.light.secondary
+                           : COLORS.light.light_black
+                     }
                   />
                )
             }}
@@ -122,7 +145,9 @@ export default function MainFlowTab() {
                      style={[
                         styles.tabBarLabel,
                         {
-                           color: focused ? "#00296B" : "#8094B5"
+                           color: focused
+                              ? COLORS.light.secondary
+                              : COLORS.light.light_black
                         }
                      ]}
                   >
@@ -133,7 +158,11 @@ export default function MainFlowTab() {
                   <AntDesign
                      name="arrowup"
                      size={18}
-                     color={focused ? "#00296B" : "#8094B5"}
+                     color={
+                        focused
+                           ? COLORS.light.secondary
+                           : COLORS.light.light_black
+                     }
                   />
                )
             }}
@@ -146,7 +175,11 @@ export default function MainFlowTab() {
                   <Text
                      style={[
                         styles.tabBarLabel,
-                        { color: focused ? "#00296B" : "#8094B5" }
+                        {
+                           color: focused
+                              ? COLORS.light.secondary
+                              : COLORS.light.light_black
+                        }
                      ]}
                   >
                      Chats
@@ -156,7 +189,11 @@ export default function MainFlowTab() {
                   <Ionicons
                      name="chatbubbles-outline"
                      size={18}
-                     color={focused ? "#00296B" : "#8094B5"}
+                     color={
+                        focused
+                           ? COLORS.light.secondary
+                           : COLORS.light.light_black
+                     }
                   />
                )
             }}
@@ -198,8 +235,8 @@ const styles = StyleSheet.create({
       shadowOffset: {
          width: 0,
          height: 0
-      },
-      shadowColor: "#00296B",
-      shadowOpacity: 1
+      }
+      // shadowColor: "#000",
+      // shadowOpacity: 1
    }
 });
