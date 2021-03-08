@@ -156,7 +156,8 @@ const AuthLogin = ({ navigation }: Props) => {
 
                     <Text style={styles.formTitle}>Welcome back, Ray!</Text>
                     <Text style={styles.formSubtitle}>
-                        Enter your pin to continue or use your fingerprint. {JSON.stringify(user)}=={JSON.stringify(loading)}=={JSON.stringify(error)}
+                        Enter your pin to continue or use your fingerprint.
+                        {/* {JSON.stringify(user)}=={JSON.stringify(loading)}=={JSON.stringify(error)} */}
                     </Text>
 
                     {/* custom otp plugin   */}
