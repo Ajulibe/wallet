@@ -87,7 +87,7 @@ export default InputPin;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: hp('3.69%'),
+    marginBottom: hp('2.69%'),
     marginTop: 8
   },
   title: {

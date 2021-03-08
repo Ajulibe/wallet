@@ -17,11 +17,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
 import UTILITIES from "../../utils/Utilities";
 import COLORS from "../../utils/Colors";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import { AuthService } from "../../services/AuthService";
-import { AuthDetail } from "../../models/AuthDetail";
 import { CountryData } from "../../extra/CountryData";
-import Animated from "react-native-reanimated";
 import CircularProgress from "../../components/CircularProgress";
 
 type Props = StackScreenProps<
@@ -31,7 +28,7 @@ type Props = StackScreenProps<
 
 const CELL_COUNT = 5;
 const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
-   const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
+   const [btnBgColor, setBtnBgColor] = useState(COLORS.light.disabled);
    const [isLoading, setIsLoading] = useState(false);
    const [timer, setTimer] = useState(60);
    const [otpCode, setOtpCode] = useState("");
@@ -57,12 +54,11 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
 
    //OTP CODE INPUT TEXT CHANGE LISTENER
    let otpInputChangeHandler = useCallback((value) => {
-      setBtnBgColor(COLORS.light.primaryDisabled);
 
       const otp = value.toString();
       setOtpCode(value);
       if (otp.length != 5) {
-         setBtnBgColor(COLORS.light.primaryDisabled);
+         setBtnBgColor(COLORS.light.disabled);
       } else {
          setErrorText("");
          setBtnBgColor(COLORS.light.primary);
@@ -137,25 +133,14 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
                      <MaterialIcons
                         name={"arrow-back-ios"}
                         size={24}
-                        color={COLORS.light.secondary}
+                        color={COLORS.light.blackLight}
                      />
                   </TouchableOpacity>
                </View>
-               <View
-                  style={{
-                     marginTop: "5%",
-                     width: "100%",
-                     flexDirection: "row",
-                     alignItems: "center",
-                     justifyContent: "space-between"
-                  }}
-               >
-                  <View style={{ flex: 1 }}>
-                     <Text style={styles.formTitle}>Verify Number</Text>
-                  </View>
-                  <View style={{ flex: 1, alignItems: "flex-end" }}>
-                     <CircularProgress icon={"lock"} progress={24} size={70} />
-                  </View>
+
+               <View style={styles.formTitleWrapper}>
+                  <Text style={styles.formTitle}>{`Verify \nNumber`}</Text>
+                  <CircularProgress icon={"phone"} progress={24} size={70} />
                </View>
 
                <Text style={styles.formSubtitle}>
@@ -207,8 +192,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
                            </View>
                            <TouchableOpacity onPress={() => resendOtp()}>
                               <Text style={styles.secondaryButton}>
-                                 {" "}
-                                 Resend Code
+                                 {" "}Resend Code
                               </Text>
                            </TouchableOpacity>
                         </View>
@@ -221,7 +205,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
                {/* continue btn  */}
                <CustomButton
                   bgColor={
-                     isLoading ? COLORS.light.primaryDisabled : btnBgColor
+                     isLoading ? COLORS.light.disabled : btnBgColor
                   }
                   textColor={COLORS.light.white}
                   btnText={"Continue"}

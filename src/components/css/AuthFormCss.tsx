@@ -38,6 +38,13 @@ const styles = StyleSheet.create({
       bottom: 0,
       backgroundColor: "transparent"
    },
+   formTitleWrapper: {
+      marginTop: hp("2.83%"),
+      width: "100%",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between"
+   },
    formTitle: {
       fontSize: wp("9.61%"),
       fontWeight: "400",
@@ -45,19 +52,28 @@ const styles = StyleSheet.create({
       fontFamily: "Inter-Black"
    },
    formSubtitle: {
+      width: wp("66.4%"),
       marginTop: hp("2.46%"),
       marginBottom: hp("3.69%"),
       color: COLORS.light.light_black,
       display: "flex",
+      textAlign: "justify",
       fontSize: wp("4.25%"),
       fontFamily: "Inter-Regular",
       lineHeight: hp("3.18%")
    },
    inputLabel: {
-      color: COLORS.light.secondary,
-      marginTop: hp("3.69%"),
-      textAlign: "center",
-      fontSize: wp("4.25%")
+      color: COLORS.light.inputLabel,
+      fontStyle: "italic",
+      marginTop: hp("1%"),
+      textAlign: "left",
+      fontSize: wp("3.5%")
+   },
+   inputLabelTop: {
+      color: COLORS.light.blackLight,
+      marginTop: hp("1%"),
+      textAlign: "left",
+      fontSize: wp("3.5%")
    },
    bold: {
       fontWeight: "700"

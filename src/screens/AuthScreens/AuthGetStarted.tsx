@@ -133,9 +133,9 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                   <CustomButton
                      bgColor={COLORS.light.primary}
                      textColor={COLORS.light.white}
-                     btnText={"Get Started"}
+                     btnText={activeIndex == 0 ? 'Next' : 'Get Started'}
                      onClick={() =>
-                        navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
+                        activeIndex == 0 ? this.setState({ activeIndex: 1, flicker: false }) : navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
                      }
                   />
                   <View

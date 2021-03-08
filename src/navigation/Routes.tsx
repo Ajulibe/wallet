@@ -13,6 +13,7 @@ export enum ROUTES {
    AUTH_FULL_NAME_SCREEN = "AuthFullNameScreen",
    AUTH_EMAIL_SCREEN = "AuthEmailScreen",
    AUTH_CREATE_PIN_SCREEN = "AuthCreatePinScreen",
+   AUTH_SELECT_BANK = "AuthSelectBank",
    AUTH_FINAL_LOADING_SCREEN = "AuthFinalLoadingScreen",
    AUTH_LOGIN = "AuthLogin",
 

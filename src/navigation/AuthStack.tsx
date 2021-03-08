@@ -6,6 +6,7 @@ import AuthPhoneNoVerify from "../screens/AuthScreens/AuthPhoneNoVerify";
 import AuthFullName from "../screens/AuthScreens/AuthFullName";
 import AuthEmail from "../screens/AuthScreens/AuthEmail";
 import AuthCreatePin from "../screens/AuthScreens/AuthCreatePin";
+import AuthSelectBank from "../screens/AuthScreens/AuthSelectBank";
 import AuthFinalLoading from "../screens/AuthScreens/AuthFinalLoading";
 import MainFlowTab from "../navigation/BottomTab";
 import { ROUTES } from "./Routes";
@@ -19,6 +20,7 @@ export type AuthStackParamList = {
   [ROUTES.AUTH_FULL_NAME_SCREEN]: { authDetail: AuthDetail };
   [ROUTES.AUTH_EMAIL_SCREEN]: { authDetail: AuthDetail };
   [ROUTES.AUTH_CREATE_PIN_SCREEN]: { authDetail: AuthDetail };
+  [ROUTES.AUTH_SELECT_BANK]: { authDetail: AuthDetail };
   [ROUTES.AUTH_FINAL_LOADING_SCREEN]: undefined;
   [ROUTES.AUTH_LOGIN]: undefined;
   [ROUTES.NEW_HOME_TAB]: undefined;
@@ -61,6 +63,11 @@ export default function AuthNavigationStack() {
       <AuthStack.Screen
         name={ROUTES.AUTH_CREATE_PIN_SCREEN}
         component={AuthCreatePin}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name={ROUTES.AUTH_SELECT_BANK}
+        component={AuthSelectBank}
         options={{ headerShown: false }}
       />
       <AuthStack.Screen

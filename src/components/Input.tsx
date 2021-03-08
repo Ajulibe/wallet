@@ -123,16 +123,19 @@ const Input: React.FC<Props> = (props) => {
       <TextInput
         {...props}
         style={[
-          {
-            fontWeight: inputState.value != "" ? "700" : "400",
-            borderColor:
-              !inputState.isValid && (inputState.touched || isTouched)
-                ? COLORS.light.red
-                : COLORS.light.primaryLight,
-          },
           styles.input,
+          {
+            borderColor:
+              props.errorText != "" && (inputState.touched || isTouched)
+                ? COLORS.light.red
+                : COLORS.light.inputBorder,
+            backgroundColor:
+              props.errorText != "" && (inputState.touched || isTouched)
+                ? COLORS.light.inputBgError
+                : COLORS.light.inputBg,
+          },
         ]}
-        placeholderTextColor={COLORS.light.inputText}
+        placeholderTextColor={COLORS.light.inputPlaceholder}
         value={inputState.value!}
         onChangeText={textChangeHandler}
         // onBlur={lostFocusHandler}
@@ -160,6 +163,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp("5.6%"),
     paddingVertical: hp("1.47%"),
     color: COLORS.light.inputText,
+    borderColor: COLORS.light.inputBorder,
+    borderWidth: 0.6,
     height: hp("6.15%"),
   },
   errorContainer: {

@@ -46,7 +46,7 @@ const OtpCodeInput = ({
          <Text
             style={{
                fontFamily: "Inter-Regular",
-               color: COLORS.light.muted
+               color: COLORS.light.inputText
             }}
          >
             0

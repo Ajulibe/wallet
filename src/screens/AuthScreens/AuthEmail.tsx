@@ -10,11 +10,12 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
 import IMAGES from "../../utils/Images";
 import InputValidation from "../../utils/InputValidation";
+import CircularProgress from "../../components/CircularProgress";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
 
 const AuthEmail = ({ navigation, route }: Props) => {
-  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
+  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.disabled);
   const [email, setEmail] = useState("");
   const [errorText, setErrorText] = useState("");
   const [touchedAction, setTouchedAction] = useState(false);
@@ -27,7 +28,7 @@ const AuthEmail = ({ navigation, route }: Props) => {
       setBtnBgColor(COLORS.light.primary)
       setErrorText('')
     } else {
-      setBtnBgColor(COLORS.light.primaryDisabled)
+      setBtnBgColor(COLORS.light.disabled)
     }
   }
 
@@ -61,7 +62,7 @@ const AuthEmail = ({ navigation, route }: Props) => {
               <MaterialIcons
                 name={"arrow-back-ios"}
                 size={24}
-                color={COLORS.light.secondary}
+                color={COLORS.light.blackLight}
               />
             </TouchableOpacity>
             {/* Skip button */}
@@ -70,7 +71,10 @@ const AuthEmail = ({ navigation, route }: Props) => {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.formTitle}>Email address</Text>
+          <View style={styles.formTitleWrapper}>
+            <Text style={styles.formTitle}>{"Email \nAddress"}</Text>
+            <CircularProgress icon={"phone"} progress={12} size={70} />
+          </View>
 
           <Text style={styles.formSubtitle}>Almost done! Please enter a valid email address that we can use to reach you</Text>
           <Input
@@ -92,7 +96,6 @@ const AuthEmail = ({ navigation, route }: Props) => {
             textContentType="none"
           />
 
-          <View style={{ flex: 1 }} />
 
           <CustomButton
             bgColor={btnBgColor}

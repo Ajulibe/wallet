@@ -18,7 +18,7 @@ import { AuthDetail } from "../../models/AuthDetail";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
 export default function AuthEmail({ navigation, route }: Props) {
-  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
+  const [btnBgColor, setBtnBgColor] = useState(COLORS.light.disabled);
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [fNameErrorText, setFNameErrorText] = useState("");
@@ -42,10 +42,10 @@ export default function AuthEmail({ navigation, route }: Props) {
   // checking the inputs on text change 
   useEffect(() => {
     if (firstName == "") {
-      setBtnBgColor(COLORS.light.primaryDisabled);
+      setBtnBgColor(COLORS.light.disabled);
     } else if (lastName == "") {
       setFNameErrorText('')
-      setBtnBgColor(COLORS.light.primaryDisabled);
+      setBtnBgColor(COLORS.light.disabled);
     } else {
       setLNameErrorText('')
       setBtnBgColor(COLORS.light.primary);
@@ -86,12 +86,15 @@ export default function AuthEmail({ navigation, route }: Props) {
               <MaterialIcons
                 name={"arrow-back-ios"}
                 size={24}
-                color={COLORS.light.secondary}
+                color={COLORS.light.blackLight}
               />
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.formTitle}>Personal Info</Text>
+          <View style={styles.formTitleWrapper}>
+            <Text style={styles.formTitle}>{`Personal \nInfo`}</Text>
+            <CircularProgress icon={"phone"} progress={70} size={70} />
+          </View>
 
           <Text style={styles.formSubtitle}>We would use this as the name for your Surepay account</Text>
           <Input
@@ -132,7 +135,6 @@ export default function AuthEmail({ navigation, route }: Props) {
             textContentType="none"
           />
 
-          <View style={{ flex: 1 }} />
           <CustomButton
             bgColor={btnBgColor}
             textColor={COLORS.light.white}

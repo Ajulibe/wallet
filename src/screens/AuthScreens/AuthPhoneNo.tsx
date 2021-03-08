@@ -45,20 +45,21 @@ const AuthPhoneNo = ({ navigation }: Props) => {
    //on input text change handler
    let inputChangeHandler = (value: string) => {
       setPhoneNumber(value.toString());
+
       if (value.toString().length < 10) {
-         setBtnBgColor(COLORS.light.primaryDisabled);
+         setBtnBgColor(COLORS.light.disabled);
       } else {
          setBtnBgColor(COLORS.light.primary);
+         setErrorText("");
       }
    };
 
    //submit handler
    const onSubmit = () => {
       let phone = country.dial_code + parseInt(phoneNumber);
-
+      // google libphonenumber init
       const phoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
-      const number = phoneNumberUtil.parseAndKeepRawInput(phone, country.code); //with/or without leading zero
-
+      const number = phoneNumberUtil.parseAndKeepRawInput(phone, country.code);
       if (!phoneNumberUtil.isValidNumber(number)) {
          setErrorText("Enter a valid phone number");
       } else {
@@ -134,26 +135,14 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                   <MaterialIcons
                      name={"arrow-back-ios"}
                      size={24}
-                     color={COLORS.light.black}
+                     color={COLORS.light.blackLight}
                   />
                </TouchableOpacity>
             </View>
 
-            <View
-               style={{
-                  marginTop: "5%",
-                  width: "100%",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between"
-               }}
-            >
-               <View style={{ flex: 1 }}>
-                  <Text style={styles.formTitle}>Get Started</Text>
-               </View>
-               <View style={{ flex: 1, alignItems: "flex-end" }}>
-                  <CircularProgress icon={"phone"} progress={12} size={70} />
-               </View>
+            <View style={styles.formTitleWrapper}>
+               <Text style={styles.formTitle}>{"Get \nStarted"}</Text>
+               <CircularProgress icon={"phone"} progress={12} size={70} />
             </View>
             <Text style={styles.formSubtitle}>
                {`Enter your phone number to get started`}
@@ -203,13 +192,13 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                      maxLength={11}
                      textContentType="telephoneNumber"
                      style={[
+                        inputStyles.input,
                         {
                            color:
                               errorText != ""
                                  ? COLORS.light.inputTextError
                                  : COLORS.light.inputText
-                        },
-                        inputStyles.input
+                        }
                      ]}
                   />
                </View>
@@ -220,6 +209,10 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                   <Text style={inputStyles.errorText}>{errorText}</Text>
                </View>
             )}
+
+            <Text style={styles.inputLabel}>
+               This number will be used as your account number
+            </Text>
 
             <CustomButton
                bgColor={isLoading ? COLORS.light.disabled : btnBgColor}

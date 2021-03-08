@@ -53,6 +53,7 @@
     "react-native-safe-area-context": "3.1.9",
     "react-native-scalable-image": "^1.1.0",
     "react-native-screens": "~2.15.0",
+    "react-native-snackbar": "^2.4.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.0",
     "react-native-switch": "^2.0.0",

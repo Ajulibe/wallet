@@ -15,15 +15,9 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { CheckBox } from 'react-native-elements';
 import { STORAGE_KEYS } from '../../utils/StorageKeys';
-import { AuthDetail } from '../../models/AuthDetail';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-//redux wahala
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/reducers/RootReducer";
-import { registerUser } from "../../store/actions/AuthActions";
-import { UserInterface } from "../../store/types/AuthTypes";
-import { CountryData } from '../../extra/CountryData';
+import CircularProgress from '../../components/CircularProgress';
 
 const CELL_COUNT = 4;
 
@@ -42,13 +36,6 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
 
   //CHECKING IF FINGER PRINT AUTHENTICATION WAS SETUP/ACTIVATED ON THE USER's DEVICE
   const [isFingerPrintActive, setIsFingerPrintActive] = useState(false)
-
-  //REDUCER DISPATCH
-  const dispatch = useDispatch();
-  const { user, error, loading, success } = useSelector(
-    (state: RootState) => state.user
-  );
-
 
 
   //PIN CODE INPUT LISTENER
@@ -115,24 +102,11 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
       setErrorText('Pin mismatch')
     } else if (pinValue === pinValueConfirm && pinValue != "") {
       authDetail.userPin = pinValue
-      authDetail.phoneNo = CountryData.nigPhoneFormat(authDetail.phoneNo!)
-      //dispatching to the user
-      dispatch(registerUser({ authDetail: authDetail }));
+      navigation.navigate(ROUTES.AUTH_SELECT_BANK, { authDetail: authDetail })
     } else {
       setErrorText('Enter your pin')
     }
   }
-
-  useEffect(() => {
-    if (success) {
-      if (user.phoneNumber != "") {
-        AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
-        AsyncStorage.setItem(STORAGE_KEYS.UUID, String(user.uuid));
-        // navigate the next screen 
-        navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
-      }
-    }
-  })
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' >
@@ -152,23 +126,23 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
               <MaterialIcons
                 name={"arrow-back-ios"}
                 size={24}
-                color={COLORS.light.secondary}
+                color={COLORS.light.blackLight}
               />
             </TouchableOpacity>
           </View>
-          <Text style={styles.formTitle}>{`Create Pin`}</Text>
+          <View style={styles.formTitleWrapper}>
+            <Text style={styles.formTitle}>{"Create \nPin"}</Text>
+            <CircularProgress icon={"phone"} progress={12} size={70} />
+          </View>
 
           <Text style={styles.formSubtitle}>{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>
 
-          <Text style={[styles.inputLabel, { textAlign: 'left' }]}>Enter Pin</Text>
+          <Text style={[styles.inputLabelTop, { textAlign: 'left' }]}>Enter Pin</Text>
           <PinInput cellCount={CELL_COUNT} onTextInputChange={pinInputChangeHandler} errorText={errorText} />
 
-          <Text style={[styles.inputLabel, { textAlign: 'left' }]}>Confirm Pin</Text>
+          <Text style={[styles.inputLabelTop, { textAlign: 'left' }]}>Confirm Pin</Text>
           <PinInput cellCount={CELL_COUNT} onTextInputChange={pinConfirmInputChangeHandler} errorText={errorText} />
 
-          <Text style={{ color: COLORS.light.red, display: error ? 'flex' : 'none' }}>
-            {error}
-          </Text>
 
 
           <CheckBox
@@ -182,13 +156,10 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
             onPress={() => onSwitchChange()}
           />
 
-          <View style={{ flex: 1 }} />
-
           <CustomButton
-            bgColor={loading ? COLORS.light.primaryDisabled : btnBgColor}
+            bgColor={btnBgColor}
             textColor={COLORS.light.white}
-            isLoading={loading ? true : false}
-            btnText={"Finish"}
+            btnText={"Continue"}
             onClick={onSubmit}
           />
         </View>
