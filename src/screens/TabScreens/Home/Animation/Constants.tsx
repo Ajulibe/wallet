@@ -45,7 +45,7 @@ export const headerTitleOpacity = (scroll: Animated.Value) => {
 
 export const heroTitleOpacity = (scroll: Animated.Value) => {
    const heroTitleOpacity = scroll.interpolate({
-      inputRange: [0, hp("12%")],
+      inputRange: [0, hp("2%")],
       outputRange: [1, 0],
       extrapolate: "clamp",
       easing: Easing.linear

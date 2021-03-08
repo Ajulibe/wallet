@@ -92,32 +92,6 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
       );
    }
 
-   //PAGINATION
-   pagination() {
-      const { carouselItems, activeIndex } = this.state;
-      return (
-         <Pagination
-            dotsLength={carouselItems.length}
-            activeDotIndex={activeIndex}
-            containerStyle={{ backgroundColor: "rgba(255, 255, 255, 0.92)" }}
-            dotStyle={{
-               width: 10,
-               height: 10,
-               borderRadius: 5,
-               marginHorizontal: 8,
-               backgroundColor: "#EA5F33"
-            }}
-            inactiveDotStyle={
-               {
-                  // Define styles for inactive dots here
-               }
-            }
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-         />
-      );
-   }
-
    render() {
       // Destruct navigation from props
       const { navigation } = this.props;

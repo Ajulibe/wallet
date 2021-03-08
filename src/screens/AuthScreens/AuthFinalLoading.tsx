@@ -28,7 +28,7 @@ import Snackbar from "react-native-snackbar";
 
 type Props = StackScreenProps<
   AuthStackParamList,
-  ROUTES.AUTH_GET_STARTED_SCREEN
+  ROUTES.AUTH_FINAL_LOADING_SCREEN
 >;
 type State = {
   activeIndex: any;
