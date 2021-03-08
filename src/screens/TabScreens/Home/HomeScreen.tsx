@@ -153,9 +153,10 @@ const styles = StyleSheet.create({
    bottomView: {
       backgroundColor: "#ffffff",
       paddingTop: hp("1%"),
-      position: "absolute",
-      bottom: 0,
-      left: 0
+      // position: "absolute",
+      // bottom: 0,
+      // left: 0
+      flex: 0.8
    },
    scrollViewStyle: {
       width: wp("90%"),

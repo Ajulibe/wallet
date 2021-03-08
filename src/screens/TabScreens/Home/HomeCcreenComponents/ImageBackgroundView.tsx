@@ -64,7 +64,7 @@ const HomeScreen: React.FC<Props> = ({
                <View
                   style={[
                      styles.contentContainer,
-                     { backgroundColor: COLORS.light.tint }
+                     { backgroundColor: COLORS.light.secondary }
                   ]}
                >
                   <View style={styles.contentSubContainer}>
@@ -155,30 +155,6 @@ const HomeScreen: React.FC<Props> = ({
                <Text style={styles.newRewards}>Total Balance</Text>
                <Text style={styles.balanceAmount}>{"\u20A6"} 00.00</Text>
             </Animated.View>
-            {/* <Animated.View
-               style={[
-                  styles.mainHeadingContainer,
-                  { opacity: rewardsTitleOpacity(scrollY) }
-               ]}
-            >
-               <View style={styles.mainRewardsContainer}>
-                  <View
-                     style={[
-                        styles.mainRewardsContainer,
-                        {
-                           width: wp("27%")
-                        }
-                     ]}
-                  >
-                     <Image
-                        source={require("../../../../assets/images/gift.png")}
-                        style={styles.giftImage}
-                     />
-                     <Text style={styles.newRewards}>New Rewards</Text>
-                  </View>
-                  <Text style={styles.newRewards}>0</Text>
-               </View>
-            </Animated.View> */}
          </ImageBackground>
       </Animated.View>
    );

@@ -14,7 +14,7 @@ export default {
       black: "#000",
       blackLight: "#52616E",
       background: "#fff",
-      tint: "SE",
+      tint: "#e4e4e4",
       red: "#EB5757",
       green: "#6FCF97",
 
@@ -27,7 +27,7 @@ export default {
       inputText: "#5b5b5b",
       inputTextError: "rgba(126,126,126,.9)",
       fadedSecondary: "rgba(255,87,1,0.4)",
-      lighterdisabled: "rgba(112,112,112,0.05)"
+      lighterdisabled: "rgba(112,112,112,0.2)"
    },
    dark: {
       text: "#fff",
