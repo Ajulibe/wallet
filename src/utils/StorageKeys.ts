@@ -1,6 +1,6 @@
 
 export const STORAGE_KEYS = {
-    UUID: 'uuid',
+    USER: 'user',
     PHONE_NUMBER: 'phoneNumber',
 }
 

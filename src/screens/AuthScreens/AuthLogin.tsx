@@ -6,6 +6,7 @@ import {
     ScrollView,
     StatusBar,
     Image,
+    StyleSheet
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import OtpCodeInput from "../../components/OtpCodeInput";
@@ -16,9 +17,13 @@ import IMAGES from "../../utils/Images";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import styles from "../../components/css/AuthFormCss";
 import UTILITIES from "../../utils/Utilities";
-import CryptoJS from 'crypto-js'
+import CryptoJS from "crypto-js";
 import COLORS from "../../utils/Colors";
 import aesjs from "aes-js";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 import bcrypt from "bcrypt";
 import { AuthDetail } from "../../models/AuthDetail";
 import { CountryData } from "../../extra/CountryData";
@@ -28,6 +33,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/reducers/RootReducer";
 import { loginUser } from "../../store/actions/AuthActions";
 import { UserInterface } from "../../store/types/AuthTypes";
+import { TextInput } from "react-native-gesture-handler";
+import { CountryPicker } from "../../components/CountryPicker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import STORAGE_KEYS from "../../utils/StorageKeys";
+import InputPin from "../../components/InputPin";
+import libphonenumber from "google-libphonenumber";
+import InputPhoneNumber from "../../components/InputPhoneNumber";
 
 type Props = StackScreenProps<
     AuthStackParamList,
@@ -36,55 +48,83 @@ type Props = StackScreenProps<
 
 const CELL_COUNT = 4;
 const AuthLogin = ({ navigation }: Props) => {
-    const [btnBgColor, setBtnBgColor] = useState(COLORS.light.primaryDisabled);
-    const [isLoading, setIsLoading] = useState(false);
+    const [btnBgColor, setBtnBgColor] = useState(COLORS.light.disabled);
+
+    const [loggedUser, setLoggedUser] = useState({} as UserInterface); //initial phone no. stored in the async storage
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [otpCode, setPinCode] = useState("");
-    const [errorText, setErrorText] = useState("");
 
-    //OTP CODE INPUT TEXT CHANGE LISTENER
-    let otpInputChangeHandler = useCallback((value) => {
-        setBtnBgColor(COLORS.light.primaryDisabled);
-
-        const otp = value.toString();
-        setPinCode(value);
-        if (otp.length != 5) {
-            setBtnBgColor(COLORS.light.primaryDisabled);
-        } else {
-            setErrorText("");
-            setBtnBgColor(COLORS.light.primary);
-        }
-    }, []);
+    const [phoneErrorText, setPhoneErrorText] = useState("");
+    const [pinErrorText, setPinErrorText] = useState("");
+    // country data
+    const [openCountry, setOpenCountry] = useState(false); //couhntry show/hide listener
+    const [country, setCountry] = useState(CountryData.africaCountries[0]);
 
     //REDUCER DISPATCH
     const dispatch = useDispatch();
-    const { user, error, loading } = useSelector(
+    const { user, error, loading, success } = useSelector(
         (state: RootState) => state.user
     );
+    //check async storage for phone no & user details
+    useEffect(() => {
+        AsyncStorage.getItem(STORAGE_KEYS.USER).then((u) => setLoggedUser(JSON.parse(u!)));
+        AsyncStorage.getItem(STORAGE_KEYS.PHONE_NUMBER).then((no) => {
+            if (phoneNumber == "")
+                setPhoneNumber(no!)
+        });
+    }, []);
+    // Btn bg color based on the input
+    useEffect(() => {
+        if (phoneNumber.length < 10) {
+            setBtnBgColor(COLORS.light.disabled);
+        } else if (otpCode.length != CELL_COUNT) {
+            setPhoneErrorText('')
+            setBtnBgColor(COLORS.light.disabled);
+        } else {
+            setPinErrorText('')
+            setBtnBgColor(COLORS.light.primary);
+        }
+    }, [phoneNumber, otpCode]);
 
     // on submit click handler
     let onSubmit = () => {
-        if (otpCode == "") {
-            setErrorText("Enter your pin");
+        let phone = country.dial_code + parseInt(phoneNumber);
+        // google libphonenumber init
+        const phoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
+        const number = phoneNumberUtil.parseAndKeepRawInput(phone, country.code);
+        if (!phoneNumberUtil.isValidNumber(number)) {
+            setPhoneErrorText("Enter a valid phone number");
+        } else if (otpCode == "") {
+            setPhoneErrorText('')
+            setPinErrorText("Enter your pin");
         } else if (otpCode.length != CELL_COUNT) {
-            setErrorText(`Enter ${CELL_COUNT} digit pin to proceed`);
+            setPinErrorText(`Enter ${CELL_COUNT} digit pin to proceed`);
         } else {
-            login();
+            setPhoneErrorText('')
+            setPinErrorText('')
+            login(phone);
         }
     };
 
     //otp submit handler
-    const login = () => {
-        setIsLoading(true);
-        //dispatching to the user
-        dispatch(loginUser({ PhoneNumber: '08066184545', pin: '1111' }));
-        if (user.phoneNumber != "") {
-            console.log('User don login ooooooo!!!!!!!');
-        }
+    const login = (phone: string) => {
+
+        let nigPhone = CountryData.nigPhoneFormat(phone!);
+        //dispatching login to the user
+        dispatch(loginUser({ PhoneNumber: nigPhone, pin: otpCode }));
     };
 
+    // listening to redux events
     useEffect(() => {
-        // encrypt_decrypt3()
-    })
+        if (success) {
+            if (user.phoneNumber != "") {
+                AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
+                AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+                // navigate the next screen
+                navigation.navigate(ROUTES.NEW_HOME_TAB);
+            }
+        }
+    }, [success]);
 
     const encrypt_decrypt1 = () => {
         // An example 128-bit key
@@ -94,7 +134,7 @@ const AuthLogin = ({ navigation }: Props) => {
         var iv = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
 
         // Convert text to bytes (text must be a multiple of 16 bytes)
-        var text = 'TextMustBe16Byte';
+        var text = "TextMustBe16Byte";
         var textBytes = aesjs.utils.utf8.toBytes(text);
 
         var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
@@ -117,7 +157,7 @@ const AuthLogin = ({ navigation }: Props) => {
         var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
         console.log(decryptedText);
         // "TextMustBe16Byte"
-    }
+    };
 
     const encrypt_decrypt2 = () => {
         var encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase");
@@ -125,61 +165,76 @@ const AuthLogin = ({ navigation }: Props) => {
 
         var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
         //4d657373616765
-    }
-    const encrypt_decrypt3 = () => {
-
-    }
+    };
     return (
-        <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
-            keyboardShouldPersistTaps="handled"
-        >
-            <View style={styles.wrapper}>
-                <StatusBar backgroundColor={COLORS.light.white} />
-                <View style={styles.overlayWrapper}>
-                    <Image
-                        source={IMAGES["top-overlay-white"]}
-                        style={styles.overlayImage}
-                    />
-                </View>
-
-                <View style={styles.container}>
-                    <View>
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <MaterialIcons
-                                name={"arrow-back-ios"}
-                                size={24}
-                                color={COLORS.light.secondary}
-                            />
-                        </TouchableOpacity>
-                    </View>
-
-                    <Text style={styles.formTitle}>Welcome back, Ray!</Text>
-                    <Text style={styles.formSubtitle}>
-                        Enter your pin to continue or use your fingerprint.
-                        {/* {JSON.stringify(user)}=={JSON.stringify(loading)}=={JSON.stringify(error)} */}
-                    </Text>
-
-                    {/* custom otp plugin   */}
-                    <OtpCodeInput
-                        cellCount={CELL_COUNT}
-                        onTextInputChange={otpInputChangeHandler}
-                        pinVisible={true}
-                        errorText={errorText}
-                    />
-
-                    <View style={{ flex: 1 }} />
-                    {/* continue btn  */}
-                    <CustomButton
-                        bgColor={isLoading ? COLORS.light.primaryDisabled : btnBgColor}
-                        textColor={COLORS.light.white}
-                        btnText={"Continue"}
-                        isLoading={isLoading}
-                        onClick={() => onSubmit()}
-                    />
-                </View>
+        <View style={styles.wrapper}>
+            <CountryPicker
+                initialSnap={openCountry ? 0 : 1}
+                onClose={() => setOpenCountry(false)}
+                current={country}
+                onCountryChange={(newCountry) => setCountry(newCountry)}
+            />
+            <StatusBar backgroundColor={COLORS.light.white} />
+            <View style={styles.overlayWrapper}>
+                <Image
+                    source={IMAGES["top-overlay-white"]}
+                    style={styles.overlayImage}
+                />
             </View>
-        </ScrollView>
+
+            <View style={styles.container}>
+                <View>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialIcons
+                            name={"arrow-back-ios"}
+                            size={24}
+                            color={COLORS.light.black}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.formTitleWrapper}>
+                    <Text style={styles.formTitle}>{`Welcome back, \n${loggedUser.firstName}!`}</Text>
+                </View>
+                <Text style={styles.formSubtitle}>
+                    Login to your account.
+               {/* {JSON.stringify(user)}=={JSON.stringify(loading)}=={JSON.stringify(error)} */}
+                </Text>
+
+                <Text style={[styles.inputLabelTop, { textAlign: "left" }]}>
+                    Phone Number
+            </Text>
+                <InputPhoneNumber
+                    country={country}
+                    onTextInputChange={(v) => setPhoneNumber(v)}
+                    openCountryModal={(isS) => setOpenCountry(isS)}
+                    errorText={phoneErrorText}
+                    initialValue={phoneNumber}
+                    onSubmit={onSubmit}
+                />
+                {/* custom otp plugin   */}
+                <Text style={[styles.inputLabelTop, { textAlign: "left" }]}>
+                    Enter your Pin
+            </Text>
+                <InputPin
+                    cellCount={CELL_COUNT}
+                    onTextInputChange={(pin) => setPinCode(pin!.toString())}
+                    errorText={pinErrorText}
+                />
+                <Text style={{ color: COLORS.light.red, display: error ? 'flex' : 'none' }}>
+                    {error}
+                </Text>
+
+                {/* continue btn  */}
+                <CustomButton
+                    bgColor={loading ? COLORS.light.disabled : btnBgColor}
+                    textColor={COLORS.light.white}
+                    btnText={"Login"}
+                    isLoading={loading!}
+                    onClick={() => onSubmit()}
+                />
+            </View>
+        </View>
     );
 };
 

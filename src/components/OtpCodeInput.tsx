@@ -46,7 +46,7 @@ const OtpCodeInput = ({
          <Text
             style={{
                fontFamily: "Inter-Regular",
-               color: COLORS.light.inputText
+               color: COLORS.light.inputPlaceholder
             }}
          >
             0
@@ -58,7 +58,7 @@ const OtpCodeInput = ({
             <Text
                style={{
                   fontSize: 24,
-                  fontWeight: "700",
+                  fontFamily: "Inter-Bold",
                   color: COLORS.light.inputText,
                   textAlignVertical: "center"
                }}
@@ -77,7 +77,6 @@ const OtpCodeInput = ({
             key={index}
             style={[
                styles.cell,
-               cellCount > 4 && styles.cell6Cell,
                isFocused && styles.focusCell,
                errorText?.length != 0 && styles.errorCell
             ]}
@@ -133,9 +132,9 @@ const styles = StyleSheet.create({
       // marginTop: 8
    },
    cell: {
-      width: 50,
-      height: 50,
-      lineHeight: 44,
+      width: wp('13.3%'),
+      height: wp('13.3%'),
+      lineHeight: wp('13.3%'),
       fontSize: 24,
       borderRadius: 4,
       // borderColor: COLORS.light.inputBorder,
@@ -144,18 +143,13 @@ const styles = StyleSheet.create({
       backgroundColor: COLORS.light.inputBg,
       textAlign: "center"
    },
-   cell6Cell: {
-      width: wp("16%"),
-      height: wp("16%"),
-      lineHeight: wp("16%"),
-      fontSize: 25
-   },
    focusCell: {
       borderColor: COLORS.light.secondary,
       borderWidth: 2
    },
    errorCell: {
-      borderColor: COLORS.light.red
+      borderColor: COLORS.light.inputBorderError,
+      backgroundColor: COLORS.light.inputBgError
    },
    errorContainer: {
       marginVertical: 0

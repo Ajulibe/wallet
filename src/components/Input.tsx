@@ -140,7 +140,7 @@ const Input: React.FC<Props> = (props) => {
         onChangeText={textChangeHandler}
         // onBlur={lostFocusHandler}
         onSubmitEditing={() =>
-          onSubmit(id, inputState.value, inputState.isValid)
+          onSubmit()
         }
       />
       {props.errorText != "" && (inputState.touched || isTouched) && (

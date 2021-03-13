@@ -31,6 +31,7 @@ import { AuthDetail } from "../../models/AuthDetail";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import STORAGE_KEYS from "../../utils/StorageKeys";
 import CircularProgress from "../../components/CircularProgress";
+import InputPhoneNumber from "../../components/InputPhoneNumber";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_PHONE_NO_SCREEN>;
 
@@ -89,12 +90,6 @@ const AuthPhoneNo = ({ navigation }: Props) => {
       });
    };
 
-   // useEffect(() => {
-   //   AsyncStorage.getItem(STORAGE_KEYS.PHONE_NUMBER).then((value) => {
-   //     console.log(value);
-   //   })
-   // })
-
    return (
       // <ScrollView
       //   contentContainerStyle={{ flexGrow: 1 }}
@@ -148,67 +143,14 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                {`Enter your phone number to get started`}
             </Text>
 
-            <View
-               style={[
-                  inputStyles.formControl,
-                  {
-                     backgroundColor:
-                        errorText != ""
-                           ? COLORS.light.inputBgError
-                           : COLORS.light.inputBg,
-                     borderColor:
-                        errorText != ""
-                           ? COLORS.light.red
-                           : COLORS.light.inputBorder
-                  }
-               ]}
-            >
-               <TouchableOpacity onPress={() => setOpenCountry(true)}>
-                  <View style={inputStyles.countryCodeWrapper}>
-                     <Text
-                        style={{
-                           fontSize: wp("5%"),
-                           fontFamily: "Inter-Regular",
-                           color: COLORS.light.inputText
-                        }}
-                     >
-                        {country.dial_code}
-                     </Text>
-                     <MaterialIcons
-                        name={"keyboard-arrow-down"}
-                        size={24}
-                        color={COLORS.light.inputText}
-                     />
-                  </View>
-               </TouchableOpacity>
-               <View>
-                  <TextInput
-                     placeholder="803 926 8250"
-                     keyboardType="number-pad"
-                     autoCapitalize="sentences"
-                     autoCorrect={false}
-                     onChangeText={inputChangeHandler}
-                     onSubmitEditing={() => onSubmit()}
-                     maxLength={11}
-                     textContentType="telephoneNumber"
-                     style={[
-                        inputStyles.input,
-                        {
-                           color:
-                              errorText != ""
-                                 ? COLORS.light.inputTextError
-                                 : COLORS.light.inputText
-                        }
-                     ]}
-                  />
-               </View>
-            </View>
-
-            {errorText != "" && (
-               <View style={inputStyles.errorContainer}>
-                  <Text style={inputStyles.errorText}>{errorText}</Text>
-               </View>
-            )}
+            <InputPhoneNumber
+               country={country}
+               onTextInputChange={inputChangeHandler}
+               openCountryModal={(isS) => setOpenCountry(isS)}
+               errorText={errorText}
+               initialValue={phoneNumber}
+               onSubmit={onSubmit}
+            />
 
             <Text style={styles.inputLabel}>
                This number will be used as your account number
@@ -228,40 +170,3 @@ const AuthPhoneNo = ({ navigation }: Props) => {
 };
 
 export default AuthPhoneNo;
-
-const inputStyles = StyleSheet.create({
-   formControl: {
-      width: "100%",
-      borderWidth: 0.2,
-      borderRadius: 4,
-      flexDirection: "row",
-      alignItems: "center",
-      backgroundColor: COLORS.light.inputBg,
-      borderColor: COLORS.light.inputBorder
-   },
-   countryCodeWrapper: {
-      flexDirection: "row",
-      alignItems: "center",
-      borderRightColor: "rgba(0,63,136,0.1)",
-      borderRightWidth: 1,
-      paddingHorizontal: wp("2.2%"),
-      paddingVertical: hp("2%")
-   },
-   input: {
-      flex: 1,
-      fontSize: wp("5%"),
-      fontFamily: "Inter-Regular",
-      paddingHorizontal: wp("5.6%"),
-      paddingVertical: hp("2%"),
-      color: COLORS.light.black
-   },
-   errorContainer: {
-      marginVertical: 0
-   },
-   errorText: {
-      marginTop: hp("1%"),
-      fontFamily: "Inter-Regular",
-      color: COLORS.light.red,
-      fontSize: wp("3.5%")
-   }
-});

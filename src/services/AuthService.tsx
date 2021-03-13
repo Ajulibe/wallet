@@ -19,6 +19,7 @@ export class AuthService {
             "verify_id": authDetail.verifyId,
             "phone_number": authDetail.phoneNo,
             "email": authDetail.emailAddress,
+            // "bank_code": authDetail.bankCode,
             "meta": {
                 "device_type": Platform.OS,//ios or android
                 "ip-adress": "8.8.8.8"
@@ -32,7 +33,7 @@ export class AuthService {
             .then((result) => result.json())
             .then((response) => {
 
-                if (String(response.success) && String(response.status) == '201') {
+                if (String(response.success) === 'true') {
                     let user = response.data.user;
                     let tokens = response.data.tokens;
 
@@ -48,6 +49,12 @@ export class AuthService {
                         accessTokenExpires: tokens.access.expires,
                         refreshToken: tokens.refresh.token,
                         refreshTokenExpires: tokens.refresh.expires,
+                        bank: {
+                            bankCode: "005",
+                            bankName: "GTBank",
+                            accountName: `${user.first_name} ${user.last_name}`,
+                            accountNumber: "2349084312"
+                        }
                     };
 
                     responseData = userData;
@@ -67,7 +74,6 @@ export class AuthService {
             "pin": pin,
             "phone_number": phoneNumber,
         }
-        console.log();
 
         let responseData: any = null
         await fetch(
@@ -76,12 +82,8 @@ export class AuthService {
         )
             .then((result) => result.json())
             .then((response) => {
-                console.log(`\n\nLogin Starts-------`);
-                console.log(response);
-                console.log("Login Ends---------");
 
-
-                if (String(response.success) && String(response.status) == '201') {
+                if (String(response.success) === 'true') {
                     let user = response.data.user;
                     let tokens = response.data.tokens;
 
@@ -97,6 +99,12 @@ export class AuthService {
                         accessTokenExpires: tokens.access.expires,
                         refreshToken: tokens.refresh.token,
                         refreshTokenExpires: tokens.refresh.expires,
+                        bank: {
+                            bankCode: "005",
+                            bankName: "GTBank",
+                            accountName: `${user.first_name} ${user.last_name}`,
+                            accountNumber: "2349084312"
+                        }
                     };
 
                     responseData = userData;

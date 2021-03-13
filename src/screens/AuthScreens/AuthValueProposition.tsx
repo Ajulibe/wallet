@@ -70,6 +70,7 @@ class AuthValueProposition extends React.PureComponent<Props> {
                             text={<Text style={styles.rowItemText}><Text style={styles.rowItemBold}>Transfer to</Text> your friends for free</Text>}
                         />
 
+                        {/* <View style={{ flex: 1 }} /> */}
                         <CustomButton
                             bgColor={COLORS.light.primary}
                             textColor={COLORS.light.white}
@@ -108,7 +109,7 @@ function RowItem({
 }) {
     return (
         <View style={styles.rowItem}>
-            {/* <Image source={imgSrc} style={styles.icon} /> */}
+            <Image source={imgSrc} style={styles.icon} />
             {text}
         </View>
     );

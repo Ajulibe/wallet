@@ -19,6 +19,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { SvgUri } from 'react-native-svg';
 
 interface Props {
   initialSnap: number;
@@ -82,6 +83,12 @@ export function CountryPicker(props: Props) {
   }) => (
     <TouchableOpacity onPress={() => { props.onCountryChange(country); props.onClose() }}>
       <View style={styles.countryItem}>
+        <SvgUri
+          width="30px"
+          height="30px"
+          style={styles.countryFlag}
+          uri={country.flag}
+        />
         <Text
           style={[
             styles.countryText,
@@ -160,9 +167,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     paddingVertical: 6,
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
+    alignItems: 'center',
     marginVertical: hp("1.35%"),
     zIndex: 2
+  },
+  countryFlag: {
+    width: '30',
+    height: '30',
+    borderRadius: 50,
   },
   countryText: {
     fontSize: wp("4.26%"),

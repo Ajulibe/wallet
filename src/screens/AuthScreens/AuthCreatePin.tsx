@@ -131,7 +131,7 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
         </View>
         <View style={styles.formTitleWrapper}>
           <Text style={styles.formTitle}>{"Create \nPin"}</Text>
-          <CircularProgress icon={"lock"} progress={12} size={64} iconType={"MaterialIcons"} />
+          <CircularProgress icon={"lock"} progress={64} size={60} iconType={"MaterialIcons"} />
         </View>
 
         <Text style={styles.formSubtitle}>{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>

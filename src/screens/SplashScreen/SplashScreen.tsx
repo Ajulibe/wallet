@@ -24,7 +24,7 @@ export default function SplashScreen({ navigation }: Props) {
 
       <View style={styles.wrapper}>
          <StatusBar
-            backgroundColor={COLORS.light.secondary}
+            backgroundColor={COLORS.light.white}
             barStyle={"light-content"}
          />
          <View style={styles.overlayWrapper}>

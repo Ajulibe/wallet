@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   Image,
   Text,
-  Dimensions,
+  Clipboard,
   TouchableOpacity,
-  ImageSourcePropType,
   StatusBar
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
@@ -24,139 +23,153 @@ import * as Animatable from "react-native-animatable";
 import CircularProgress from "../../components/CircularProgress";
 import authStyles from "../../components/css/AuthFormCss";
 import { MaterialIcons } from "@expo/vector-icons";
-import Snackbar from "react-native-snackbar";
+import { Snackbar } from "react-native-paper";
+// import Clipboard from "@react-native-community/clipboard";
+//redux wahala
+import { useSelector, } from "react-redux";
+import { RootState } from "../../store/reducers/RootReducer";
 
 type Props = StackScreenProps<
   AuthStackParamList,
   ROUTES.AUTH_FINAL_LOADING_SCREEN
 >;
 type State = {
-  activeIndex: any;
-  flicker: boolean;
-  carouselItems: any;
+  showSnackBar: boolean;
 };
 
-class AuthGetStarted extends React.PureComponent<Props, State> {
+const AuthGetStarted = ({ navigation, route }: Props) => {
   // Define your state for your component.
-  constructor(props: Props) {
-    super(props);
-  }
+  const [showSnackBar, setShowSnackBar] = useState(false);
+
+  //REDUCER DISPATCH
+  const { user } = useSelector((state: RootState) => state.user);
+
   // @ts-ignore
-  copyAccNo = () => {
-    // Snackbar.show({
-    //   text: "Account Number Copied",
-    //   duration: Snackbar.LENGTH_SHORT,
-    //   action: {
-    //     text: "CLOSE",
-    //     textColor: "green",
-    //     onPress: () => {
-    //       /* Do something. */
-    //     }
-    //   }
-    // });
+  const copyAccNo = () => {
+    Clipboard.setString(String(user.bank?.accountNumber));
+
+    setShowSnackBar(true);
+    setTimeout(() => {
+      if (showSnackBar) setShowSnackBar(false);
+    }, 3000);
   };
 
-  render() {
-    // Destruct navigation from props
-    const { navigation } = this.props;
-
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={styles.wrapper}>
-          <StatusBar
-            backgroundColor={COLORS.light.secondary}
-            barStyle={"light-content"}
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={styles.wrapper}>
+        <StatusBar
+          backgroundColor={COLORS.light.secondary}
+          barStyle={"light-content"}
+        />
+        <View style={styles.overlayWrapper}>
+          <Image
+            source={IMAGES["top-overlay-dark2"]}
+            style={styles.overlayImage}
           />
-          <View style={styles.overlayWrapper}>
-            <Image
-              source={IMAGES["top-overlay-dark2"]}
-              style={styles.overlayImage}
-            />
+        </View>
+
+        <View style={styles.container}>
+          <View style={{ flexDirection: "row" }}>
+            {/* Back Button */}
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <MaterialIcons
+                name={"arrow-back-ios"}
+                size={24}
+                color={COLORS.light.blackLight}
+              />
+            </TouchableOpacity>
           </View>
 
-          <View style={styles.container}>
-            <View style={{ flexDirection: "row" }}>
-              {/* Back Button */}
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialIcons
-                  name={"arrow-back-ios"}
-                  size={24}
-                  color={COLORS.light.blackLight}
-                />
+          <View style={authStyles.formTitleWrapper}>
+            <Text style={authStyles.formTitle}>
+              {`Welcome, \n${user.firstName}`}
+            </Text>
+            <CircularProgress
+              icon={"check"}
+              progress={100}
+              size={60}
+              iconType={"FontAwesome5"}
+            />
+          </View>
+          <Text
+            style={authStyles.formSubtitle}
+          >{`Your personal wallet and account number is ready!!`}</Text>
+
+          <Animatable.View
+            key={0}
+            animation={"slideInRight"}
+            easing={"ease-out-cubic"}
+            duration={3000}
+            style={styles.cardWrapper}
+          >
+            <View style={styles.accountNameRow}>
+              <Text style={styles.accountNameText}>Account Number</Text>
+              <TouchableOpacity onPress={copyAccNo}>
+                <Ionicons name="ios-copy" size={24} color="#908989" />
               </TouchableOpacity>
             </View>
-
-            <View style={authStyles.formTitleWrapper}>
-              <Text style={authStyles.formTitle}>
-                {"Welcome, \nRay"}
-              </Text>
-              <CircularProgress icon={"check"} progress={100} size={60} iconType={"FontAwesome5"} />
+            <Text style={styles.accountNumberText}>
+              {user.bank?.accountNumber}
+            </Text>
+            <View style={styles.bankNameRow}>
+              <View style={styles.bankNameCol}>
+                <Text style={styles.bankNameTitle}>Account Name</Text>
+                <Text style={styles.bankNameText}>
+                  {user.bank?.accountName}
+                </Text>
+              </View>
+              <View style={styles.bankNameCol}>
+                <Text style={styles.bankNameTitle}>Bank</Text>
+                <Text style={styles.bankNameText}>
+                  {user.bank?.bankName}
+                </Text>
+              </View>
             </View>
-            <Text
-              style={authStyles.formSubtitle}
-            >{`Your personal wallet and account number is ready!!`}</Text>
+          </Animatable.View>
 
-            <Animatable.View
-              key={0}
-              animation={"slideInRight"}
-              easing={"ease-out-cubic"}
-              duration={3000}
-              style={styles.cardWrapper}
-            >
-              <View style={styles.accountNameRow}>
-                <Text style={styles.accountNameText}>
-                  Account Number
-                        </Text>
-                <TouchableOpacity onPress={this.copyAccNo}>
-                  <Ionicons
-                    name="ios-copy"
-                    size={24}
-                    color="#908989"
-                  />
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.accountNumberText}>00130928839</Text>
-              <View style={styles.bankNameRow}>
-                <View style={styles.bankNameCol}>
-                  <Text style={styles.bankNameTitle}>
-                    Account Name
-                           </Text>
-                  <Text style={styles.bankNameText}>John Doe</Text>
-                </View>
-                <View style={styles.bankNameCol}>
-                  <Text style={styles.bankNameTitle}>Bank</Text>
-                  <Text style={styles.bankNameText}> GTBank</Text>
-                </View>
-              </View>
-            </Animatable.View>
+          <Text style={[authStyles.inputLabel, { textAlign: "justify" }]}>
+            You can use this account number to make and recieve payments
+            nationwide across all banks in the country.
+               </Text>
 
-            <Text
-              style={[authStyles.inputLabel, { textAlign: "justify" }]}
-            >
-              You can use this account number to make and recieve
-              payments nationwide across all banks in the country.
-                  </Text>
-
-            <CustomButton
-              bgColor={COLORS.light.primary}
-              textColor={COLORS.light.white}
-              btnText={"Finish"}
-              onClick={() => navigation.navigate(ROUTES.NEW_HOME_TAB)}
-            />
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 20,
-                justifyContent: "center"
+          <CustomButton
+            bgColor={COLORS.light.primary}
+            textColor={COLORS.light.white}
+            btnText={"Finish"}
+            onClick={() => navigation.navigate(ROUTES.NEW_HOME_TAB)}
+          />
+          <View style={{ flex: 1 }} />
+          <View
+            style={{
+              alignItems: "center"
+            }}
+          >
+            <Snackbar
+              visible={showSnackBar}
+              onDismiss={() => setShowSnackBar(false)}
+              action={{
+                label: "CLOSE",
+                onPress: () => setShowSnackBar(false)
               }}
-            ></View>
+              style={{ backgroundColor: COLORS.light.black }}
+            >
+              <View>
+                <Text
+                  style={{
+                    color: COLORS.light.white,
+                    fontFamily: "Inter-Medium"
+                  }}
+                >
+                  Account Number Copied
+                        </Text>
+              </View>
+            </Snackbar>
           </View>
         </View>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 export default AuthGetStarted;
 

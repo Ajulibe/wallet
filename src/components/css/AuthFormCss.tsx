@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       marginBottom: hp("3.69%"),
       color: COLORS.light.light_black,
       display: "flex",
-      textAlign: "justify",
+      // textAlign: "justify",
       fontSize: wp("4.25%"),
       fontFamily: "Inter-Regular",
       lineHeight: hp("3.18%")

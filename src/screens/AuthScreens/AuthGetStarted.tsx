@@ -148,6 +148,7 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                   </View>
                   {/* </View> */}
 
+                  {/* <View style={{ flex: 1 }} /> */}
                   <CustomButton
                      bgColor={COLORS.light.primary}
                      textColor={COLORS.light.white}

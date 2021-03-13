@@ -58,10 +58,11 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
         } else if (bank.bankCode === undefined || Object.keys(bank).length === 0) {
             setErrorText('Select a bank')
         } else {
-            navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
-            // authDetail.phoneNo = CountryData.nigPhoneFormat(authDetail.phoneNo!)
-            // //dispatching to the user
-            // dispatch(registerUser({ authDetail: authDetail }));
+            // navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
+            authDetail.phoneNo = CountryData.nigPhoneFormat(authDetail.phoneNo!)
+            authDetail.bankCode = bank.bankCode
+            //dispatching to the user
+            dispatch(registerUser({ authDetail: authDetail }));
         }
     }
 
@@ -69,7 +70,7 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
         if (success) {
             if (user.phoneNumber != "") {
                 AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
-                AsyncStorage.setItem(STORAGE_KEYS.UUID, String(user.uuid));
+                AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
                 // navigate the next screen 
                 navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN)
             }

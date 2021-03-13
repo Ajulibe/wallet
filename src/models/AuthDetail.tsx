@@ -4,6 +4,7 @@ export class AuthDetail {
     firstName?: string;
     lastName?: string;
     emailAddress?: string;
+    bankCode?: string;
     userPin?: string;
     verifyId?: string;
 

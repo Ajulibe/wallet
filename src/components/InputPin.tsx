@@ -28,7 +28,7 @@ const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false,
     setValue,
   });
   const renderCell = ({ index, symbol, isFocused }: { index: number, symbol: string, isFocused: boolean }) => {
-    let textChild = <Text style={{ fontFamily: 'Inter-Regular', color: COLORS.light.inputText }}>0</Text>;
+    let textChild = <Text style={{ fontFamily: 'Inter-Regular', color: COLORS.light.inputPlaceholder }}>0</Text>;
 
     if (symbol) {
       textChild = (
@@ -43,7 +43,7 @@ const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false,
     return (
       <Text
         key={index}
-        style={[styles.cell, cellCount > 4 && styles.cell6Cell, isFocused && styles.focusCell, errorText?.length != 0 && styles.errorCell,]}
+        style={[styles.cell, isFocused && styles.focusCell, errorText?.length != 0 && styles.errorCell,]}
         onLayout={getCellOnLayoutHandler(index)}>
         {textChild}
       </Text>
@@ -88,20 +88,16 @@ export default InputPin;
 const styles = StyleSheet.create({
   container: {
     marginBottom: hp('2.69%'),
-    marginTop: 8
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 30
+    marginTop: 8,
   },
   codeFieldRoot: {
-    // marginBottom: 30, 
-    // marginTop: 8 
+    justifyContent: 'flex-start',
+    // alignSelf: 'center'
   },
   cell: {
-    width: 50,
-    height: 50,
-    lineHeight: 44,
+    width: wp('14.3%'),
+    height: wp('14.3%'),
+    lineHeight: wp('14.3%'),
     fontSize: 24,
     borderRadius: 4,
     // borderColor: COLORS.light.inputBorder,
@@ -109,19 +105,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: COLORS.light.inputBg,
     textAlign: 'center',
-  },
-  cell6Cell: {
-    width: wp('13%'),
-    height: wp('13%'),
-    lineHeight: wp('12%'),
-    fontSize: 22,
+    marginRight: wp('4%')
   },
   focusCell: {
     borderColor: COLORS.light.secondary,
     borderWidth: 2
   },
   errorCell: {
-    borderColor: COLORS.light.red,
+    borderColor: COLORS.light.inputBorderError,
+    backgroundColor: COLORS.light.inputBgError
   },
   errorContainer: {
     marginVertical: 0,

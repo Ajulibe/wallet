@@ -1,4 +1,10 @@
-import { ImageSourcePropType } from "react-native"
+
+interface Bank {
+    bankCode: string,
+    bankName?: string,
+    accountName: string,
+    accountNumber: string,
+}
 
 export interface UserInterface {
     id?: String,
@@ -12,6 +18,7 @@ export interface UserInterface {
     accessTokenExpires?: string,
     refreshToken?: string,
     refreshTokenExpires?: string,
+    bank?: Bank
 }
 
 //different operation types....

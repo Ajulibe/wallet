@@ -4,7 +4,6 @@ import { loading, failure } from './CommonActions';
 import { Action, ActionCreator } from 'redux';
 import { Dispatch } from 'react';
 import { AuthDetail } from '../../models/AuthDetail';
-import { PhoneNumber } from 'google-libphonenumber';
 
 
 //ACTIONS
