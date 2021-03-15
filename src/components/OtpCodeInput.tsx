@@ -46,7 +46,7 @@ const OtpCodeInput = ({
          <Text
             style={{
                fontFamily: "Inter-Regular",
-               color: COLORS.light.inputPlaceholder
+               color: "rgba(166,172,180,0.1)"
             }}
          >
             0
@@ -133,19 +133,18 @@ const styles = StyleSheet.create({
    },
    cell: {
       width: wp('13.3%'),
-      height: wp('13.3%'),
-      lineHeight: wp('13.3%'),
+      height: hp('5.91%'),
+      lineHeight: hp('5.91%'),
       fontSize: 24,
-      borderRadius: 4,
-      // borderColor: COLORS.light.inputBorder,
-      borderColor: "rgba(0,63,136,0.05)",
+      borderRadius: 2,
+      borderColor: COLORS.light.inputBorder,
       borderWidth: 1,
-      backgroundColor: COLORS.light.inputBg,
+      backgroundColor: COLORS.light.inputOtpBg,
       textAlign: "center"
    },
    focusCell: {
-      borderColor: COLORS.light.secondary,
-      borderWidth: 2
+      borderColor: COLORS.light.black2,
+      borderWidth: 1
    },
    errorCell: {
       borderColor: COLORS.light.inputBorderError,

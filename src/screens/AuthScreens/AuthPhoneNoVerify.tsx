@@ -20,6 +20,7 @@ import COLORS from "../../utils/Colors";
 import { AuthService } from "../../services/AuthService";
 import { CountryData } from "../../extra/CountryData";
 import CircularProgress from "../../components/CircularProgress";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 type Props = StackScreenProps<
    AuthStackParamList,
@@ -54,7 +55,6 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
 
    //OTP CODE INPUT TEXT CHANGE LISTENER
    let otpInputChangeHandler = useCallback((value) => {
-
       const otp = value.toString();
       setOtpCode(value);
       if (otp.length != 5) {
@@ -80,6 +80,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
    const verifyOtp = () => {
       setIsLoading(true);
       let nigPhone = CountryData.nigPhoneFormat(authDetail.phoneNo!);
+
       AuthService.verifyOtp({
          phoneNo: nigPhone,
          otpCode: otpCode,
@@ -120,28 +121,23 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
       >
          <View style={styles.wrapper}>
             <StatusBar backgroundColor={COLORS.light.white} />
-            <View style={styles.overlayWrapper}>
-               <Image
-                  source={IMAGES["top-overlay-white"]}
-                  style={styles.overlayImage}
-               />
-            </View>
 
             <View style={styles.container}>
-               <View>
+               <View style={styles.progressWrapper}>
                   <TouchableOpacity onPress={() => navigation.goBack()}>
                      <MaterialIcons
                         name={"arrow-back-ios"}
                         size={24}
-                        color={COLORS.light.blackLight}
+                        color={COLORS.light.black2}
                      />
                   </TouchableOpacity>
+                  <CircularProgress
+                     icon={"screen-lock-portrait"}
+                     progress={24}
+                     iconType={"MaterialIcons"}
+                  />
                </View>
-
-               <View style={styles.formTitleWrapper}>
-                  <Text style={styles.formTitle}>{`Verify \nNumber`}</Text>
-                  <CircularProgress icon={"screen-lock-portrait"} progress={24} size={60} iconType={"MaterialIcons"} />
-               </View>
+               <Text style={styles.formTitle}>{`Verify Phone Number`}</Text>
 
                <Text style={styles.formSubtitle}>
                   Please enter the 5-digit pin sent to
@@ -184,15 +180,28 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
                         <View
                            style={{
                               flexDirection: "row",
-                              alignItems: "center"
+                              // alignItems: "center",
+                              justifyContent: "flex-start"
                            }}
                         >
                            <View>
-                              <Text>Didnt get code?</Text>
+                              <Text style={styles.recentCodeText}>
+                                 Didnt get code?
+                              </Text>
                            </View>
                            <TouchableOpacity onPress={() => resendOtp()}>
-                              <Text style={[styles.secondaryButton, { marginTop: 0 }]}>
-                                 {" "}Resend Code
+                              <Text
+                                 style={[
+                                    styles.secondaryButton,
+                                    {
+                                       marginTop: 0,
+                                       fontFamily: "Inter-Regular",
+                                       lineHeight: heightPercentageToDP("2.95%")
+                                    }
+                                 ]}
+                              >
+                                 {" "}
+                                 Resend Code
                               </Text>
                            </TouchableOpacity>
                         </View>
@@ -204,9 +213,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
                <View style={{ height: 20 }} />
                {/* continue btn  */}
                <CustomButton
-                  bgColor={
-                     isLoading ? COLORS.light.disabled : btnBgColor
-                  }
+                  bgColor={isLoading ? COLORS.light.disabled : btnBgColor}
                   textColor={COLORS.light.white}
                   btnText={"Continue"}
                   isLoading={isLoading}

@@ -5,12 +5,14 @@ import {
   View,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+import { SvgUri } from "react-native-svg";
 import { CountryInterface } from "../extra/CountryData";
 import COLORS from "../utils/Colors";
 
@@ -24,11 +26,11 @@ interface Props {
 }
 
 const InputPhoneNumber = (props: Props) => {
-  const { errorText, country } = props;
+  const [borderColor, setBorderColor] = useState(COLORS.light.inputBorder)
 
+  const { errorText, country } = props;
   return (
     <View>
-
       <View
         style={[
           inputStyles.formControl,
@@ -40,51 +42,54 @@ const InputPhoneNumber = (props: Props) => {
             borderColor:
               errorText != ""
                 ? COLORS.light.red
-                : COLORS.light.inputBorder
+                : borderColor
           }
         ]}
       >
         <TouchableOpacity onPress={() => props.openCountryModal(true)}>
           <View style={inputStyles.countryCodeWrapper}>
+            <ImageBackground
+              source={{ uri: `https://flagcdn.com/w20/${country.code.toLocaleLowerCase()}.png` }}
+              imageStyle={{ borderRadius: 60 }}
+              style={inputStyles.countryFlag} />
             <Text
               style={{
-                fontSize: wp("5%"),
+                fontSize: wp("3.73%"),
                 fontFamily: "Inter-Regular",
-                color: COLORS.light.inputText
+                color: COLORS.light.black2
               }}
             >
               {country.dial_code}
             </Text>
-            <MaterialIcons
-              name={"keyboard-arrow-down"}
-              size={24}
-              color={COLORS.light.inputText}
-            />
           </View>
         </TouchableOpacity>
-        <View>
-          <TextInput
-            placeholder="803 000 0000"
-            keyboardType="number-pad"
-            autoCapitalize="sentences"
-            autoCorrect={false}
-            onChangeText={(newVal) => props.onTextInputChange(newVal)}
-            onSubmitEditing={() => props.onSubmit()}
-            defaultValue={props.initialValue}
-            maxLength={11}
-            textContentType="telephoneNumber"
-            placeholderTextColor={COLORS.light.inputPlaceholder}
-            style={[
-              inputStyles.input,
-              {
-                color:
-                  errorText != ""
-                    ? COLORS.light.inputTextError
-                    : COLORS.light.inputText
-              }
-            ]}
-          />
-        </View>
+        <View
+          style={inputStyles.verticalLine}
+        />
+        <TextInput
+          placeholder="803 000 0000"
+          keyboardType="number-pad"
+          autoCapitalize="sentences"
+          autoCorrect={false}
+          onChangeText={(newVal) => props.onTextInputChange(newVal)}
+          returnKeyType="next"
+          onSubmitEditing={() => props.onSubmit()}
+          defaultValue={props.initialValue}
+          maxLength={11}
+          textContentType="telephoneNumber"
+          placeholderTextColor={COLORS.light.inputPlaceholder}
+          onBlur={() => setBorderColor(COLORS.light.inputBorder)}
+          onFocus={() => setBorderColor(COLORS.light.black2)}
+          style={[
+            inputStyles.input,
+            {
+              color:
+                errorText != ""
+                  ? COLORS.light.inputTextError
+                  : COLORS.light.inputText
+            }
+          ]}
+        />
       </View>
 
       {errorText != "" && (
@@ -101,28 +106,38 @@ export default InputPhoneNumber;
 const inputStyles = StyleSheet.create({
   formControl: {
     width: "100%",
-    borderWidth: 0.2,
-    borderRadius: 4,
+    borderWidth: 1,
+    borderRadius: 2,
     flexDirection: "row",
     alignItems: "center",
     marginTop: 8,
+    marginBottom: 8,
     backgroundColor: COLORS.light.inputBg,
-    borderColor: COLORS.light.inputBorder
+    borderColor: COLORS.light.inputBorder,
   },
   countryCodeWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    borderRightColor: "rgba(0,63,136,0.1)",
-    borderRightWidth: 1,
-    paddingHorizontal: wp("2.2%"),
-    paddingVertical: hp("2%")
+    paddingRight: wp("2%"),
+    paddingLeft: wp('4%'),
+    paddingVertical: hp("1.47%")
+  },
+  countryFlag: {
+    width: wp('5.33%'),
+    height: wp('5.33%'),
+    marginRight: wp('1.6%')
+  },
+  verticalLine: {
+    height: hp("2.8%"),
+    width: 1,
+    backgroundColor: COLORS.light.black2
   },
   input: {
     flex: 1,
-    fontSize: wp("5%"),
+    fontSize: wp("3.73%"),
     fontFamily: "Inter-Regular",
-    paddingHorizontal: wp("5.6%"),
-    paddingVertical: hp("2%"),
+    paddingHorizontal: wp("1.6%"),
+    paddingVertical: hp("1.47%"),
     color: COLORS.light.black
   },
   errorContainer: {

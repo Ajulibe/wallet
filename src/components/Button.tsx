@@ -1,12 +1,14 @@
 import * as WebBrowser from "expo-web-browser";
-import React from "react";
+import React, { useEffect } from "react";
 import {
    StyleSheet,
    TouchableOpacity,
    View,
    Text,
    Image,
-   GestureResponderEvent
+   GestureResponderEvent,
+   Animated,
+   Easing
 } from "react-native";
 import {
    heightPercentageToDP as hp,
@@ -22,24 +24,50 @@ type Props = {
    isLoading?: boolean;
 };
 
-export default function Button({
-   bgColor,
-   textColor,
-   btnText,
-   onClick,
-   isLoading = false
-}: Props) {
+export default function Button(props: Props) {
+
+   let rotateValueHolder = new Animated.Value(0);
+
+   useEffect(() => {
+      if (props.isLoading) {
+         startImageRotateFunction()
+      }
+   }, [props.isLoading])
+
+   const startImageRotateFunction = () => {
+      rotateValueHolder.setValue(0);
+      Animated.timing(rotateValueHolder, {
+         toValue: 1,
+         duration: 1000,
+         easing: Easing.linear,
+         useNativeDriver: false,
+      }).start(() => startImageRotateFunction());
+   };
+
+   const RotateData = rotateValueHolder.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg'],
+   });
+
    return (
-      <TouchableOpacity onPress={onClick}>
+      <TouchableOpacity onPress={props.onClick}>
          <View
-            style={[styles.btn, { backgroundColor: bgColor }]}
-            pointerEvents={!isLoading ? "none" : "auto"}
+            style={[styles.btn, { backgroundColor: props.bgColor }]}
+            pointerEvents={!props.isLoading ? "none" : "auto"}
          >
-            <Image
-               source={IMAGES.loading}
-               style={[styles.image, { display: isLoading ? "flex" : "none" }]}
-            />
-            <Text style={[styles.title, { color: textColor }]}>{btnText}</Text>
+            {props.isLoading ? (
+               <Animated.Image
+                  source={IMAGES.loading}
+                  style={[
+                     styles.image,
+                     { transform: [{ rotate: RotateData }] }
+                  ]}
+               />
+            ) : (
+               <Text style={[styles.title, { color: props.textColor }]}>
+                  {props.btnText}
+               </Text>
+            )}
          </View>
       </TouchableOpacity>
    );
@@ -49,8 +77,8 @@ const styles = StyleSheet.create({
    btn: {
       width: "100%",
       borderRadius: 4,
-      paddingVertical: 18,
-      marginTop: hp("3.69%"),
+      paddingVertical: hp("1.72%"),
+      marginTop: hp("5%"),
       flexDirection: "row",
       justifyContent: "center",
       alignItems: "center"
@@ -58,7 +86,7 @@ const styles = StyleSheet.create({
    title: {
       textAlign: "center",
       fontFamily: "Inter-Medium",
-      fontSize: wp("4.25%")
+      fontSize: wp("3.37%")
    },
    image: {
       width: wp("6%"),

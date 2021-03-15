@@ -28,7 +28,16 @@ const InputPin = ({ cellCount, initialValue = "", errorText, pinVisible = false,
     setValue,
   });
   const renderCell = ({ index, symbol, isFocused }: { index: number, symbol: string, isFocused: boolean }) => {
-    let textChild = <Text style={{ fontFamily: 'Inter-Regular', color: COLORS.light.inputPlaceholder }}>0</Text>;
+    let textChild = (
+      <Text
+        style={{
+          fontFamily: "Inter-Regular",
+          color: "rgba(166,172,180,0.1)"
+        }}
+      >
+        0
+      </Text>
+    );
 
     if (symbol) {
       textChild = (
@@ -96,20 +105,19 @@ const styles = StyleSheet.create({
   },
   cell: {
     width: wp('14.3%'),
-    height: wp('14.3%'),
-    lineHeight: wp('14.3%'),
+    height: hp('5.91%'),
+    lineHeight: hp('5.91%'),
     fontSize: 24,
-    borderRadius: 4,
-    // borderColor: COLORS.light.inputBorder,
-    borderColor: 'rgba(0,63,136,0.05)',
+    borderRadius: 2,
+    borderColor: COLORS.light.inputBorder,
     borderWidth: 1,
-    backgroundColor: COLORS.light.inputBg,
+    backgroundColor: COLORS.light.inputOtpBg,
     textAlign: 'center',
     marginRight: wp('4%')
   },
   focusCell: {
-    borderColor: COLORS.light.secondary,
-    borderWidth: 2
+    borderColor: COLORS.light.black2,
+    borderWidth: 1
   },
   errorCell: {
     borderColor: COLORS.light.inputBorderError,

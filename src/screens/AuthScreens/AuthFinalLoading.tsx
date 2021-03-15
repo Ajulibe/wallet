@@ -6,7 +6,8 @@ import {
   Text,
   Clipboard,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  ImageBackground
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
@@ -26,7 +27,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Snackbar } from "react-native-paper";
 // import Clipboard from "@react-native-community/clipboard";
 //redux wahala
-import { useSelector, } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store/reducers/RootReducer";
 
 type Props = StackScreenProps<
@@ -51,7 +52,7 @@ const AuthGetStarted = ({ navigation, route }: Props) => {
     setShowSnackBar(true);
     setTimeout(() => {
       if (showSnackBar) setShowSnackBar(false);
-    }, 3000);
+    }, 100);
   };
 
   return (
@@ -61,38 +62,27 @@ const AuthGetStarted = ({ navigation, route }: Props) => {
           backgroundColor={COLORS.light.secondary}
           barStyle={"light-content"}
         />
-        <View style={styles.overlayWrapper}>
-          <Image
-            source={IMAGES["top-overlay-dark2"]}
-            style={styles.overlayImage}
-          />
-        </View>
 
         <View style={styles.container}>
-          <View style={{ flexDirection: "row" }}>
-            {/* Back Button */}
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <MaterialIcons
-                name={"arrow-back-ios"}
-                size={24}
-                color={COLORS.light.blackLight}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={authStyles.formTitleWrapper}>
-            <Text style={authStyles.formTitle}>
-              {`Welcome, \n${user.firstName}`}
-            </Text>
-            <CircularProgress
-              icon={"check"}
-              progress={100}
-              size={60}
-              iconType={"FontAwesome5"}
-            />
-          </View>
+          <CircularProgress
+            icon={"check"}
+            progress={100}
+            size={70}
+            iconType={"FontAwesome5"}
+          />
           <Text
-            style={authStyles.formSubtitle}
+            style={[
+              authStyles.formTitle,
+              { marginTop: hp("2.95%"), textAlign: "center" }
+            ]}
+          >
+            {`Welcome, ${user.firstName}`}
+          </Text>
+          <Text
+            style={[
+              authStyles.formSubtitle,
+              { textAlign: "center", width: "100%" }
+            ]}
           >{`Your personal wallet and account number is ready!!`}</Text>
 
           <Animatable.View
@@ -102,36 +92,58 @@ const AuthGetStarted = ({ navigation, route }: Props) => {
             duration={3000}
             style={styles.cardWrapper}
           >
-            <View style={styles.accountNameRow}>
-              <Text style={styles.accountNameText}>Account Number</Text>
-              <TouchableOpacity onPress={copyAccNo}>
-                <Ionicons name="ios-copy" size={24} color="#908989" />
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.accountNumberText}>
-              {user.bank?.accountNumber}
-            </Text>
-            <View style={styles.bankNameRow}>
-              <View style={styles.bankNameCol}>
-                <Text style={styles.bankNameTitle}>Account Name</Text>
-                <Text style={styles.bankNameText}>
-                  {user.bank?.accountName}
-                </Text>
+            <ImageBackground
+              source={IMAGES["card"]}
+              imageStyle={{ borderRadius: 30 }}
+              style={{ width: "100%", height: "100%" }}
+            />
+            <View style={styles.card}>
+              <View style={styles.accountNameRow}>
+                <Text style={styles.accountNameText}>
+                  Account Number
+                        </Text>
+                <TouchableOpacity onPress={copyAccNo}>
+                  <Ionicons
+                    name="ios-copy"
+                    size={24}
+                    color="rgba(255,255,255,0.6)"
+                  />
+                </TouchableOpacity>
               </View>
-              <View style={styles.bankNameCol}>
-                <Text style={styles.bankNameTitle}>Bank</Text>
-                <Text style={styles.bankNameText}>
-                  {user.bank?.bankName}
-                </Text>
+              <Text style={styles.accountNumberText}>
+                {user.bank?.accountNumber}
+              </Text>
+              <View style={{ flex: 1 }} />
+              <View style={styles.bankNameRow}>
+                <View style={styles.bankNameCol}>
+                  <Text style={styles.bankNameTitle}>
+                    Account Name
+                           </Text>
+                  <Text style={styles.bankNameText}>
+                    {user.bank?.accountName}
+                  </Text>
+                </View>
+                <View style={styles.bankNameCol}>
+                  <Text style={styles.bankNameTitle}>Bank</Text>
+                  <Text style={styles.bankNameText}>
+                    {user.bank?.bankName}
+                  </Text>
+                </View>
               </View>
             </View>
           </Animatable.View>
 
-          <Text style={[authStyles.inputLabel, { textAlign: "justify" }]}>
+          <Text
+            style={[
+              authStyles.inputLabel,
+              { color: COLORS.light.blackLight, textAlign: "center" }
+            ]}
+          >
             You can use this account number to make and recieve payments
             nationwide across all banks in the country.
                </Text>
 
+          <View style={{ flex: 1 }} />
           <CustomButton
             bgColor={COLORS.light.primary}
             textColor={COLORS.light.white}
@@ -199,14 +211,24 @@ const styles = StyleSheet.create({
     height: hp("100%"),
     width: "100%",
     paddingHorizontal: wp("8%"),
-    paddingVertical: hp("8%")
+    paddingVertical: hp("8%"),
+    paddingTop: hp("15%")
   },
   cardWrapper: {
-    borderRadius: wp("1.86%"),
-    backgroundColor: "#F7F7F7",
-    paddingHorizontal: wp("6.93%"),
-    paddingVertical: hp("1.47%"),
-    marginBottom: hp("3.32%")
+    position: "relative",
+    marginBottom: hp("3.32%"),
+    // marginTop: hp("4.3%"),
+    height: hp("22.9%")
+  },
+  card: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    paddingHorizontal: wp("6.4%"),
+    paddingVertical: hp("3.69%%"),
+    paddingBottom: hp("5%%")
   },
   accountNameRow: {
     flexDirection: "row",
@@ -214,13 +236,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   accountNameText: {
-    color: "#828282",
-    fontSize: wp("2.66%")
+    color: "rgba(255,255,255,0.6)",
+    fontSize: wp("3.73%%"),
+    fontFamily: "Inter-Regular",
+    lineHeight: hp("2.95%")
   },
   accountNumberText: {
-    fontSize: wp("5.33%"),
-    color: COLORS.light.primary,
-    fontFamily: "Inter-Bold",
+    fontSize: wp("6.4%"),
+    color: COLORS.light.white,
+    fontFamily: "Inter-Regular",
     lineHeight: hp("3.07%")
   },
   bankNameRow: {
@@ -232,11 +256,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   bankNameTitle: {
-    color: "#828282",
-    fontSize: wp("2.66%")
+    color: "rgba(255,255,255,0.6)",
+    fontSize: wp("3.73%%"),
+    fontFamily: "Inter-Regular"
   },
   bankNameText: {
-    color: COLORS.light.black,
-    fontSize: wp("3.73%")
+    color: COLORS.light.white,
+    fontSize: wp("4.26%"),
+    fontFamily: "Inter-Medium",
+    lineHeight: hp("2.95%")
   }
 });

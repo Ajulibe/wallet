@@ -27,14 +27,7 @@ export default function SplashScreen({ navigation }: Props) {
             backgroundColor={COLORS.light.white}
             barStyle={"light-content"}
          />
-         <View style={styles.overlayWrapper}>
-            <Image
-               source={IMAGES["top-overlay-dark"]}
-               style={styles.overlayImage}
-            />
-         </View>
          <View style={styles.container}>
-            <View style={{ flex: 1 }} />
             <Image source={IMAGES.logo} style={styles.logo} />
          </View>
       </View>
@@ -58,12 +51,6 @@ const styles = StyleSheet.create({
       right: 0,
       paddingVertical: hp("6.13%")
    },
-   overlayImage: {
-      flex: 1,
-      width: "100%",
-      height: "100%",
-      resizeMode: "contain"
-   },
    container: {
       flex: 1,
       justifyContent: "center",
@@ -73,7 +60,7 @@ const styles = StyleSheet.create({
    },
    logo: {
       resizeMode: "contain",
-      height: hp("5.1%"),
-      width: wp("43.48%")
+      height: wp("26.6%"),
+      width: wp("26.6%")
    }
 });

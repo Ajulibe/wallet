@@ -49,29 +49,26 @@ const AuthEmail = ({ navigation, route }: Props) => {
     <View style={styles.wrapper}>
 
       <StatusBar backgroundColor={COLORS.light.white} />
-      {/* overlay bg image */}
-      <View style={styles.overlayWrapper}>
-        <Image source={IMAGES["top-overlay-white"]} style={styles.overlayImage} />
-      </View>
       {/* top menu  */}
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          {/* Back Button */}
+        <View style={styles.progressWrapper}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <MaterialIcons
               name={"arrow-back-ios"}
               size={24}
-              color={COLORS.light.blackLight}
+              color={COLORS.light.black2}
             />
           </TouchableOpacity>
+          <CircularProgress
+            icon={"envelope"} progress={48} iconSize={18}
+          />
         </View>
-
-        <View style={styles.formTitleWrapper}>
-          <Text style={styles.formTitle}>{"Email \nAddress"}</Text>
-          <CircularProgress icon={"envelope"} progress={48} size={60} iconSize={24} />
-        </View>
+        <Text style={styles.formTitle}>{"Email Address"}</Text>
 
         <Text style={styles.formSubtitle}>Almost done! Please enter a valid email address that we can use to reach you</Text>
+        <Text style={styles.inputLabel}>
+          Email Address
+            </Text>
         <Input
           id="fullName"
           placeholder="Email address"
@@ -79,7 +76,7 @@ const AuthEmail = ({ navigation, route }: Props) => {
           errorText={errorText}
           keyboardType="email-address"
           autoCapitalize="sentences"
-          returnKeyType="none"
+          returnKeyType="next"
           onSubmit={onSubmit}
           onInputChange={inputChangeHandler}
           initialValue=""

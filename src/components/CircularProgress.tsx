@@ -11,7 +11,7 @@ import COLORS from "../utils/Colors";
 interface Props {
    progress: number;
    icon: string;
-   size: number;
+   size?: number;
    iconType?: string;
    iconSize?: number;
 }
@@ -19,19 +19,19 @@ interface Props {
 export default function CircularProgress({
    progress,
    icon,
-   size = 60,
+   size = 50,
    iconType = "FontAwesome",
-   iconSize = 28,
+   iconSize = 24,
 }: Props) {
    return (
       <>
          <View style={{ alignItems: "center" }}>
             <AnimatedCircularProgress
                size={size}
-               width={4}
+               width={progress == 100 ? 5 : 3}
                fill={progress}
                rotation={0}
-               tintColor={COLORS.light.primary}
+               tintColor={progress == 100 ? COLORS.light.primaryLight : COLORS.light.primary}
                backgroundColor={COLORS.light.tint}
             >
                {(fill) => (

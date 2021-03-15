@@ -8,6 +8,7 @@ import {
   TextInput,
   StyleSheet,
   Platform,
+  ImageBackground,
 } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import {
@@ -83,20 +84,19 @@ export function CountryPicker(props: Props) {
   }) => (
     <TouchableOpacity onPress={() => { props.onCountryChange(country); props.onClose() }}>
       <View style={styles.countryItem}>
-        <SvgUri
-          width="30px"
-          height="30px"
-          style={styles.countryFlag}
-          uri={country.flag}
-        />
+        <ImageBackground
+          source={{ uri: `https://flagcdn.com/w20/${country.code.toLocaleLowerCase()}.png` }}
+          imageStyle={{ borderRadius: 60 }}
+          style={styles.countryFlag} />
         <Text
           style={[
             styles.countryText,
             { color: country.code == current.code ? COLORS.light.secondary : "#001538" },
           ]}
         >
-          {country.name}({country.dial_code})
-      </Text>
+          {" "}{country.name}({country.dial_code})
+        </Text>
+        <View style={{ flex: 1 }} />
         <FeatherIcon
           name="check"
           size={wp("5.26%")}
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOpacity: 0.2,
     // elevation: 5,
-    paddingTop: 20,
+    paddingTop: 16,
     borderTopColor: '#eee',
     borderTopWidth: Platform.OS == "android" ? 1 : 0,
     borderTopLeftRadius: 20,
@@ -139,15 +139,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   panelHandle: {
-    width: 40,
-    height: 8,
+    width: 60,
+    height: 4,
     borderRadius: 4,
     backgroundColor: "#00000040",
-    marginBottom: 10,
   },
   inputWrapper: {
     backgroundColor: COLORS.light.inputBg,
     borderColor: COLORS.light.inputBorder,
+    borderWidth: 1,
     paddingHorizontal: wp("5.6%"),
     flexDirection: 'row',
     height: hp('6.15%'),
@@ -161,7 +161,8 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: wp('3.2%')
+    fontSize: wp('3.2%'),
+    fontFamily: 'Inter-Regular'
   },
   countryItem: {
     flexDirection: "row",
@@ -173,13 +174,13 @@ const styles = StyleSheet.create({
     zIndex: 2
   },
   countryFlag: {
-    width: '30',
-    height: '30',
-    borderRadius: 50,
+    width: wp('5.33%'),
+    height: wp('5.33%'),
   },
   countryText: {
-    fontSize: wp("4.26%"),
-    overflow: 'hidden'
+    fontSize: wp("3.73%"),
+    overflow: 'hidden',
+    fontFamily: 'Inter-Regular',
   },
   noResult: {
     flex: 1,

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
       flex: 1,
       paddingHorizontal: wp("8%"),
       paddingTop: Platform.OS ? hp("8.12%") : hp("8.12%"),
-      paddingBottom: hp("5.54%"),
+      paddingBottom: hp("7.88%"),
       position: "absolute",
       top: 0,
       left: 0,
@@ -38,42 +38,43 @@ const styles = StyleSheet.create({
       bottom: 0,
       backgroundColor: "transparent"
    },
-   formTitleWrapper: {
-      marginTop: hp("2.83%"),
+   progressWrapper: {
       width: "100%",
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between"
    },
    formTitle: {
-      fontSize: wp("9.61%"),
-      fontWeight: "400",
-      color: COLORS.light.secondary,
-      fontFamily: "Inter-Black"
+      fontSize: wp("6.4%"),
+      color: COLORS.light.black2,
+      fontFamily: "Inter-Bold",
+      lineHeight: hp('4.43')
    },
    formSubtitle: {
-      width: wp("66.4%"),
+      width: wp("80%"),
       marginTop: hp("2.46%"),
       marginBottom: hp("3.69%"),
-      color: COLORS.light.light_black,
+      color: 'rgba(32,47,68,0.6)',
       display: "flex",
       // textAlign: "justify",
-      fontSize: wp("4.25%"),
+      fontSize: wp("3.73%"),
       fontFamily: "Inter-Regular",
       lineHeight: hp("3.18%")
    },
    inputLabel: {
-      color: COLORS.light.inputLabel,
-      fontStyle: "italic",
+      color: COLORS.light.black2,
       marginTop: hp("1%"),
       textAlign: "left",
-      fontSize: wp("3.5%")
+      fontSize: wp("3.5%"),
+      fontFamily: "Inter-Regular",
+      marginBottom: 6
    },
    inputLabelTop: {
-      color: COLORS.light.blackLight,
+      color: COLORS.light.black2,
       marginTop: hp("1%"),
       textAlign: "left",
-      fontSize: wp("3.5%")
+      fontSize: wp("3.5%"),
+      fontFamily: "Inter-Regular",
    },
    bold: {
       fontWeight: "700"
@@ -83,12 +84,18 @@ const styles = StyleSheet.create({
       fontStyle: "italic",
       color: "#94A4B1"
    },
+   recentCodeText: {
+      fontSize: wp('3.73%'),
+      fontFamily: 'Inter-Regular',
+      color: COLORS.light.black2,
+      lineHeight: hp('2.95%')
+   },
    secondaryButton: {
-      fontFamily: "Inter-Bold",
+      fontFamily: "Inter-Medium",
       color: COLORS.light.secondary,
       textAlign: "center",
       fontSize: wp("4%"),
-      marginTop: hp('5.29%')
+      marginTop: hp('5%')
    }
 });
 

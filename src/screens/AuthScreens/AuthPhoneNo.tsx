@@ -6,7 +6,8 @@ import {
    Image,
    TextInput,
    StyleSheet,
-   TouchableOpacity
+   TouchableOpacity,
+   KeyboardAvoidingView
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
@@ -72,6 +73,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
    //otp submit handler
    const submit = (phone: string) => {
       setIsLoading(true);
+
       let nigPhone = CountryData.nigPhoneFormat(phone!);
       AuthService.sendOtp({ phoneNo: nigPhone }).then((response) => {
          //'nigPhone' to be replaced with 'phone'
@@ -95,7 +97,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
       //   contentContainerStyle={{ flexGrow: 1 }}
       //   keyboardShouldPersistTaps="handled"
       // >
-      <View style={styles.wrapper}>
+      <KeyboardAvoidingView style={styles.wrapper} keyboardVerticalOffset={50}>
          {/* country picker bottom sheet  */}
          <CountryPicker
             initialSnap={openCountry ? 0 : 1}
@@ -105,13 +107,6 @@ const AuthPhoneNo = ({ navigation }: Props) => {
          />
 
          <StatusBar backgroundColor={COLORS.light.white} />
-         {/* bg image  */}
-         <View style={styles.overlayWrapper}>
-            <Image
-               source={IMAGES["top-overlay-dark2"]}
-               style={styles.overlayImage}
-            />
-         </View>
 
          {/* container view  */}
          <Animated.View
@@ -125,24 +120,27 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                }
             ]}
          >
-            <View>
+            <View style={styles.progressWrapper}>
                <TouchableOpacity onPress={() => navigation.goBack()}>
                   <MaterialIcons
                      name={"arrow-back-ios"}
                      size={24}
-                     color={COLORS.light.blackLight}
+                     color={COLORS.light.black2}
                   />
                </TouchableOpacity>
+               <CircularProgress
+                  icon={"phone-iphone"}
+                  progress={12}
+                  iconType="MaterialIcons"
+               />
             </View>
 
-            <View style={styles.formTitleWrapper}>
-               <Text style={styles.formTitle}>{"Get \nStarted"}</Text>
-               <CircularProgress icon={"phone-iphone"} progress={12} size={60} iconType="MaterialIcons" />
-            </View>
+            <Text style={styles.formTitle}>{"Phone Number"}</Text>
             <Text style={styles.formSubtitle}>
-               {`Enter your phone number to get started`}
+               This number will be used as your account number
             </Text>
 
+            <Text style={styles.inputLabel}>Phone Number</Text>
             <InputPhoneNumber
                country={country}
                onTextInputChange={inputChangeHandler}
@@ -152,9 +150,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                onSubmit={onSubmit}
             />
 
-            <Text style={styles.inputLabel}>
-               This number will be used as your account number
-            </Text>
+            {/* <View style={{ flex: 1 }} /> */}
 
             <CustomButton
                bgColor={isLoading ? COLORS.light.disabled : btnBgColor}
@@ -164,7 +160,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                isLoading={isLoading}
             />
          </Animated.View>
-      </View>
+      </KeyboardAvoidingView>
       // </ScrollView>
    );
 };

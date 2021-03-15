@@ -54,7 +54,7 @@ export function BankPicker(props: Props) {
         </Text>
         <View style={{ flex: 1 }} />
         <RadioDot
-          color={current != null && bank.bankCode == current.bankCode ? COLORS.light.primary : COLORS.light.inputBorder}
+          color={current != null && bank.bankCode == current.bankCode ? COLORS.light.primary : 'transparent'}
         />
       </View>
     </TouchableOpacity>
@@ -91,11 +91,11 @@ const styles = StyleSheet.create({
     marginVertical: hp("1%"),
   },
   bankText: {
-    fontSize: wp("4%"),
+    fontSize: wp("3.73%"),
     overflow: 'hidden',
     marginLeft: 12,
     fontFamily: 'Inter-Regular',
-    color: COLORS.light.light_black
+    color: COLORS.light.black2
   },
   bankImage: {
     width: wp('6%'),
@@ -103,16 +103,16 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   radioDot: {
-    width: wp('7.46%'),
-    height: wp('7.46%'),
+    width: wp('6%'),
+    height: wp('6%'),
     backgroundColor: '#F4F1EF',
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center'
   },
   dot: {
-    width: wp('5.33%'),
-    height: wp('5.33%'),
+    width: wp('4%'),
+    height: wp('4%'),
     backgroundColor: COLORS.light.primary,
     borderRadius: 50
   }
