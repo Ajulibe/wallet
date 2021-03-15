@@ -40,19 +40,11 @@ export default function AuthEmail({ navigation, route }: Props) {
       setAuthDetail(route.params.authDetail); //route.key, route.name, route.params,
    }, []);
 
-   let fNameInputChangeHandler = (
-      id?: string,
-      value?: string,
-      isValid?: boolean
-   ) => {
+   let fNameInputChangeHandler = (value?: string) => {
       setFirstName(value!);
    };
 
-   let lNameInputChangeHandler = (
-      id?: string,
-      value?: string,
-      isValid?: boolean
-   ) => {
+   let lNameInputChangeHandler = (value?: string) => {
       setLastName(value!);
    };
 

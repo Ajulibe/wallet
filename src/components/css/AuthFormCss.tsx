@@ -31,11 +31,6 @@ const styles = StyleSheet.create({
       paddingHorizontal: wp("8%"),
       paddingTop: Platform.OS ? hp("8.12%") : hp("8.12%"),
       paddingBottom: hp("7.88%"),
-      position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
       backgroundColor: "transparent"
    },
    progressWrapper: {
@@ -48,18 +43,17 @@ const styles = StyleSheet.create({
       fontSize: wp("6.4%"),
       color: COLORS.light.black2,
       fontFamily: "Inter-Bold",
-      lineHeight: hp('4.43')
+      lineHeight: hp("4.43")
    },
    formSubtitle: {
-      width: wp("80%"),
-      marginTop: hp("2.46%"),
-      marginBottom: hp("3.69%"),
-      color: 'rgba(32,47,68,0.6)',
+      marginTop: hp("0.73%"),
+      marginBottom: hp("2.9%"),
+      color: "rgba(32,47,68,0.6)",
       display: "flex",
       // textAlign: "justify",
       fontSize: wp("3.73%"),
       fontFamily: "Inter-Regular",
-      lineHeight: hp("3.18%")
+      lineHeight: hp("2.46%")
    },
    inputLabel: {
       color: COLORS.light.black2,
@@ -74,7 +68,7 @@ const styles = StyleSheet.create({
       marginTop: hp("1%"),
       textAlign: "left",
       fontSize: wp("3.5%"),
-      fontFamily: "Inter-Regular",
+      fontFamily: "Inter-Regular"
    },
    bold: {
       fontWeight: "700"
@@ -85,17 +79,17 @@ const styles = StyleSheet.create({
       color: "#94A4B1"
    },
    recentCodeText: {
-      fontSize: wp('3.73%'),
-      fontFamily: 'Inter-Regular',
+      fontSize: wp("3.73%"),
+      fontFamily: "Inter-Regular",
       color: COLORS.light.black2,
-      lineHeight: hp('2.95%')
+      lineHeight: hp("2.95%")
    },
    secondaryButton: {
       fontFamily: "Inter-Medium",
       color: COLORS.light.secondary,
       textAlign: "center",
       fontSize: wp("4%"),
-      marginTop: hp('5%')
+      marginTop: hp("5%")
    }
 });
 

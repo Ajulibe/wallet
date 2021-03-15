@@ -93,11 +93,11 @@ const AuthPhoneNo = ({ navigation }: Props) => {
    };
 
    return (
-      // <ScrollView
-      //   contentContainerStyle={{ flexGrow: 1 }}
-      //   keyboardShouldPersistTaps="handled"
-      // >
-      <KeyboardAvoidingView style={styles.wrapper} keyboardVerticalOffset={50}>
+      <KeyboardAvoidingView
+         behavior={"padding"}
+         style={{ flex: 1 }}
+         keyboardVerticalOffset={-50}
+      >
          {/* country picker bottom sheet  */}
          <CountryPicker
             initialSnap={openCountry ? 0 : 1}
@@ -105,63 +105,68 @@ const AuthPhoneNo = ({ navigation }: Props) => {
             current={country}
             onCountryChange={(newCountry) => setCountry(newCountry)}
          />
-
-         <StatusBar backgroundColor={COLORS.light.white} />
-
-         {/* container view  */}
-         <Animated.View
-            style={[
-               styles.container,
-               {
-                  opacity: Animated.add(
-                     0.5,
-                     Animated.multiply(!openCountry ? 1 : 0, 1.0)
-                  )
-               }
-            ]}
+         <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
          >
-            <View style={styles.progressWrapper}>
-               <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <MaterialIcons
-                     name={"arrow-back-ios"}
-                     size={24}
-                     color={COLORS.light.black2}
+            <View style={styles.wrapper}>
+               <StatusBar backgroundColor={COLORS.light.white} />
+
+               {/* container view  */}
+               <Animated.View
+                  style={[
+                     styles.container,
+                     {
+                        opacity: Animated.add(
+                           0.5,
+                           Animated.multiply(!openCountry ? 1 : 0, 1.0)
+                        )
+                     }
+                  ]}
+               >
+                  <View style={styles.progressWrapper}>
+                     <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialIcons
+                           name={"arrow-back-ios"}
+                           size={24}
+                           color={COLORS.light.black2}
+                        />
+                     </TouchableOpacity>
+                     <CircularProgress
+                        icon={"phone-iphone"}
+                        progress={12}
+                        iconType="MaterialIcons"
+                     />
+                  </View>
+
+                  <Text style={styles.formTitle}>{"Phone Number"}</Text>
+                  <Text style={styles.formSubtitle}>
+                     This number will be used as your account number
+                  </Text>
+
+                  <Text style={styles.inputLabel}>Phone Number</Text>
+                  <InputPhoneNumber
+                     country={country}
+                     onTextInputChange={inputChangeHandler}
+                     openCountryModal={(isS) => setOpenCountry(isS)}
+                     errorText={errorText}
+                     initialValue={phoneNumber}
+                     onSubmit={onSubmit}
                   />
-               </TouchableOpacity>
-               <CircularProgress
-                  icon={"phone-iphone"}
-                  progress={12}
-                  iconType="MaterialIcons"
-               />
+
+                  <View style={{ flex: 1 }} />
+
+                  <CustomButton
+                     bgColor={isLoading ? COLORS.light.disabled : btnBgColor}
+                     textColor={COLORS.light.white}
+                     btnText={"Continue"}
+                     onClick={() => onSubmit()}
+                     isLoading={isLoading}
+                  />
+               </Animated.View>
             </View>
-
-            <Text style={styles.formTitle}>{"Phone Number"}</Text>
-            <Text style={styles.formSubtitle}>
-               This number will be used as your account number
-            </Text>
-
-            <Text style={styles.inputLabel}>Phone Number</Text>
-            <InputPhoneNumber
-               country={country}
-               onTextInputChange={inputChangeHandler}
-               openCountryModal={(isS) => setOpenCountry(isS)}
-               errorText={errorText}
-               initialValue={phoneNumber}
-               onSubmit={onSubmit}
-            />
-
-            {/* <View style={{ flex: 1 }} /> */}
-
-            <CustomButton
-               bgColor={isLoading ? COLORS.light.disabled : btnBgColor}
-               textColor={COLORS.light.white}
-               btnText={"Continue"}
-               onClick={() => onSubmit()}
-               isLoading={isLoading}
-            />
-         </Animated.View>
+         </ScrollView>
       </KeyboardAvoidingView>
-      // </ScrollView>
    );
 };
 

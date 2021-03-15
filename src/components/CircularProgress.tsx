@@ -21,7 +21,7 @@ export default function CircularProgress({
    icon,
    size = 50,
    iconType = "FontAwesome",
-   iconSize = 24,
+   iconSize = 24
 }: Props) {
    return (
       <>
@@ -31,12 +31,26 @@ export default function CircularProgress({
                width={progress == 100 ? 5 : 3}
                fill={progress}
                rotation={0}
-               tintColor={progress == 100 ? COLORS.light.primaryLight : COLORS.light.primary}
+               tintColor={
+                  progress == 100
+                     ? COLORS.light.primaryLight
+                     : COLORS.light.primary
+               }
                backgroundColor={COLORS.light.tint}
             >
                {(fill) => (
                   // <View style={styles.wrapper}>
-                  <View style={[styles.wrapperChild, { backgroundColor: progress == 100 ? COLORS.light.primary : COLORS.light.tint }]}>
+                  <View
+                     style={[
+                        styles.wrapperChild,
+                        {
+                           backgroundColor:
+                              progress == 100
+                                 ? COLORS.light.primary
+                                 : COLORS.light.tint
+                        }
+                     ]}
+                  >
                      {iconType == "FontAwesome" ? (
                         <Icon
                            name={icon}

@@ -232,9 +232,7 @@ const AuthLogin = ({ navigation }: Props) => {
                   keyboardType="number-pad"
                   autoCapitalize="sentences"
                   returnKeyType="send"
-                  onInputChange={(id?: string, pin?: string) =>
-                     setPinCode(pin!.toString())
-                  }
+                  onInputChange={(pin?: string) => setPinCode(pin!.toString())}
                   onSubmit={onSubmit}
                   initialValue=""
                   initiallyValid={false}

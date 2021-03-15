@@ -17,7 +17,7 @@ interface Props {
    initialValue?: string;
    errorText?: string;
    pinVisible?: boolean;
-   onTextInputChange: (code?: string) => any;
+   onTextInputChange: (code: string) => any;
 }
 
 const OtpCodeInput = ({
@@ -132,9 +132,9 @@ const styles = StyleSheet.create({
       // marginTop: 8
    },
    cell: {
-      width: wp('13.3%'),
-      height: hp('5.91%'),
-      lineHeight: hp('5.91%'),
+      width: wp("13.3%"),
+      height: hp("5.91%"),
+      lineHeight: hp("5.91%"),
       fontSize: 24,
       borderRadius: 2,
       borderColor: COLORS.light.inputBorder,

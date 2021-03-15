@@ -7,21 +7,6 @@ import {
 import COLORS from "../utils/Colors";
 import InputValidation from "../utils/InputValidation";
 
-const INPUT_CHANGE = "INPUT_CHANGE";
-const INPUT_BLUR = "INPUT_BLUR";
-
-interface InitialStateType {
-   value?: string | null;
-   isValid?: boolean;
-   touched?: boolean;
-}
-
-interface IAction {
-   type: string;
-   value?: string;
-   isValid?: boolean;
-}
-
 interface Props {
    id: string;
    keyboardType: any;
@@ -43,69 +28,14 @@ interface Props {
    returnKeyType: any;
    placeholder?: string;
    placeholderTextColor?: any;
-   onInputChange: (id?: string, x?: string, y?: boolean) => void;
+   onInputChange: (value?: string) => void;
    onSubmit: () => void;
 }
 
-const inputReducer = (state: InitialStateType, action: IAction) => {
-   switch (action.type) {
-      case INPUT_CHANGE:
-         return {
-            ...state,
-            value: action.value,
-            isValid: action.isValid
-         };
-      case INPUT_BLUR:
-         return {
-            ...state,
-            touched: true
-         };
-      default:
-         return state;
-   }
-};
-
 const Input: React.FC<Props> = (props) => {
-   const initialState = {
-      value: props.initialValue ? props.initialValue : "",
-      isValid: props.initiallyValid,
-      touched: props.touched
-   };
-
    const [borderColor, setBorderColor] = useState(COLORS.light.inputBorder);
-   const [inputState, dispatch] = useReducer(inputReducer, initialState);
-   const [isTouched, setIsTouched] = useState(false);
-   const [errorText, setErrorText] = useState("");
 
    const { onInputChange, onSubmit, id, touched } = props;
-
-   useEffect(() => {
-      if (touched && inputState.value == "") {
-         setIsTouched(true);
-      }
-      onInputChange(id, inputState.value, inputState.isValid);
-   }, [inputState, onInputChange, id, touched]);
-
-   const textChangeHandler = (text: string) => {
-      let isValid = true;
-      if (props.required && text.trim().length === 0) {
-         isValid = false;
-      }
-      //Email Validation
-      if (props.min != null && +text < props.min) {
-         isValid = false;
-      }
-
-      if (props.max != null && +text > props.max) {
-         isValid = false;
-      }
-
-      if (props.minLength != null && text.length < props.minLength) {
-         isValid = false;
-      }
-
-      dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
-   };
 
    return (
       <View style={[styles.formControl]}>
@@ -115,24 +45,21 @@ const Input: React.FC<Props> = (props) => {
                styles.input,
                {
                   borderColor:
-                     props.errorText != "" && (inputState.touched || isTouched)
-                        ? COLORS.light.red
-                        : borderColor,
+                     props.errorText != "" ? COLORS.light.red : borderColor,
                   backgroundColor:
-                     props.errorText != "" && (inputState.touched || isTouched)
+                     props.errorText != ""
                         ? COLORS.light.inputBgError
                         : COLORS.light.inputBg
                }
             ]}
             placeholderTextColor={COLORS.light.inputPlaceholder}
-            value={inputState.value!}
-            onChangeText={textChangeHandler}
-            // onBlur={lostFocusHandler}
+            value={props.value!}
+            onChangeText={(newVal) => onInputChange(newVal)}
             onSubmitEditing={() => onSubmit()}
             onBlur={() => setBorderColor(COLORS.light.inputBorder)}
             onFocus={() => setBorderColor(COLORS.light.black2)}
          />
-         {props.errorText != "" && (inputState.touched || isTouched) && (
+         {props.errorText != "" && (
             <View style={styles.errorContainer}>
                <Text style={styles.errorText}>{props.errorText}</Text>
             </View>
@@ -160,7 +87,7 @@ const styles = StyleSheet.create({
       marginVertical: 0
    },
    errorText: {
-      marginTop: hp("1%"),
+      marginTop: hp("1.5%"),
       fontFamily: "Inter-Regular",
       color: COLORS.light.red,
       fontSize: 13

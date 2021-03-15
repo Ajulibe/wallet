@@ -54,7 +54,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
    }, [timer]);
 
    //OTP CODE INPUT TEXT CHANGE LISTENER
-   let otpInputChangeHandler = useCallback((value) => {
+   let otpInputChangeHandler = (value: string) => {
       const otp = value.toString();
       setOtpCode(value);
       if (otp.length != 5) {
@@ -63,7 +63,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
          setErrorText("");
          setBtnBgColor(COLORS.light.primary);
       }
-   }, []);
+   };
 
    // on submit click handler
    let onSubmit = () => {
@@ -209,8 +209,7 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
                   </View>
                )}
                {/* loading spinner  */}
-               {/* {isLoading && <LoadingSpinner />} */}
-               <View style={{ height: 20 }} />
+               <View style={{ flex: 1 }} />
                {/* continue btn  */}
                <CustomButton
                   bgColor={isLoading ? COLORS.light.disabled : btnBgColor}

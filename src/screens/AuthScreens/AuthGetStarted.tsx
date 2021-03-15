@@ -104,18 +104,12 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                   backgroundColor={COLORS.light.secondary}
                   barStyle={"light-content"}
                />
-               <View style={styles.overlayWrapper}>
-                  <Image
-                     source={IMAGES["top-overlay-dark2"]}
-                     style={styles.overlayImage}
-                  />
-               </View>
 
                <View style={styles.container}>
                   <View style={{ alignItems: "center" }}>
                      <Image
                         source={IMAGES["logo"]}
-                        style={{ height: wp('28%'), width: wp('28%') }}
+                        style={{ height: wp("28%"), width: wp("28%") }}
                      />
                   </View>
                   {/* <View style={{ height: "60%", width: "100%" }}>
@@ -152,8 +146,10 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                   <CustomButton
                      bgColor={COLORS.light.primary}
                      textColor={COLORS.light.white}
-                     btnText={'Get Started'}
-                     onClick={() => navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)}
+                     btnText={"Get Started"}
+                     onClick={() =>
+                        navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
+                     }
                   />
                   <View
                      style={{
@@ -164,7 +160,9 @@ class AuthGetStarted extends React.PureComponent<Props, State> {
                      }}
                   >
                      <Text>Already have an account? </Text>
-                     <TouchableOpacity onPress={() => navigation.navigate(ROUTES.AUTH_LOGIN)}>
+                     <TouchableOpacity
+                        onPress={() => navigation.navigate(ROUTES.AUTH_LOGIN)}
+                     >
                         <Text style={{ fontFamily: "Inter-Medium" }}>
                            Login
                         </Text>
