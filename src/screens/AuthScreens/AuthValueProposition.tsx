@@ -38,107 +38,105 @@ class AuthValueProposition extends React.PureComponent<Props> {
       const { navigation } = this.props;
 
       return (
-         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.wrapper}>
-               <StatusBar
-                  backgroundColor={COLORS.light.secondary}
-                  barStyle={"light-content"}
-               />
+         // <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+         <View style={styles.wrapper}>
+            <StatusBar
+               backgroundColor={COLORS.light.secondary}
+               barStyle={"light-content"}
+            />
 
-               <View style={styles.container}>
-                  <View style={styles.body}>
-                     <View style={{ alignItems: "center" }}>
-                        <Image
-                           source={IMAGES["logo"]}
-                           style={{
-                              height: wp("21.33%"),
-                              width: wp("21.33%"),
-                              marginBottom: hp("4.31%")
-                           }}
-                        />
-                     </View>
-
-                     <Text style={styles.welcomeText}>Welcome!</Text>
-
-                     <Text style={styles.heading}>
-                        Let’s Get{" "}
-                        <View style={styles.headingStartedWrapper}>
-                           <Text style={styles.headingStarted}>Started.</Text>
-                        </View>
-                     </Text>
-                     <RowItem
-                        imgSrc={IMAGES["icon-timer"]}
-                        text={
-                           <Text style={styles.rowItemText}>
-                              Setup an account quick and easy in 30 seconds.{" "}
-                           </Text>
-                        }
-                     />
-                     <RowItem
-                        imgSrc={IMAGES["icon-user-circle-gear"]}
-                        text={
-                           <Text style={styles.rowItemText}>
-                              Transfer to your friends for free.
-                           </Text>
-                        }
-                     />
-                     <RowItem
-                        imgSrc={IMAGES["icon-lightning"]}
-                        text={
-                           <Text style={styles.rowItemText}>
-                              Experience payments as simple and fast as sending
-                              chats.
-                           </Text>
-                        }
-                     />
-                     <RowItem
-                        imgSrc={IMAGES["icon-vibrate"]}
-                        text={
-                           <Text style={styles.rowItemText}>
-                              Send and receive money easily using your phone
-                              number.
-                           </Text>
-                        }
+            <View style={styles.container}>
+               <View style={styles.body}>
+                  <View style={{ alignItems: "center" }}>
+                     <Image
+                        source={IMAGES["logo"]}
+                        style={{
+                           height: wp("21.33%"),
+                           width: wp("21.33%"),
+                           marginBottom: hp("4.31%")
+                        }}
                      />
                   </View>
-                  {/* <View style={{ flex: 1 }} /> */}
-                  <View style={styles.footer}>
-                     <CustomButton
-                        bgColor={COLORS.light.primary}
-                        textColor={COLORS.light.white}
-                        btnText={"Get Started"}
-                        onClick={() =>
-                           navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
-                        }
-                     />
-                     <View
+
+                  <Text style={styles.welcomeText}>Welcome!</Text>
+
+                  <Text style={styles.heading}>
+                     Let’s Get{" "}
+                     <View style={styles.headingStartedWrapper}>
+                        <Text style={styles.headingStarted}>Started.</Text>
+                     </View>
+                  </Text>
+                  <RowItem
+                     imgSrc={IMAGES["icon-timer"]}
+                     text={
+                        <Text style={styles.rowItemText}>
+                           Setup an account quick and easy in 30 seconds.{" "}
+                        </Text>
+                     }
+                  />
+                  <RowItem
+                     imgSrc={IMAGES["icon-user-circle-gear"]}
+                     text={
+                        <Text style={styles.rowItemText}>
+                           Transfer to your friends for free.
+                        </Text>
+                     }
+                  />
+                  <RowItem
+                     imgSrc={IMAGES["icon-lightning"]}
+                     text={
+                        <Text style={styles.rowItemText}>
+                           Experience payments as simple and fast as sending
+                           chats.
+                        </Text>
+                     }
+                  />
+                  <RowItem
+                     imgSrc={IMAGES["icon-vibrate"]}
+                     text={
+                        <Text style={styles.rowItemText}>
+                           Send and receive money easily using your phone
+                           number.
+                        </Text>
+                     }
+                  />
+               </View>
+               {/* <View style={{ flex: 1 }} /> */}
+               <View style={styles.footer}>
+                  <CustomButton
+                     bgColor={COLORS.light.primary}
+                     textColor={COLORS.light.white}
+                     btnText={"Get Started"}
+                     onClick={() =>
+                        navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
+                     }
+                  />
+                  <View
+                     style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 20,
+                        justifyContent: "center"
+                     }}
+                  >
+                     <Text
                         style={{
-                           flexDirection: "row",
-                           alignItems: "center",
-                           marginTop: 20,
-                           justifyContent: "center"
+                           fontFamily: "Inter-Regular",
+                           color: COLORS.light.black2
                         }}
                      >
-                        <Text
-                           style={{
-                              fontFamily: "Inter-Regular",
-                              color: COLORS.light.black2
-                           }}
-                        >
-                           Already have an account?{" "}
-                        </Text>
-                        <TouchableOpacity
-                           onPress={() =>
-                              navigation.navigate(ROUTES.AUTH_LOGIN)
-                           }
-                        >
-                           <Text style={styles.loginText}>Login</Text>
-                        </TouchableOpacity>
-                     </View>
+                        Already have an account?{" "}
+                     </Text>
+                     <TouchableOpacity
+                        onPress={() => navigation.navigate(ROUTES.AUTH_LOGIN)}
+                     >
+                        <Text style={styles.loginText}>Login</Text>
+                     </TouchableOpacity>
                   </View>
                </View>
             </View>
-         </ScrollView>
+         </View>
+         //</ScrollView>
       );
    }
 }

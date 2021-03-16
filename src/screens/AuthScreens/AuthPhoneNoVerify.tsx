@@ -5,7 +5,9 @@ import {
    TouchableOpacity,
    ScrollView,
    StatusBar,
-   Image
+   Image,
+   KeyboardAvoidingView,
+   Platform
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import OtpCodeInput from "../../components/OtpCodeInput";
@@ -115,112 +117,119 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
    };
 
    return (
-      <ScrollView
-         contentContainerStyle={{ flexGrow: 1 }}
-         keyboardShouldPersistTaps="handled"
+      <KeyboardAvoidingView
+         behavior={"padding"}
+         style={{ flex: 1 }}
+         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
       >
-         <View style={styles.wrapper}>
-            <StatusBar backgroundColor={COLORS.light.white} />
+         <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+         >
+            <View style={styles.wrapper}>
+               <StatusBar backgroundColor={COLORS.light.white} />
 
-            <View style={styles.container}>
-               <View style={styles.progressWrapper}>
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                     <MaterialIcons
-                        name={"arrow-back-ios"}
-                        size={24}
-                        color={COLORS.light.black2}
+               <View style={styles.container}>
+                  <View style={styles.progressWrapper}>
+                     <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialIcons
+                           name={"arrow-back-ios"}
+                           size={24}
+                           color={COLORS.light.black2}
+                        />
+                     </TouchableOpacity>
+                     <CircularProgress
+                        iconPath={IMAGES["icon-auth-phone-verify"]}
+                        progress={24}
                      />
-                  </TouchableOpacity>
-                  <CircularProgress
-                     icon={"screen-lock-portrait"}
-                     progress={24}
-                     iconType={"MaterialIcons"}
+                  </View>
+                  <Text style={styles.formTitle}>{`Verify Phone Number`}</Text>
+
+                  <Text style={styles.formSubtitle}>
+                     Please enter the 5-digit pin sent to
+                     <Text style={{ fontFamily: "Inter-Bold" }}>
+                        {" "}
+                        {authDetail.phoneNo}
+                     </Text>
+                  </Text>
+
+                  {/* custom otp plugin   */}
+                  <OtpCodeInput
+                     cellCount={CELL_COUNT}
+                     onTextInputChange={otpInputChangeHandler}
+                     pinVisible={true}
+                     errorText={errorText}
+                  />
+
+                  {/* timer and resent btn   */}
+                  {!isLoading && (
+                     <View
+                        style={{
+                           justifyContent: "center",
+                           alignItems: "center",
+                           marginTop: 10
+                        }}
+                     >
+                        {timer > 0 ? (
+                           <Text
+                              style={{
+                                 color: COLORS.light.black,
+                                 fontFamily: "Inter-Regular"
+                              }}
+                           >
+                              Resend OTP in{" "}
+                              <Text style={{ fontFamily: "Inter-Bold" }}>
+                                 {UTILITIES.formateTime(timer)}s
+                              </Text>
+                           </Text>
+                        ) : (
+                           <View
+                              style={{
+                                 flexDirection: "row",
+                                 // alignItems: "center",
+                                 justifyContent: "flex-start"
+                              }}
+                           >
+                              <View>
+                                 <Text style={styles.recentCodeText}>
+                                    Didnt get code?
+                                 </Text>
+                              </View>
+                              <TouchableOpacity onPress={() => resendOtp()}>
+                                 <Text
+                                    style={[
+                                       styles.secondaryButton,
+                                       {
+                                          marginTop: 0,
+                                          fontFamily: "Inter-Regular",
+                                          lineHeight: heightPercentageToDP(
+                                             "2.95%"
+                                          )
+                                       }
+                                    ]}
+                                 >
+                                    {" "}
+                                    Resend Code
+                                 </Text>
+                              </TouchableOpacity>
+                           </View>
+                        )}
+                     </View>
+                  )}
+                  {/* loading spinner  */}
+                  <View style={{ flex: 1 }} />
+                  {/* continue btn  */}
+                  <CustomButton
+                     bgColor={isLoading ? COLORS.light.disabled : btnBgColor}
+                     textColor={COLORS.light.white}
+                     btnText={"Continue"}
+                     isLoading={isLoading}
+                     onClick={() => onSubmit()}
                   />
                </View>
-               <Text style={styles.formTitle}>{`Verify Phone Number`}</Text>
-
-               <Text style={styles.formSubtitle}>
-                  Please enter the 5-digit pin sent to
-                  <Text style={{ fontFamily: "Inter-Bold" }}>
-                     {" "}
-                     {authDetail.phoneNo}
-                  </Text>
-               </Text>
-
-               {/* custom otp plugin   */}
-               <OtpCodeInput
-                  cellCount={CELL_COUNT}
-                  onTextInputChange={otpInputChangeHandler}
-                  pinVisible={true}
-                  errorText={errorText}
-               />
-
-               {/* timer and resent btn   */}
-               {!isLoading && (
-                  <View
-                     style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: 10
-                     }}
-                  >
-                     {timer > 0 ? (
-                        <Text
-                           style={{
-                              color: COLORS.light.black,
-                              fontFamily: "Inter-Regular"
-                           }}
-                        >
-                           Resend OTP in{" "}
-                           <Text style={{ fontFamily: "Inter-Bold" }}>
-                              {UTILITIES.formateTime(timer)}s
-                           </Text>
-                        </Text>
-                     ) : (
-                        <View
-                           style={{
-                              flexDirection: "row",
-                              // alignItems: "center",
-                              justifyContent: "flex-start"
-                           }}
-                        >
-                           <View>
-                              <Text style={styles.recentCodeText}>
-                                 Didnt get code?
-                              </Text>
-                           </View>
-                           <TouchableOpacity onPress={() => resendOtp()}>
-                              <Text
-                                 style={[
-                                    styles.secondaryButton,
-                                    {
-                                       marginTop: 0,
-                                       fontFamily: "Inter-Regular",
-                                       lineHeight: heightPercentageToDP("2.95%")
-                                    }
-                                 ]}
-                              >
-                                 {" "}
-                                 Resend Code
-                              </Text>
-                           </TouchableOpacity>
-                        </View>
-                     )}
-                  </View>
-               )}
-               {/* loading spinner  */}
-               <View style={{ flex: 1 }} />
-               {/* continue btn  */}
-               <CustomButton
-                  bgColor={isLoading ? COLORS.light.disabled : btnBgColor}
-                  textColor={COLORS.light.white}
-                  btnText={"Continue"}
-                  isLoading={isLoading}
-                  onClick={() => onSubmit()}
-               />
             </View>
-         </View>
-      </ScrollView>
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 };
 

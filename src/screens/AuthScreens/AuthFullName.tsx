@@ -5,7 +5,9 @@ import {
    Text,
    Image,
    TouchableOpacity,
-   StatusBar
+   StatusBar,
+   KeyboardAvoidingView,
+   Platform
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
@@ -80,76 +82,91 @@ export default function AuthEmail({ navigation, route }: Props) {
    };
 
    return (
-      <View style={styles.wrapper}>
-         <StatusBar
-            backgroundColor={COLORS.light.white}
-            hidden
-            barStyle="light-content"
-            translucent={true}
-         />
-         <View style={styles.container}>
-            <View style={styles.progressWrapper}>
-               <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <MaterialIcons
-                     name={"arrow-back-ios"}
-                     size={24}
-                     color={COLORS.light.black2}
+      <KeyboardAvoidingView
+         behavior={"padding"}
+         style={{ flex: 1 }}
+         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+      >
+         <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+         >
+            <View style={styles.wrapper}>
+               <StatusBar
+                  backgroundColor={COLORS.light.white}
+                  hidden
+                  barStyle="light-content"
+                  translucent={true}
+               />
+               <View style={styles.container}>
+                  <View style={styles.progressWrapper}>
+                     <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialIcons
+                           name={"arrow-back-ios"}
+                           size={24}
+                           color={COLORS.light.black2}
+                        />
+                     </TouchableOpacity>
+                     <CircularProgress
+                        iconPath={IMAGES["icon-auth-fullname"]}
+                        progress={36}
+                     />
+                  </View>
+                  <Text style={styles.formTitle}>{`Personal Info`}</Text>
+
+                  <Text style={styles.formSubtitle}>
+                     We would use this as the name for your Surepay account
+                  </Text>
+                  <Text style={styles.inputLabel}>First name</Text>
+                  <Input
+                     id="firstName"
+                     placeholder="First name"
+                     placeholderTextColor=""
+                     errorText={fNameErrorText}
+                     keyboardType="default"
+                     autoCapitalize="sentences"
+                     returnKeyType="next"
+                     onInputChange={fNameInputChangeHandler}
+                     onSubmit={onSubmit}
+                     initialValue=""
+                     touched={touchedAction}
+                     initiallyValid={false}
+                     required
+                     secureTextEntry={false}
+                     minLength={2}
+                     textContentType="none"
                   />
-               </TouchableOpacity>
-               <CircularProgress icon={"id-card"} progress={36} iconSize={18} />
+                  <View style={{ height: hp("1%") }} />
+                  <Text style={styles.inputLabel}>Last name</Text>
+                  <Input
+                     id="lastName"
+                     placeholder="Last name"
+                     placeholderTextColor=""
+                     errorText={lNameErrorText}
+                     keyboardType="default"
+                     autoCapitalize="sentences"
+                     returnKeyType="next"
+                     onInputChange={lNameInputChangeHandler}
+                     onSubmit={onSubmit}
+                     initialValue=""
+                     touched={touchedAction}
+                     initiallyValid={false}
+                     required
+                     secureTextEntry={false}
+                     minLength={2}
+                     textContentType="none"
+                  />
+                  <View style={{ flex: 1 }} />
+
+                  <CustomButton
+                     bgColor={btnBgColor}
+                     textColor={COLORS.light.white}
+                     btnText={"Continue"}
+                     onClick={onSubmit}
+                  />
+               </View>
             </View>
-            <Text style={styles.formTitle}>{`Personal Info`}</Text>
-
-            <Text style={styles.formSubtitle}>
-               We would use this as the name for your Surepay account
-            </Text>
-            <Text style={styles.inputLabel}>First name</Text>
-            <Input
-               id="firstName"
-               placeholder="First name"
-               placeholderTextColor=""
-               errorText={fNameErrorText}
-               keyboardType="default"
-               autoCapitalize="sentences"
-               returnKeyType="next"
-               onInputChange={fNameInputChangeHandler}
-               onSubmit={onSubmit}
-               initialValue=""
-               touched={touchedAction}
-               initiallyValid={false}
-               required
-               secureTextEntry={false}
-               minLength={2}
-               textContentType="none"
-            />
-            <View style={{ height: hp("1%") }} />
-            <Text style={styles.inputLabel}>Last name</Text>
-            <Input
-               id="lastName"
-               placeholder="Last name"
-               placeholderTextColor=""
-               errorText={lNameErrorText}
-               keyboardType="default"
-               autoCapitalize="sentences"
-               returnKeyType="next"
-               onInputChange={lNameInputChangeHandler}
-               onSubmit={onSubmit}
-               initialValue=""
-               touched={touchedAction}
-               initiallyValid={false}
-               required
-               secureTextEntry={false}
-               minLength={2}
-               textContentType="none"
-            />
-
-            <CustomButton
-               bgColor={btnBgColor}
-               textColor={COLORS.light.white}
-               btnText={"Continue"}
-               onClick={onSubmit}
-            />
-         </View>
-      </View>
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 }

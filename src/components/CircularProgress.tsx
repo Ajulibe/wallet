@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ImageSourcePropType, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconSimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -7,21 +7,20 @@ import FeatherIcons from "react-native-vector-icons/Feather";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import COLORS from "../utils/Colors";
+import IMAGES from "../utils/Images";
 
 interface Props {
    progress: number;
-   icon: string;
-   size?: number;
-   iconType?: string;
+   iconPath: ImageSourcePropType;
    iconSize?: number;
+   size?: number;
 }
 
 export default function CircularProgress({
    progress,
-   icon,
-   size = 50,
-   iconType = "FontAwesome",
-   iconSize = 24
+   iconPath,
+   iconSize = 24,
+   size = 60
 }: Props) {
    return (
       <>
@@ -30,13 +29,14 @@ export default function CircularProgress({
                size={size}
                width={progress == 100 ? 5 : 3}
                fill={progress}
+               duration={2000}
                rotation={0}
                tintColor={
                   progress == 100
                      ? COLORS.light.primaryLight
                      : COLORS.light.primary
                }
-               backgroundColor={COLORS.light.tint}
+               backgroundColor={COLORS.light.transparent}
             >
                {(fill) => (
                   // <View style={styles.wrapper}>
@@ -51,37 +51,14 @@ export default function CircularProgress({
                         }
                      ]}
                   >
-                     {iconType == "FontAwesome" ? (
-                        <Icon
-                           name={icon}
-                           size={iconSize}
-                           color={COLORS.light.black}
-                        />
-                     ) : iconType == "SimpleLineIcons" ? (
-                        <IconSimpleLineIcons
-                           name={icon}
-                           size={iconSize}
-                           color={COLORS.light.black}
-                        />
-                     ) : iconType == "MaterialIcons" ? (
-                        <MaterialIcons
-                           name={icon}
-                           size={iconSize}
-                           color={COLORS.light.black}
-                        />
-                     ) : iconType == "FeatherIcons" ? (
-                        <FeatherIcons
-                           name={icon}
-                           size={iconSize}
-                           color={COLORS.light.black}
-                        />
-                     ) : iconType == "FontAwesome5" ? (
-                        <FontAwesome5
-                           name={icon}
-                           size={iconSize}
-                           color={COLORS.light.white}
-                        />
-                     ) : null}
+                     <Image
+                        source={iconPath}
+                        style={{
+                           width: iconSize,
+                           height: iconSize,
+                           resizeMode: "contain"
+                        }}
+                     />
                   </View>
                   // </View>
                )}

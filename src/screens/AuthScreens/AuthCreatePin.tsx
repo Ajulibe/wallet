@@ -6,7 +6,9 @@ import {
    StyleSheet,
    StatusBar,
    TouchableOpacity,
-   Image
+   Image,
+   KeyboardAvoidingView,
+   Platform
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
@@ -121,83 +123,92 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
    };
 
    return (
-      <View style={styles.wrapper}>
-         {/* redirect user  */}
+      <KeyboardAvoidingView
+         behavior={"padding"}
+         style={{ flex: 1 }}
+         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+      >
+         <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+         >
+            <View style={styles.wrapper}>
+               {/* redirect user  */}
 
-         <StatusBar backgroundColor={COLORS.light.white} />
-         {/* top menu  */}
-         <View style={styles.container}>
-            <View style={styles.progressWrapper}>
-               <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <MaterialIcons
-                     name={"arrow-back-ios"}
-                     size={24}
-                     color={COLORS.light.black2}
+               <StatusBar backgroundColor={COLORS.light.white} />
+               {/* top menu  */}
+               <View style={styles.container}>
+                  <View style={styles.progressWrapper}>
+                     <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialIcons
+                           name={"arrow-back-ios"}
+                           size={24}
+                           color={COLORS.light.black2}
+                        />
+                     </TouchableOpacity>
+                     <CircularProgress
+                        iconPath={IMAGES["icon-auth-pin"]}
+                        progress={64}
+                     />
+                  </View>
+                  <Text style={styles.formTitle}>{"Create Pin"}</Text>
+
+                  <Text
+                     style={styles.formSubtitle}
+                  >{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>
+
+                  <Text style={[styles.inputLabelTop, { textAlign: "left" }]}>
+                     Enter Pin
+                  </Text>
+                  <PinInput
+                     cellCount={CELL_COUNT}
+                     onTextInputChange={pinInputChangeHandler}
+                     errorText={errorText}
                   />
-               </TouchableOpacity>
-               <CircularProgress
-                  icon={"lock"}
-                  progress={64}
-                  iconType={"MaterialIcons"}
-                  iconSize={20}
-               />
+
+                  <Text style={[styles.inputLabelTop, { textAlign: "left" }]}>
+                     Confirm Pin
+                  </Text>
+                  <PinInput
+                     cellCount={CELL_COUNT}
+                     onTextInputChange={pinConfirmInputChangeHandler}
+                     errorText={errorText}
+                  />
+
+                  <CheckBox
+                     checked={isFingerPrintCaptured}
+                     checkedColor={COLORS.light.secondary}
+                     size={24}
+                     containerStyle={{
+                        marginHorizontal: 0,
+                        padding: 0,
+                        backgroundColor: "transparent",
+                        borderWidth: 0,
+                        display: isFingerPrintActive ? "flex" : "none"
+                     }}
+                     checkedTitle="Biometric enabled"
+                     title="Enable Biometric authentication"
+                     titleProps={{
+                        style: {
+                           fontFamily: "Inter-Regular",
+                           color: isFingerPrintCaptured
+                              ? COLORS.light.secondary
+                              : COLORS.light.blackLight
+                        }
+                     }}
+                     onPress={() => onSwitchChange()}
+                  />
+
+                  <CustomButton
+                     bgColor={btnBgColor}
+                     textColor={COLORS.light.white}
+                     btnText={"Continue"}
+                     onClick={onSubmit}
+                  />
+               </View>
             </View>
-            <Text style={styles.formTitle}>{"Create Pin"}</Text>
-
-            <Text
-               style={styles.formSubtitle}
-            >{`Finally, Enter a 4-digit pin that you would use to login to your account`}</Text>
-
-            <Text style={[styles.inputLabelTop, { textAlign: "left" }]}>
-               Enter Pin
-            </Text>
-            <PinInput
-               cellCount={CELL_COUNT}
-               onTextInputChange={pinInputChangeHandler}
-               errorText={errorText}
-            />
-
-            <Text style={[styles.inputLabelTop, { textAlign: "left" }]}>
-               Confirm Pin
-            </Text>
-            <PinInput
-               cellCount={CELL_COUNT}
-               onTextInputChange={pinConfirmInputChangeHandler}
-               errorText={errorText}
-            />
-
-            <CheckBox
-               checked={isFingerPrintCaptured}
-               checkedColor={COLORS.light.secondary}
-               size={24}
-               containerStyle={{
-                  marginHorizontal: 0,
-                  padding: 0,
-                  backgroundColor: "transparent",
-                  borderWidth: 0,
-                  display: isFingerPrintActive ? "flex" : "none"
-               }}
-               checkedTitle="Biometric enabled"
-               title="Enable Biometric authentication"
-               titleProps={{
-                  style: {
-                     fontFamily: "Inter-Regular",
-                     color: isFingerPrintCaptured
-                        ? COLORS.light.secondary
-                        : COLORS.light.blackLight
-                  }
-               }}
-               onPress={() => onSwitchChange()}
-            />
-
-            <CustomButton
-               bgColor={btnBgColor}
-               textColor={COLORS.light.white}
-               btnText={"Continue"}
-               onClick={onSubmit}
-            />
-         </View>
-      </View>
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 };
 

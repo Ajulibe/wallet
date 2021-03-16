@@ -7,7 +7,9 @@ import {
    StatusBar,
    Image,
    StyleSheet,
-   Platform
+   Platform,
+   KeyboardAvoidingView,
+   LogBox
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import OtpCodeInput from "../../components/OtpCodeInput";
@@ -50,6 +52,7 @@ type Props = StackScreenProps<
 
 const CELL_COUNT = 4;
 const AuthLogin = ({ navigation }: Props) => {
+   LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
    const [btnBgColor, setBtnBgColor] = useState(COLORS.light.disabled);
 
    const [loggedUser, setLoggedUser] = useState({} as UserInterface); //initial phone no. stored in the async storage
@@ -171,138 +174,151 @@ const AuthLogin = ({ navigation }: Props) => {
       //4d657373616765
    };
    return (
-      <View style={styles.wrapper}>
+      <KeyboardAvoidingView
+         behavior={"padding"}
+         style={{ flex: 1 }}
+         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+      >
          <CountryPicker
-            initialSnap={openCountry ? 0 : 1}
+            isVisible={openCountry ? true : false}
             onClose={() => setOpenCountry(false)}
             current={country}
             onCountryChange={(newCountry) => setCountry(newCountry)}
          />
-         <StatusBar backgroundColor={COLORS.light.white} />
+         <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+            bounces={false}
+         >
+            <View style={styles.wrapper}>
+               <StatusBar backgroundColor={COLORS.light.white} />
 
-         <View style={styles2.container}>
-            <View style={styles2.body}>
-               <View style={{ alignItems: "center" }}>
-                  <Image
-                     source={IMAGES["logo"]}
-                     style={{
-                        height: wp("21.33%"),
-                        width: wp("21.33%"),
-                        marginBottom: hp("4.31%")
-                     }}
-                  />
+               <View style={styles2.container}>
+                  <View style={styles2.body}>
+                     <View style={{ alignItems: "center" }}>
+                        <Image
+                           source={IMAGES["logo"]}
+                           style={{
+                              height: wp("21.33%"),
+                              width: wp("21.33%"),
+                              marginBottom: hp("4.31%")
+                           }}
+                        />
+                     </View>
+
+                     <Text
+                        style={[styles.formTitle, { textAlign: "center" }]}
+                     >{`Welcome back`}</Text>
+
+                     <Text
+                        style={[styles.formSubtitle, { textAlign: "center" }]}
+                     >
+                        Login with your details that you entered during your
+                        registration
+                        {/* {JSON.stringify(user)}=={JSON.stringify(loading)}=={JSON.stringify(error)} */}
+                     </Text>
+
+                     <Text style={[styles.inputLabel, { textAlign: "left" }]}>
+                        Phone Number
+                     </Text>
+                     <InputPhoneNumber
+                        country={country}
+                        onTextInputChange={(v) => setPhoneNumber(v)}
+                        openCountryModal={(isS) => setOpenCountry(isS)}
+                        errorText={phoneErrorText}
+                        initialValue={phoneNumber}
+                        onSubmit={onSubmit}
+                     />
+                     {/* custom otp plugin   */}
+                     <Text style={[styles.inputLabel, { textAlign: "left" }]}>
+                        Enter your Pin
+                     </Text>
+
+                     <Input
+                        id="Pin"
+                        placeholder="eg. 1234"
+                        placeholderTextColor=""
+                        errorText={pinErrorText}
+                        touched={true}
+                        keyboardType="number-pad"
+                        autoCapitalize="sentences"
+                        autoCompleteType={"postal-code"}
+                        returnKeyType="done"
+                        onInputChange={(pin?: string) =>
+                           setPinCode(pin!.toString())
+                        }
+                        onSubmit={onSubmit}
+                        initialValue=""
+                        initiallyValid={false}
+                        required
+                        secureTextEntry={false}
+                        minLength={2}
+                        maxLength={4}
+                        textContentType="none"
+                     />
+                     <Text
+                        style={{
+                           color: COLORS.light.red,
+                           display: error ? "flex" : "none"
+                        }}
+                     >
+                        {error}
+                     </Text>
+                  </View>
+                  {/* <View style={{ flex: 1 }} /> */}
+
+                  <View style={styles2.footer}>
+                     {/* continue btn  */}
+                     <CustomButton
+                        bgColor={loading ? COLORS.light.disabled : btnBgColor}
+                        textColor={COLORS.light.white}
+                        btnText={"Login"}
+                        isLoading={loading!}
+                        onClick={() => onSubmit()}
+                     />
+                     <View
+                        style={{
+                           flexDirection: "row",
+                           alignItems: "center",
+                           marginTop: 20,
+                           justifyContent: "center"
+                        }}
+                     >
+                        <Text
+                           style={{
+                              fontFamily: "Inter-Regular",
+                              color: COLORS.light.black2
+                           }}
+                        >
+                           Don't have an account?{" "}
+                        </Text>
+                        <TouchableOpacity
+                           onPress={() =>
+                              navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
+                           }
+                        >
+                           <Text style={styles2.loginText}>Sign Up</Text>
+                        </TouchableOpacity>
+                     </View>
+                     <TouchableOpacity
+                        onPress={() => navigation.navigate(ROUTES.AUTH_LOGIN)}
+                     >
+                        <Text
+                           style={{
+                              fontFamily: "Inter-Regular",
+                              color: COLORS.light.black2,
+                              textAlign: "center",
+                              marginTop: 8
+                           }}
+                        >
+                           I forgot my password
+                        </Text>
+                     </TouchableOpacity>
+                  </View>
                </View>
-
-               <Text
-                  style={[styles.formTitle, { textAlign: "center" }]}
-               >{`Welcome back`}</Text>
-
-               <Text style={[styles.formSubtitle, { textAlign: "center" }]}>
-                  Login with your details that you entered during your
-                  registration
-                  {/* {JSON.stringify(user)}=={JSON.stringify(loading)}=={JSON.stringify(error)} */}
-               </Text>
-
-               <Text style={[styles.inputLabel, { textAlign: "left" }]}>
-                  Phone Number
-               </Text>
-               <InputPhoneNumber
-                  country={country}
-                  onTextInputChange={(v) => setPhoneNumber(v)}
-                  openCountryModal={(isS) => setOpenCountry(isS)}
-                  errorText={phoneErrorText}
-                  initialValue={phoneNumber}
-                  onSubmit={onSubmit}
-               />
-               {/* custom otp plugin   */}
-               <Text style={[styles.inputLabel, { textAlign: "left" }]}>
-                  Enter your Pin
-               </Text>
-               {/* <InputPin
-                    cellCount={CELL_COUNT}
-                    onTextInputChange={(pin) => setPinCode(pin!.toString())}
-                    errorText={pinErrorText}
-                /> */}
-               <Input
-                  id="Pin"
-                  placeholder="eg. 1234"
-                  placeholderTextColor=""
-                  errorText={pinErrorText}
-                  touched={true}
-                  keyboardType="number-pad"
-                  autoCapitalize="sentences"
-                  returnKeyType="send"
-                  onInputChange={(pin?: string) => setPinCode(pin!.toString())}
-                  onSubmit={onSubmit}
-                  initialValue=""
-                  initiallyValid={false}
-                  required
-                  secureTextEntry={false}
-                  minLength={2}
-                  maxLength={4}
-                  textContentType="none"
-               />
-               <Text
-                  style={{
-                     color: COLORS.light.red,
-                     display: error ? "flex" : "none"
-                  }}
-               >
-                  {error}
-               </Text>
             </View>
-            {/* <View style={{ flex: 1 }} /> */}
-
-            <View style={styles2.footer}>
-               {/* continue btn  */}
-               <CustomButton
-                  bgColor={loading ? COLORS.light.disabled : btnBgColor}
-                  textColor={COLORS.light.white}
-                  btnText={"Login"}
-                  isLoading={loading!}
-                  onClick={() => onSubmit()}
-               />
-               <View
-                  style={{
-                     flexDirection: "row",
-                     alignItems: "center",
-                     marginTop: 20,
-                     justifyContent: "center"
-                  }}
-               >
-                  <Text
-                     style={{
-                        fontFamily: "Inter-Regular",
-                        color: COLORS.light.black2
-                     }}
-                  >
-                     Don't have an account?{" "}
-                  </Text>
-                  <TouchableOpacity
-                     onPress={() =>
-                        navigation.navigate(ROUTES.AUTH_PHONE_NO_SCREEN)
-                     }
-                  >
-                     <Text style={styles2.loginText}>Sign Up</Text>
-                  </TouchableOpacity>
-               </View>
-               <TouchableOpacity
-                  onPress={() => navigation.navigate(ROUTES.AUTH_LOGIN)}
-               >
-                  <Text
-                     style={{
-                        fontFamily: "Inter-Regular",
-                        color: COLORS.light.black2,
-                        textAlign: "center",
-                        marginTop: 8
-                     }}
-                  >
-                     I forgot my password
-                  </Text>
-               </TouchableOpacity>
-            </View>
-         </View>
-      </View>
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 };
 
@@ -325,6 +341,7 @@ const styles2 = StyleSheet.create({
       borderTopWidth: 1,
       // paddingVertical: hp("3.4%"),
       marginTop: hp("4.43%"),
+      paddingTop: 8,
       paddingHorizontal: wp("9.6%")
    },
    loginText: {

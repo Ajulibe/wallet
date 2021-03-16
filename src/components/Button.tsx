@@ -25,14 +25,13 @@ type Props = {
 };
 
 export default function Button(props: Props) {
-
    let rotateValueHolder = new Animated.Value(0);
 
    useEffect(() => {
       if (props.isLoading) {
-         startImageRotateFunction()
+         startImageRotateFunction();
       }
-   }, [props.isLoading])
+   }, [props.isLoading]);
 
    const startImageRotateFunction = () => {
       rotateValueHolder.setValue(0);
@@ -40,13 +39,13 @@ export default function Button(props: Props) {
          toValue: 1,
          duration: 1000,
          easing: Easing.linear,
-         useNativeDriver: false,
+         useNativeDriver: false
       }).start(() => startImageRotateFunction());
    };
 
    const RotateData = rotateValueHolder.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '360deg'],
+      outputRange: ["0deg", "360deg"]
    });
 
    return (
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
       width: "100%",
       borderRadius: 4,
       paddingVertical: hp("1.72%"),
-      marginTop: hp("5%"),
+      marginTop: hp("3%"),
       flexDirection: "row",
       justifyContent: "center",
       alignItems: "center"

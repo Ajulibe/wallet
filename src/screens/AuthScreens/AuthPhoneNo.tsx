@@ -7,7 +7,9 @@ import {
    TextInput,
    StyleSheet,
    TouchableOpacity,
-   KeyboardAvoidingView
+   KeyboardAvoidingView,
+   Platform,
+   Button
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
@@ -44,11 +46,20 @@ const AuthPhoneNo = ({ navigation }: Props) => {
    const [openCountry, setOpenCountry] = useState(false);
    const [country, setCountry] = useState(CountryData.africaCountries[0]);
 
+   // google libphonenumber init
+   const phoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
+   const completePhone = (phone: string) =>
+      phoneNumberUtil.parseAndKeepRawInput(phone, country.code);
+
    //on input text change handler
    let inputChangeHandler = (value: string) => {
       setPhoneNumber(value.toString());
 
-      if (value.toString().length < 10) {
+      if (value.toString().length < 6) {
+         setBtnBgColor(COLORS.light.disabled);
+      } else if (
+         !phoneNumberUtil.isValidNumber(completePhone(value.toString()))
+      ) {
          setBtnBgColor(COLORS.light.disabled);
       } else {
          setBtnBgColor(COLORS.light.primary);
@@ -59,10 +70,9 @@ const AuthPhoneNo = ({ navigation }: Props) => {
    //submit handler
    const onSubmit = () => {
       let phone = country.dial_code + parseInt(phoneNumber);
-      // google libphonenumber init
-      const phoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
-      const number = phoneNumberUtil.parseAndKeepRawInput(phone, country.code);
-      if (!phoneNumberUtil.isValidNumber(number)) {
+      if (phoneNumber.length < 6) {
+         setErrorText("Enter a valid phone number");
+      } else if (!phoneNumberUtil.isValidNumber(completePhone(phone))) {
          setErrorText("Enter a valid phone number");
       } else {
          setErrorText("");
@@ -96,11 +106,11 @@ const AuthPhoneNo = ({ navigation }: Props) => {
       <KeyboardAvoidingView
          behavior={"padding"}
          style={{ flex: 1 }}
-         keyboardVerticalOffset={-50}
+         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
       >
          {/* country picker bottom sheet  */}
          <CountryPicker
-            initialSnap={openCountry ? 0 : 1}
+            isVisible={openCountry ? true : false}
             onClose={() => setOpenCountry(false)}
             current={country}
             onCountryChange={(newCountry) => setCountry(newCountry)}
@@ -108,8 +118,9 @@ const AuthPhoneNo = ({ navigation }: Props) => {
          <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
+            bounces={false}
          >
-            <View style={styles.wrapper}>
+            <View style={[styles.wrapper, {}]}>
                <StatusBar backgroundColor={COLORS.light.white} />
 
                {/* container view  */}
@@ -117,10 +128,10 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                   style={[
                      styles.container,
                      {
-                        opacity: Animated.add(
-                           0.5,
-                           Animated.multiply(!openCountry ? 1 : 0, 1.0)
-                        )
+                        // opacity: Animated.add(
+                        //    0.5,
+                        //    Animated.multiply(!openCountry ? 1 : 0, 1.0)
+                        // )
                      }
                   ]}
                >
@@ -133,9 +144,8 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                         />
                      </TouchableOpacity>
                      <CircularProgress
-                        icon={"phone-iphone"}
+                        iconPath={IMAGES["icon-auth-phone"]}
                         progress={12}
-                        iconType="MaterialIcons"
                      />
                   </View>
 
@@ -143,7 +153,32 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                   <Text style={styles.formSubtitle}>
                      This number will be used as your account number
                   </Text>
-
+                  <Text style={{ display: "none" }}>
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Amet voluptas modi incidunt ullam architecto odit,
+                     reprehenderit ut numquam facilis libero tempora repellat
+                     nulla culpa suscipit illo doloribus neque at officiis.
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Amet voluptas modi incidunt ullam architecto odit,
+                     reprehenderit ut numquam facilis libero tempora repellat
+                     nulla culpa suscipit illo doloribus neque at officiis.
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Amet voluptas modi incidunt ullam architecto odit,
+                     reprehenderit ut numquam facilis libero tempora repellat
+                     nulla culpa suscipit illo doloribus neque at officiis.
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Amet voluptas modi incidunt ullam architecto odit,
+                     reprehenderit ut numquam facilis libero tempora repellat
+                     nulla culpa suscipit illo doloribus neque at officiis.
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Amet voluptas modi incidunt ullam architecto odit,
+                     reprehenderit ut numquam facilis libero tempora repellat
+                     nulla culpa suscipit illo doloribus neque at officiis.
+                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Amet voluptas modi incidunt ullam architecto odit,
+                     reprehenderit ut numquam facilis libero tempora repellat
+                     nulla culpa suscipit illo doloribus neque at officiis.
+                  </Text>
                   <Text style={styles.inputLabel}>Phone Number</Text>
                   <InputPhoneNumber
                      country={country}
@@ -153,7 +188,6 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                      initialValue={phoneNumber}
                      onSubmit={onSubmit}
                   />
-
                   <View style={{ flex: 1 }} />
 
                   <CustomButton

@@ -1,11 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
    View,
    ScrollView,
    Text,
    Image,
    TouchableOpacity,
-   StatusBar
+   StatusBar,
+   KeyboardAvoidingView,
+   Platform
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
@@ -20,7 +22,6 @@ import InputValidation from "../../utils/InputValidation";
 import CircularProgress from "../../components/CircularProgress";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
-
 const AuthEmail = ({ navigation, route }: Props) => {
    const [btnBgColor, setBtnBgColor] = useState(COLORS.light.disabled);
    const [email, setEmail] = useState("");
@@ -55,70 +56,81 @@ const AuthEmail = ({ navigation, route }: Props) => {
    };
 
    return (
-      <View style={styles.wrapper}>
-         <StatusBar backgroundColor={COLORS.light.white} />
-         {/* top menu  */}
-         <View style={styles.container}>
-            <View style={styles.progressWrapper}>
-               <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <MaterialIcons
-                     name={"arrow-back-ios"}
-                     size={24}
-                     color={COLORS.light.black2}
+      <KeyboardAvoidingView
+         behavior={"padding"}
+         style={{ flex: 1 }}
+         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+      >
+         <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+         >
+            <View style={styles.wrapper}>
+               <StatusBar backgroundColor={COLORS.light.white} />
+               {/* top menu  */}
+               <View style={styles.container}>
+                  <View style={styles.progressWrapper}>
+                     <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialIcons
+                           name={"arrow-back-ios"}
+                           size={24}
+                           color={COLORS.light.black2}
+                        />
+                     </TouchableOpacity>
+                     <CircularProgress
+                        iconPath={IMAGES["icon-auth-email"]}
+                        progress={48}
+                     />
+                  </View>
+                  <Text style={styles.formTitle}>{"Email Address"}</Text>
+
+                  <Text style={styles.formSubtitle}>
+                     Almost done! Please enter a valid email address that we can
+                     use to reach you
+                  </Text>
+                  <Text style={styles.inputLabel}>Email Address</Text>
+                  <Input
+                     id="fullName"
+                     placeholder="Email address"
+                     placeholderTextColor=""
+                     errorText={errorText}
+                     keyboardType="email-address"
+                     autoCapitalize="sentences"
+                     returnKeyType="next"
+                     onSubmit={onSubmit}
+                     onInputChange={inputChangeHandler}
+                     initialValue=""
+                     touched={touchedAction}
+                     initiallyValid={false}
+                     required
+                     secureTextEntry={false}
+                     minLength={2}
+                     textContentType="none"
                   />
-               </TouchableOpacity>
-               <CircularProgress
-                  icon={"envelope"}
-                  progress={48}
-                  iconSize={18}
-               />
+
+                  {/* Skip button */}
+                  <TouchableOpacity
+                     onPress={() =>
+                        navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN, {
+                           authDetail: authDetail
+                        })
+                     }
+                  >
+                     <Text style={styles.secondaryButton}>
+                        I don’t have an e-mail address
+                     </Text>
+                  </TouchableOpacity>
+                  <View style={{ flex: 1 }} />
+                  <CustomButton
+                     bgColor={btnBgColor}
+                     textColor={COLORS.light.white}
+                     btnText={"Continue"}
+                     onClick={onSubmit}
+                  />
+               </View>
             </View>
-            <Text style={styles.formTitle}>{"Email Address"}</Text>
-
-            <Text style={styles.formSubtitle}>
-               Almost done! Please enter a valid email address that we can use
-               to reach you
-            </Text>
-            <Text style={styles.inputLabel}>Email Address</Text>
-            <Input
-               id="fullName"
-               placeholder="Email address"
-               placeholderTextColor=""
-               errorText={errorText}
-               keyboardType="email-address"
-               autoCapitalize="sentences"
-               returnKeyType="next"
-               onSubmit={onSubmit}
-               onInputChange={inputChangeHandler}
-               initialValue=""
-               touched={touchedAction}
-               initiallyValid={false}
-               required
-               secureTextEntry={false}
-               minLength={2}
-               textContentType="none"
-            />
-
-            <CustomButton
-               bgColor={btnBgColor}
-               textColor={COLORS.light.white}
-               btnText={"Continue"}
-               onClick={onSubmit}
-            />
-            {/* Skip button */}
-            <TouchableOpacity
-               onPress={() =>
-                  navigation.navigate(ROUTES.AUTH_CREATE_PIN_SCREEN, {
-                     authDetail: authDetail
-                  })
-               }
-            >
-               <Text style={styles.secondaryButton}>
-                  I don’t have an e-mail address
-               </Text>
-            </TouchableOpacity>
-         </View>
-      </View>
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 };
 

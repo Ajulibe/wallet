@@ -14,7 +14,7 @@ interface Props {
    required: boolean;
    minLength: number;
    maxLength?: number;
-   // autoCompleteType?: any;
+   autoCompleteType?: any;
    autoCapitalize: any;
    errorText: string;
    initialValue: string;
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
       marginVertical: 0
    },
    errorText: {
-      marginTop: hp("1.5%"),
+      marginTop: hp("1%"),
       fontFamily: "Inter-Regular",
       color: COLORS.light.red,
       fontSize: 13

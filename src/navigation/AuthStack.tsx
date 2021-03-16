@@ -90,7 +90,7 @@ export default function AuthNavigationStack() {
          <AuthStack.Screen
             name={ROUTES.AUTH_FINAL_LOADING_SCREEN}
             component={AuthFinalLoading}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, gestureEnabled: false }}
          />
          <AuthStack.Screen
             name={ROUTES.AUTH_LOGIN}

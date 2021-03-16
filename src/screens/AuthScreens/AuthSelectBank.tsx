@@ -105,7 +105,10 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
                      color={COLORS.light.black2}
                   />
                </TouchableOpacity>
-               <CircularProgress icon={"bank"} progress={78} iconSize={20} />
+               <CircularProgress
+                  iconPath={IMAGES["icon-auth-bank"]}
+                  progress={78}
+               />
             </View>
 
             <Text style={styles.formTitle}>{"Choose a Bank"}</Text>
