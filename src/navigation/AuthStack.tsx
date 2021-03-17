@@ -12,11 +12,10 @@ import AuthEmail from "../screens/AuthScreens/AuthEmail";
 import AuthCreatePin from "../screens/AuthScreens/AuthCreatePin";
 import AuthSelectBank from "../screens/AuthScreens/AuthSelectBank";
 import AuthFinalLoading from "../screens/AuthScreens/AuthFinalLoading";
-import MainFlowTab from "../navigation/BottomTab";
 import { ROUTES } from "./Routes";
 import { AuthDetail } from "../models/AuthDetail";
 import AuthLogin from "../screens/AuthScreens/AuthLogin";
-import AuthPayOnTheGo from "../screens/AuthScreens/AuthPayOnTheGo";
+import HomeNavigationStack from "./HomeStack";
 
 export type AuthStackParamList = {
    [ROUTES.AUTH_VALUE_PROPOSITION]: undefined;
@@ -29,7 +28,7 @@ export type AuthStackParamList = {
    [ROUTES.AUTH_SELECT_BANK]: { authDetail: AuthDetail };
    [ROUTES.AUTH_FINAL_LOADING_SCREEN]: undefined;
    [ROUTES.AUTH_LOGIN]: undefined;
-   [ROUTES.NEW_HOME_TAB]: undefined;
+   [ROUTES.HOME_SCREEN_STACK]: undefined;
    [ROUTES.AUTH_ON_THE_GO]: undefined;
 };
 
@@ -96,13 +95,14 @@ export default function AuthNavigationStack() {
             name={ROUTES.AUTH_LOGIN}
             component={AuthLogin}
             options={{
+               gestureEnabled: false,
                headerShown: false,
                cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS
             }}
          />
          <AuthStack.Screen
-            name={ROUTES.NEW_HOME_TAB}
-            component={MainFlowTab}
+            name={ROUTES.HOME_SCREEN_STACK}
+            component={HomeNavigationStack}
             options={{ headerShown: false }}
          />
       </AuthStack.Navigator>

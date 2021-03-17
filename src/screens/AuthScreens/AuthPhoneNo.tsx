@@ -140,7 +140,7 @@ const AuthPhoneNo = ({ navigation }: Props) => {
                         <MaterialIcons
                            name={"arrow-back-ios"}
                            size={24}
-                           color={COLORS.light.black2}
+                           color={COLORS.light.textBlack}
                         />
                      </TouchableOpacity>
                      <CircularProgress
@@ -151,33 +151,8 @@ const AuthPhoneNo = ({ navigation }: Props) => {
 
                   <Text style={styles.formTitle}>{"Phone Number"}</Text>
                   <Text style={styles.formSubtitle}>
-                     This number will be used as your account number
-                  </Text>
-                  <Text style={{ display: "none" }}>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Amet voluptas modi incidunt ullam architecto odit,
-                     reprehenderit ut numquam facilis libero tempora repellat
-                     nulla culpa suscipit illo doloribus neque at officiis.
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Amet voluptas modi incidunt ullam architecto odit,
-                     reprehenderit ut numquam facilis libero tempora repellat
-                     nulla culpa suscipit illo doloribus neque at officiis.
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Amet voluptas modi incidunt ullam architecto odit,
-                     reprehenderit ut numquam facilis libero tempora repellat
-                     nulla culpa suscipit illo doloribus neque at officiis.
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Amet voluptas modi incidunt ullam architecto odit,
-                     reprehenderit ut numquam facilis libero tempora repellat
-                     nulla culpa suscipit illo doloribus neque at officiis.
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Amet voluptas modi incidunt ullam architecto odit,
-                     reprehenderit ut numquam facilis libero tempora repellat
-                     nulla culpa suscipit illo doloribus neque at officiis.
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Amet voluptas modi incidunt ullam architecto odit,
-                     reprehenderit ut numquam facilis libero tempora repellat
-                     nulla culpa suscipit illo doloribus neque at officiis.
+                     You can use this number to make transfers to other Surepay
+                     accounts
                   </Text>
                   <Text style={styles.inputLabel}>Phone Number</Text>
                   <InputPhoneNumber

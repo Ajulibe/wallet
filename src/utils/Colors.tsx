@@ -1,4 +1,4 @@
-export default {
+const COLORS = {
    light: {
       primary: "#12B36C",
       primaryLight: "rgba(16,179,108, 0.6)",
@@ -6,7 +6,6 @@ export default {
       secondary: "#DB3C02",
       secondaryLight: "rgba(221,74,10,0.2)",
       muted: "#eee",
-      light_black: "#55585A",
       primaryDisabled: "rgba(71,204,175,0.4)",
       disabled: "rgba(112,112,112,0.4)",
       accent: "#FF7E3B",
@@ -14,14 +13,16 @@ export default {
       white: "#ffffff",
       whiteLight: "rgba(255,255,255,0.6)",
       black: "#000",
-      black2: "#202F44",
-      blackLight: "rgba(32,47,68,0.6)",
       background: "#fff",
       tint: "#f7f7f7",
       transparent: "transparent",
-      // tint: "#e4e4e4",
       red: "#EB5757",
       green: "#6FCF97",
+      // text
+      textBlack: "#202F44",
+      textBlackLight: "rgba(32,47,68,0.6)",
+      textBlack50: "rgba(32,47,68,0.5)", //50% opacity
+      textBlack40: "rgba(32,47,68,0.4)", //40% opacity
 
       inputBorder: "rgba(32,47,68,0.15)",
       inputBorderError: "#E39092",
@@ -42,3 +43,4 @@ export default {
       background: "#000"
    }
 };
+export default COLORS;

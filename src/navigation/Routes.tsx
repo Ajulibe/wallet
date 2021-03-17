@@ -1,14 +1,15 @@
 export enum ROUTES {
-   //TABS.....
    //NUMBER OF STACKS(ACTIVITY) THAT HOUSES/CONTAINS THE STACKS
-   AUTHENTICATION_TAB = "Authentication",
 
-   //for splash
+   //SPLASH SCREEN
    SPLASH_SCREEN = "SplashScreen",
 
-   //for login/registration STACKS
+   //Authentication STACKS...
+   AUTHENTICATION_STACK = "AuthenticationStack",
+   //Screens...
    AUTH_VALUE_PROPOSITION = "AuthValueProposition",
    AUTH_GET_STARTED_SCREEN = "AuthGetStartedScreen",
+   AUTH_ON_THE_GO = "AuthPayOnTheGo",
    AUTH_PHONE_NO_SCREEN = "AuthPhoneNoScreen",
    AUTH_PHONE_NO_VERIFY_SCREEN = "AuthPhoneNoVerifyScreen",
    AUTH_FULL_NAME_SCREEN = "AuthFullNameScreen",
@@ -17,32 +18,24 @@ export enum ROUTES {
    AUTH_SELECT_BANK = "AuthSelectBank",
    AUTH_FINAL_LOADING_SCREEN = "AuthFinalLoadingScreen",
    AUTH_LOGIN = "AuthLogin",
-   AUTH_ON_THE_GO = "AuthPayOnTheGo",
 
-   //HOME TAB SCREENS
-   NEW_HOME_TAB = "MainFlowTab",
-
-   //for main STACKS
+   //Home Stacks
+   HOME_SCREEN_STACK = "HomeStackScreen",
+   //Screens...
    HOME_SCREEN = "HomeScreen",
    WALLET_SCREEN = "WalletScreen",
    ADD_MONEY_SCREEN = "AddMoneyScreen",
    SEND_MONEY_SCREEN = "SendMoneyScreen",
    NOTIFICATION_SCREEN = "NotificationScreen",
 
-   //util
-   NOT_FOUND_SCREEN = "NotFoundScreen",
-
-   //HOME STACK SCREENS
+   //PROFILE STACKS
+   PROFILE_STACK = "ProfileStack",
+   //Screens...
    PROFILE_SCREEN = "ProfileScreen",
-   HOME_STACK_SCREEN = "HomeStackScreen",
-
    EDIT_PROFILE_SCREEN = "EditProfileScreen",
    SECURITY = "Security",
    SECURITY_QUESTION_SETUP = "SecurityQuestionSetup",
    CHANGE_NAME = "ChangeName",
    CHANGE_EMAIL = "ChangeEmail",
-   CHANGE_PASSWORD = "ChangePassword",
-
-   //TAB
-   MAIN_FLOW_TAB = "MainFlowTab"
+   CHANGE_PASSWORD = "ChangePassword"
 }

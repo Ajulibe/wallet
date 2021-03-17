@@ -35,12 +35,6 @@ const AuthGetStarted: NavigationBottomTabScreenComponent<Props> = ({
                backgroundColor={COLORS.light.secondary}
                barStyle={"light-content"}
             />
-            <View style={styles.overlayWrapper}>
-               <Image
-                  source={IMAGES["top-overlay-dark2"]}
-                  style={styles.overlayImage}
-               />
-            </View>
 
             <View style={styles.container}>
                <View style={{ alignItems: "center" }}>

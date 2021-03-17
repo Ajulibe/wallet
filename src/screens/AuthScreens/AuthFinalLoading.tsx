@@ -82,7 +82,7 @@ const AuthGetStarted = ({ navigation, route }: Props) => {
                      authStyles.formSubtitle,
                      { textAlign: "center", width: "100%" }
                   ]}
-               >{`Your personal wallet and account number is ready!!`}</Text>
+               >{`Your personal wallet and account number have been created for you!`}</Text>
 
                <Animatable.View
                   key={0}
@@ -135,7 +135,7 @@ const AuthGetStarted = ({ navigation, route }: Props) => {
                <Text
                   style={[
                      authStyles.inputLabel,
-                     { color: COLORS.light.blackLight, textAlign: "center" }
+                     { color: COLORS.light.textBlackLight, textAlign: "center" }
                   ]}
                >
                   You can use this account number to make and recieve payments
@@ -147,7 +147,7 @@ const AuthGetStarted = ({ navigation, route }: Props) => {
                   bgColor={COLORS.light.primary}
                   textColor={COLORS.light.white}
                   btnText={"Finish"}
-                  onClick={() => navigation.navigate(ROUTES.NEW_HOME_TAB)}
+                  onClick={() => navigation.navigate(ROUTES.HOME_SCREEN_STACK)}
                />
                <View style={{ flex: 1 }} />
                <View

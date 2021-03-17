@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
    },
    formTitle: {
       fontSize: wp("6.4%"),
-      color: COLORS.light.black2,
+      color: COLORS.light.textBlack,
       fontFamily: "Inter-Bold",
       lineHeight: hp("4.43")
    },
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
       lineHeight: hp("2.46%")
    },
    inputLabel: {
-      color: COLORS.light.black2,
+      color: COLORS.light.textBlack,
       marginTop: hp("1%"),
       textAlign: "left",
       fontSize: wp("3.5%"),
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
       marginBottom: 6
    },
    inputLabelTop: {
-      color: COLORS.light.black2,
+      color: COLORS.light.textBlack,
       marginTop: hp("1%"),
       textAlign: "left",
       fontSize: wp("3.5%"),
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
    recentCodeText: {
       fontSize: wp("3.73%"),
       fontFamily: "Inter-Regular",
-      color: COLORS.light.black2,
+      color: COLORS.light.textBlack,
       lineHeight: hp("2.95%")
    },
    secondaryButton: {

@@ -6,8 +6,16 @@ import { Provider } from "react-redux";
 import { store } from "./src/store/store";
 import * as Font from "expo-font";
 import Navigation from "./src/navigation/MainNavigator";
+import { Switch } from "react-native";
+import theme from "./src/utils/Colors";
+
+export const ThemeContext = React.createContext({});
 
 export default function App() {
+   //set state for the color theme
+   const [darkMode, setDarkMode] = useState(false);
+
+   //load fonts
    const fetchFonts = () => {
       return Font.loadAsync({
          "Inter-Black": require("./src/assets/fonts/Inter-Black.ttf"),
@@ -33,11 +41,17 @@ export default function App() {
       );
    }
    return (
-      <Provider store={store}>
-         <SafeAreaProvider>
-            <StatusBar hidden={true} backgroundColor="#582ED7" />
-            <Navigation />
-         </SafeAreaProvider>
-      </Provider>
+      <ThemeContext.Provider value={darkMode ? theme.dark : theme.light}>
+         <Provider store={store}>
+            <SafeAreaProvider>
+               <StatusBar hidden={true} backgroundColor="#582ED7" />
+               {/* <Switch value={darkMode} onValueChange={setDarkMode} /> */}
+               <Navigation />
+            </SafeAreaProvider>
+         </Provider>
+      </ThemeContext.Provider>
    );
 }
+
+//uncomment for storybook usage
+// export { default } from "./storybook";

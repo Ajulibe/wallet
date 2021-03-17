@@ -15,7 +15,7 @@ type Props = StackScreenProps<RootStackParamList, ROUTES.SPLASH_SCREEN>;
 export default function SplashScreen({ navigation }: Props) {
    useEffect(() => {
       setTimeout(() => {
-         navigation.navigate(ROUTES.AUTHENTICATION_TAB);
+         navigation.navigate(ROUTES.AUTHENTICATION_STACK);
       }, 3000);
    });
 

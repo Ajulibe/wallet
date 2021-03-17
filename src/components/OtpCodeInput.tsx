@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
       textAlign: "center"
    },
    focusCell: {
-      borderColor: COLORS.light.black2,
+      borderColor: COLORS.light.textBlack,
       borderWidth: 1
    },
    errorCell: {

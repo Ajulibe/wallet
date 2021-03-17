@@ -143,7 +143,7 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
                         <MaterialIcons
                            name={"arrow-back-ios"}
                            size={24}
-                           color={COLORS.light.black2}
+                           color={COLORS.light.textBlack}
                         />
                      </TouchableOpacity>
                      <CircularProgress
@@ -193,7 +193,7 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
                            fontFamily: "Inter-Regular",
                            color: isFingerPrintCaptured
                               ? COLORS.light.secondary
-                              : COLORS.light.blackLight
+                              : COLORS.light.textBlackLight
                         }
                      }}
                      onPress={() => onSwitchChange()}

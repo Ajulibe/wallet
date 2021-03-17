@@ -5,10 +5,8 @@ import {
    heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import COLORS from "../utils/Colors";
-import InputValidation from "../utils/InputValidation";
 
 interface Props {
-   id: string;
    keyboardType: any;
    secureTextEntry: boolean;
    required: boolean;
@@ -35,7 +33,7 @@ interface Props {
 const Input: React.FC<Props> = (props) => {
    const [borderColor, setBorderColor] = useState(COLORS.light.inputBorder);
 
-   const { onInputChange, onSubmit, id, touched } = props;
+   const { onInputChange, onSubmit } = props;
 
    return (
       <View style={[styles.formControl]}>
@@ -57,7 +55,7 @@ const Input: React.FC<Props> = (props) => {
             onChangeText={(newVal) => onInputChange(newVal)}
             onSubmitEditing={() => onSubmit()}
             onBlur={() => setBorderColor(COLORS.light.inputBorder)}
-            onFocus={() => setBorderColor(COLORS.light.black2)}
+            onFocus={() => setBorderColor(COLORS.light.textBlack)}
          />
          {props.errorText != "" && (
             <View style={styles.errorContainer}>

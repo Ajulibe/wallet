@@ -102,7 +102,7 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
                   <MaterialIcons
                      name={"arrow-back-ios"}
                      size={24}
-                     color={COLORS.light.black2}
+                     color={COLORS.light.textBlack}
                   />
                </TouchableOpacity>
                <CircularProgress

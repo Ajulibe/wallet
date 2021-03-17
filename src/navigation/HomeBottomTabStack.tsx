@@ -16,7 +16,7 @@ import {
 } from "react-native-responsive-screen";
 import COLORS from "../utils/Colors";
 
-export type RootStackParamList = {
+export type HomeTabStackParamList = {
    [ROUTES.HOME_SCREEN]: undefined;
    [ROUTES.WALLET_SCREEN]: undefined;
    [ROUTES.ADD_MONEY_SCREEN]: undefined;
@@ -24,9 +24,9 @@ export type RootStackParamList = {
    [ROUTES.NOTIFICATION_SCREEN]: undefined;
 };
 
-const Tab = createBottomTabNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<HomeTabStackParamList>();
 
-export default function MainFlowTab() {
+export default function HomeBottomTabStack() {
    return (
       <Tab.Navigator
          tabBarOptions={{

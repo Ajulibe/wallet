@@ -1,4 +1,0 @@
-export enum GUIDE {
-  PRIMARY_COLOR = "#00296B",
-  SECONDARY_COLOR = "#202344",
-}

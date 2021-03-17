@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
       overflow: "hidden",
       marginLeft: wp("4.8%"),
       fontFamily: "Inter-Regular",
-      color: COLORS.light.black2
+      color: COLORS.light.textBlack
    },
    bankImage: {
       width: wp("9.3%"),

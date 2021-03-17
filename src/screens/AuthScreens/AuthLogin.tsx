@@ -128,7 +128,7 @@ const AuthLogin = ({ navigation }: Props) => {
             AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
             AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
             // navigate the next screen
-            navigation.navigate(ROUTES.NEW_HOME_TAB);
+            navigation.navigate(ROUTES.HOME_SCREEN_STACK);
          }
       }
    }, [success]);
@@ -235,7 +235,6 @@ const AuthLogin = ({ navigation }: Props) => {
                      </Text>
 
                      <Input
-                        id="Pin"
                         placeholder="eg. 1234"
                         placeholderTextColor=""
                         errorText={pinErrorText}
@@ -287,7 +286,7 @@ const AuthLogin = ({ navigation }: Props) => {
                         <Text
                            style={{
                               fontFamily: "Inter-Regular",
-                              color: COLORS.light.black2
+                              color: COLORS.light.textBlack
                            }}
                         >
                            Don't have an account?{" "}
@@ -306,7 +305,7 @@ const AuthLogin = ({ navigation }: Props) => {
                         <Text
                            style={{
                               fontFamily: "Inter-Regular",
-                              color: COLORS.light.black2,
+                              color: COLORS.light.textBlack,
                               textAlign: "center",
                               marginTop: 8
                            }}

@@ -104,7 +104,7 @@ export default function AuthEmail({ navigation, route }: Props) {
                         <MaterialIcons
                            name={"arrow-back-ios"}
                            size={24}
-                           color={COLORS.light.black2}
+                           color={COLORS.light.textBlack}
                         />
                      </TouchableOpacity>
                      <CircularProgress
@@ -119,7 +119,6 @@ export default function AuthEmail({ navigation, route }: Props) {
                   </Text>
                   <Text style={styles.inputLabel}>First name</Text>
                   <Input
-                     id="firstName"
                      placeholder="First name"
                      placeholderTextColor=""
                      errorText={fNameErrorText}
@@ -139,7 +138,6 @@ export default function AuthEmail({ navigation, route }: Props) {
                   <View style={{ height: hp("1%") }} />
                   <Text style={styles.inputLabel}>Last name</Text>
                   <Input
-                     id="lastName"
                      placeholder="Last name"
                      placeholderTextColor=""
                      errorText={lNameErrorText}

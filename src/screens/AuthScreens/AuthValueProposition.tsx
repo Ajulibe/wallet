@@ -122,7 +122,7 @@ class AuthValueProposition extends React.PureComponent<Props> {
                      <Text
                         style={{
                            fontFamily: "Inter-Regular",
-                           color: COLORS.light.black2
+                           color: COLORS.light.textBlack
                         }}
                      >
                         Already have an account?{" "}

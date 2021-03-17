@@ -74,7 +74,7 @@ const AuthEmail = ({ navigation, route }: Props) => {
                         <MaterialIcons
                            name={"arrow-back-ios"}
                            size={24}
-                           color={COLORS.light.black2}
+                           color={COLORS.light.textBlack}
                         />
                      </TouchableOpacity>
                      <CircularProgress
@@ -90,7 +90,6 @@ const AuthEmail = ({ navigation, route }: Props) => {
                   </Text>
                   <Text style={styles.inputLabel}>Email Address</Text>
                   <Input
-                     id="fullName"
                      placeholder="Email address"
                      placeholderTextColor=""
                      errorText={errorText}

@@ -1,5 +1,6 @@
 const IMAGES = {
    logo: require("../assets/images/logo.png"),
+   loading: require("../assets/images/loader2.png"),
    "icon-timer": require("../assets/images/icon-timer.png"),
    "icon-user-circle-gear": require("../assets/images/icon-user-circle-gear.png"),
    "icon-lightning": require("../assets/images/icon-lightning.png"),
@@ -11,9 +12,17 @@ const IMAGES = {
    "icon-auth-pin": require("../assets/images/icon-auth-pin.png"),
    "icon-auth-bank": require("../assets/images/icon-auth-bank.png"),
    "icon-auth-check": require("../assets/images/icon-auth-check.png"),
-   // loading: require("../assets/images/loader3.gif"),
-   loading: require("../assets/images/loader2.png"),
    card: require("../assets/images/card.png"),
+   // profile
+   "icon-customer-support": require("../assets/images/icon-customer-support.png"),
+   "icon-edit-profile": require("../assets/images/icon-edit-profile.png"),
+   "icon-faq": require("../assets/images/icon-faq.png"),
+   "icon-invite": require("../assets/images/icon-invite.png"),
+   "icon-logout": require("../assets/images/icon-logout.png"),
+   "icon-rate-us": require("../assets/images/icon-rate-us.png"),
+   "icon-take-tour": require("../assets/images/icon-take-tour.png"),
+   "icon-edit-detail": require("../assets/images/icon-edit-detail.png"),
+   "icon-password": require("../assets/images/icon-password.png"),
 
    WalletIcon: require("../assets/images/WalletIcon.png"),
    slide1: require("../assets/images/slide_1.png"),

@@ -1,46 +1,45 @@
-
-interface Bank {
-    bankCode: string,
-    bankName?: string,
-    accountName: string,
-    accountNumber: string,
+export interface BankUser {
+   bankCode: string;
+   bankName?: string;
+   accountName: string;
+   accountNumber: string;
 }
 
 export interface UserInterface {
-    id?: String,
-    uuid?: String,
-    userType?: "user|merchant",
-    phoneNumber: string,
-    firstName: string,
-    lastName: string,
-    emailAddress?: string,
-    accessToken?: string,
-    accessTokenExpires?: string,
-    refreshToken?: string,
-    refreshTokenExpires?: string,
-    bank?: Bank
+   id?: String;
+   uuid?: String;
+   userType?: "user|merchant";
+   phoneNumber: string;
+   firstName: string;
+   lastName: string;
+   emailAddress?: string;
+   accessToken?: string;
+   accessTokenExpires?: string;
+   refreshToken?: string;
+   refreshTokenExpires?: string;
+   bank?: BankUser;
 }
 
 //different operation types....
 export enum AUTH_TYPES {
-    USER_REGISTRATION = "AUTH_REGISTRATION",
-    USER_LOGIN = "AUTH_LOGIN",
-    USER_PROFILE_UPDATE = "AUTH_UPDATE_PROFILE",
+   USER_REGISTRATION = "AUTH_REGISTRATION",
+   USER_LOGIN = "AUTH_LOGIN",
+   USER_PROFILE_UPDATE = "AUTH_UPDATE_PROFILE"
 }
 
 interface RegisterAction {
-    type: typeof AUTH_TYPES.USER_REGISTRATION,
-    payload: UserInterface
+   type: typeof AUTH_TYPES.USER_REGISTRATION;
+   payload: UserInterface;
 }
 
 interface LoginAction {
-    type: typeof AUTH_TYPES.USER_LOGIN,
-    payload: UserInterface
+   type: typeof AUTH_TYPES.USER_LOGIN;
+   payload: UserInterface;
 }
 
 interface UpdateProfileAction {
-    type: typeof AUTH_TYPES.USER_PROFILE_UPDATE,
-    payload: UserInterface
+   type: typeof AUTH_TYPES.USER_PROFILE_UPDATE;
+   payload: UserInterface;
 }
 // //loading action
 // interface LoadingAction {
@@ -53,4 +52,7 @@ interface UpdateProfileAction {
 //     payload: any
 // }
 
-export type AuthActionTypes = RegisterAction | LoginAction | UpdateProfileAction
+export type AuthActionTypes =
+   | RegisterAction
+   | LoginAction
+   | UpdateProfileAction;

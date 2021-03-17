@@ -15,9 +15,11 @@ import {
    NavigationTabProp,
    NavigationBottomTabScreenComponent
 } from "react-navigation-tabs";
+import { StackScreenProps } from "@react-navigation/stack";
 import { useScrollToTop } from "@react-navigation/native";
 import { ROUTES } from "../../../navigation/Routes";
 import COLORS from "../../../utils/Colors";
+import { HomeStackParamList } from "../../../navigation/HomeStack";
 
 //COMPONENT IMPORTS
 import RecentTransactionsView from "./HomeCcreenComponents/RecentTransactionsView";
@@ -33,9 +35,7 @@ import { newDivPosition } from "./Animation/Constants";
 import { newDivOpacity } from "./Animation/Constants";
 import { increaseMarginTop } from "./Animation/Constants";
 
-type Props = {
-   navigation: NavigationTabProp<"Shop">;
-};
+type Props = StackScreenProps<HomeStackParamList, ROUTES.HOME_SCREEN_STACK>;
 
 const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
    navigation
@@ -59,7 +59,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                increaseMarginTop={increaseMarginTop}
                rewardsTitleOpacity={rewardsTitleOpacity}
                onPress={() => {
-                  navigation.navigate(ROUTES.PROFILE_SCREEN);
+                  navigation.navigate(ROUTES.PROFILE_STACK);
                }}
                scrollY={scrollY}
             />
