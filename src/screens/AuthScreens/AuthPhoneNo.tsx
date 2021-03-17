@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useContext } from "react";
 import {
    View,
    Text,
@@ -31,6 +31,7 @@ import { AuthDetail } from "../../models/AuthDetail";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import STORAGE_KEYS from "../../utils/StorageKeys";
 import CircularProgress from "../../components/CircularProgress";
+import { ThemeContext } from "../../../App";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_PHONE_NO_SCREEN>;
 
@@ -41,6 +42,10 @@ const AuthPhoneNo = ({ navigation }: Props) => {
    const [isLoading, setIsLoading] = useState(false);
    const [openCountry, setOpenCountry] = useState(false);
    const [country, setCountry] = useState(CountryData.africaCountries[0]);
+
+   // Get the theme with React's context API
+   const themeFromContext = useContext(ThemeContext);
+   console.log(themeFromContext);
 
    //on input text change handler
    let inputChangeHandler = (value: string) => {

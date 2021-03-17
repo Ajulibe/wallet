@@ -1,12 +1,5 @@
-import React, { useRef } from "react";
-import {
-   View,
-   StyleSheet,
-   Text,
-   ScrollView,
-   SafeAreaView,
-   Animated
-} from "react-native";
+import React, { useRef, useState, useContext } from "react";
+import { StyleSheet, ScrollView, SafeAreaView, Animated } from "react-native";
 import {
    widthPercentageToDP as wp,
    heightPercentageToDP as hp
@@ -18,6 +11,7 @@ import {
 import { useScrollToTop } from "@react-navigation/native";
 import { ROUTES } from "../../../navigation/Routes";
 import COLORS from "../../../utils/Colors";
+import { ThemeContext } from "../../../../App";
 
 //COMPONENT IMPORTS
 import RecentTransactionsView from "./HomeCcreenComponents/RecentTransactionsView";
@@ -44,6 +38,11 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
    useScrollToTop(ref);
 
    const scrollY = useRef(new Animated.Value(0)).current;
+
+   // Get the theme with React's context API
+   const themeFromContext = useContext(ThemeContext);
+
+   console.log(themeFromContext);
 
    return (
       <>
@@ -92,7 +91,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                >
                   <QuickOptions />
 
-                  <View style={{ marginTop: hp("3.57%") }}>
+                  {/* <View style={{ marginTop: hp("3.57%") }}>
                      <View
                         style={[
                            { width: wp("90%") },
@@ -116,7 +115,7 @@ const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
                      </View>
 
                      <RecentTransactionsView />
-                  </View>
+                  </View> */}
                </ScrollView>
             </Animated.View>
          </Animated.View>
