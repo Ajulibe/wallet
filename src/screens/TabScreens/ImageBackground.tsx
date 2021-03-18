@@ -12,6 +12,7 @@ import {
 } from "react-native-responsive-screen";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import IMAGES from "../../utils/Images";
 
 interface Props {
    onPress?: any;
@@ -20,10 +21,7 @@ interface Props {
 const HomeScreen: React.FC<Props> = ({ onPress }) => {
    return (
       <View style={styles.ImageBackgroundContainer}>
-         <ImageBackground
-            source={require("../../assets/images/mask.png")}
-            style={styles.ImageBackground}
-         >
+         <ImageBackground source={IMAGES.logo} style={styles.ImageBackground}>
             <View style={styles.backContent}>
                <View style={styles.contentContainer}>
                   <View

@@ -99,7 +99,6 @@ const AuthEmail = ({ navigation, route }: Props) => {
                      onSubmit={onSubmit}
                      onInputChange={inputChangeHandler}
                      initialValue=""
-                     touched={touchedAction}
                      initiallyValid={false}
                      required
                      secureTextEntry={false}

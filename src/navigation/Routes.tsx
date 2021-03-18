@@ -23,19 +23,26 @@ export enum ROUTES {
    HOME_SCREEN_STACK = "HomeStackScreen",
    //Screens...
    HOME_SCREEN = "HomeScreen",
-   WALLET_SCREEN = "WalletScreen",
-   ADD_MONEY_SCREEN = "AddMoneyScreen",
-   SEND_MONEY_SCREEN = "SendMoneyScreen",
-   NOTIFICATION_SCREEN = "NotificationScreen",
+   RECENT_TRANSACTION_SCREEN = "RecentTransactionScreen",
+   CHAT_SCREEN = "ChatScreen",
+   PROFILE_STACK = "ProfileStack",
 
    //PROFILE STACKS
-   PROFILE_STACK = "ProfileStack",
    //Screens...
    PROFILE_SCREEN = "ProfileScreen",
    EDIT_PROFILE_SCREEN = "EditProfileScreen",
-   SECURITY = "Security",
-   SECURITY_QUESTION_SETUP = "SecurityQuestionSetup",
-   CHANGE_NAME = "ChangeName",
-   CHANGE_EMAIL = "ChangeEmail",
-   CHANGE_PASSWORD = "ChangePassword"
+   CHANGE_PERSONAL_DETAIL_SCREEN = "ChangePersonalDetail",
+   CHANGE_PROFILE_PHOTO_SCREEN = "ChangeProfilePhotoScreen",
+   SECURITY_SCREEN = "SecurityScreen",
+   CHANGE_PIN_SCREEN = "ChangePinScreenScreen",
+   ENABLE_BIOMETRIC_SCREEN = "EnableBiometricScreen",
+   PAYMENT_METHOD_SCREEN = "PaymentMethodScreen",
+
+   // OTHER SCREENS
+
+   //WALLET ACTIONS
+   ADD_MONEY_SCREEN = "AddMoneyScreen",
+   SEND_MONEY_SCREEN = "SendMoneyScreen",
+   // NOTIFICATION...
+   NOTIFICATION_SCREEN = "NotificationScreen"
 }

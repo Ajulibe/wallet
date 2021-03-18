@@ -24,7 +24,7 @@ type Props = {
    isLoading?: boolean;
 };
 
-export default function Button(props: Props) {
+export default function CustomButton(props: Props) {
    let rotateValueHolder = new Animated.Value(0);
 
    useEffect(() => {

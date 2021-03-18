@@ -1,10 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/TabScreens/Home/HomeScreen";
-import WalletScreen from "../screens/TabScreens/Wallet/WalletScreen";
-import AddMoneyScreen from "../screens/TabScreens/AddMoney/AddMoneyScreen";
-import SendMoneyScreen from "../screens/TabScreens/SendMoney/SendMoneyScreen";
-import NotificationScreen from "../screens/TabScreens/Chats/NotificationScreen";
+import RecentTransaction from "../screens/TabScreens/RecentTransaction/RecentTransaction";
+import ChatListScreen from "../screens/TabScreens/Chats/ChatListScreen";
 import { Image, View, Text, StyleSheet } from "react-native";
 import { ROUTES } from "./Routes";
 import { Feather } from "@expo/vector-icons";
@@ -15,18 +13,72 @@ import {
    heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import COLORS from "../utils/Colors";
+import ProfileStack from "./ProfileStack";
+import IMAGES from "../utils/Images";
 
 export type HomeTabStackParamList = {
    [ROUTES.HOME_SCREEN]: undefined;
-   [ROUTES.WALLET_SCREEN]: undefined;
-   [ROUTES.ADD_MONEY_SCREEN]: undefined;
-   [ROUTES.SEND_MONEY_SCREEN]: undefined;
+   [ROUTES.RECENT_TRANSACTION_SCREEN]: undefined;
+   [ROUTES.CHAT_SCREEN]: undefined;
+   [ROUTES.PROFILE_SCREEN]: undefined;
    [ROUTES.NOTIFICATION_SCREEN]: undefined;
 };
 
 const Tab = createBottomTabNavigator<HomeTabStackParamList>();
 
 export default function HomeBottomTabStack() {
+   const tabBarIcon = (index: number, focused: boolean) => {
+      switch (index) {
+         case 0:
+            return focused
+               ? IMAGES["icon-tab-home-active"]
+               : IMAGES["icon-tab-home-inactive"];
+         case 1:
+            return focused
+               ? IMAGES["icon-tab-transaction-active"]
+               : IMAGES["icon-tab-transaction-inactive"];
+         case 2:
+            return focused
+               ? IMAGES["icon-tab-chat-active"]
+               : IMAGES["icon-tab-chat-inactive"];
+         default:
+            return focused
+               ? IMAGES["icon-tab-profile-active"]
+               : IMAGES["icon-tab-profile-inactive"];
+      }
+   };
+   const Title = ({ index, focused }: { index: number; focused: boolean }) => {
+      let title: string;
+      let color: string;
+
+      switch (index) {
+         case 0:
+            title = "Home";
+            color = focused ? COLORS.light.primary : COLORS.light.disabled;
+         case 0:
+            title = "Transaction";
+            color = focused ? COLORS.light.primary : COLORS.light.disabled;
+         case 0:
+            title = "Chats";
+            color = focused ? COLORS.light.primary : COLORS.light.disabled;
+         default:
+            title = "Profile";
+            color = focused ? COLORS.light.primary : COLORS.light.disabled;
+      }
+      return (
+         <Text
+            style={[
+               styles.tabBarLabel,
+               {
+                  color: color
+               }
+            ]}
+         >
+            {title}
+         </Text>
+      );
+   };
+
    return (
       <Tab.Navigator
          tabBarOptions={{
@@ -40,7 +92,7 @@ export default function HomeBottomTabStack() {
                paddingTop: hp("1%")
             },
             activeTintColor: COLORS.light.secondary,
-            inactiveTintColor: COLORS.light.light_black
+            inactiveTintColor: COLORS.light.tint
          }}
       >
          <Tab.Screen
@@ -48,152 +100,57 @@ export default function HomeBottomTabStack() {
             component={HomeScreen}
             options={() => ({
                tabBarLabel: ({ focused }: any) => (
-                  <Text
-                     style={[
-                        styles.tabBarLabel,
-                        {
-                           color: focused
-                              ? COLORS.light.secondary
-                              : COLORS.light.light_black
-                        }
-                     ]}
-                  >
-                     Home
-                  </Text>
+                  <Title index={0} focused={focused} />
                ),
                tabBarIcon: ({ focused }: any) => (
-                  <Feather
-                     name="home"
-                     size={18}
-                     color={
-                        focused
-                           ? COLORS.light.secondary
-                           : COLORS.light.light_black
-                     }
+                  <Image
+                     source={tabBarIcon(0, focused)}
+                     style={styles.tabBarImage}
                   />
                )
             })}
          />
          <Tab.Screen
-            name={ROUTES.WALLET_SCREEN}
-            component={WalletScreen}
+            name={ROUTES.RECENT_TRANSACTION_SCREEN}
+            component={RecentTransaction}
             options={() => ({
                tabBarLabel: ({ focused }: any) => (
-                  <Text
-                     style={[
-                        styles.tabBarLabel,
-                        {
-                           color: focused
-                              ? COLORS.light.secondary
-                              : COLORS.light.light_black
-                        }
-                     ]}
-                  >
-                     Wallet
-                  </Text>
+                  <Title index={1} focused={focused} />
                ),
                tabBarIcon: ({ focused }: any) => (
-                  <Ionicons
-                     name="ios-wallet-outline"
-                     size={20}
-                     color={
-                        focused
-                           ? COLORS.light.secondary
-                           : COLORS.light.light_black
-                     }
+                  <Image
+                     source={tabBarIcon(1, focused)}
+                     style={styles.tabBarImage}
                   />
                )
             })}
          />
          <Tab.Screen
-            name={ROUTES.ADD_MONEY_SCREEN}
-            component={AddMoneyScreen}
+            name={ROUTES.CHAT_SCREEN}
+            component={ChatListScreen}
             options={{
                tabBarLabel: ({ focused }: any) => (
-                  <Text
-                     style={[
-                        styles.tabBarLabel,
-                        {
-                           color: focused
-                              ? COLORS.light.secondary
-                              : COLORS.light.light_black
-                        }
-                     ]}
-                  >
-                     Add Money
-                  </Text>
+                  <Title index={2} focused={focused} />
                ),
                tabBarIcon: ({ focused }: any) => (
-                  <Ionicons
-                     name="ios-add"
-                     size={22}
-                     color={
-                        focused
-                           ? COLORS.light.secondary
-                           : COLORS.light.light_black
-                     }
+                  <Image
+                     source={tabBarIcon(2, focused)}
+                     style={styles.tabBarImage}
                   />
                )
             }}
          />
          <Tab.Screen
-            name={ROUTES.SEND_MONEY_SCREEN}
-            component={SendMoneyScreen}
+            name={ROUTES.PROFILE_SCREEN}
+            component={ProfileStack}
             options={{
                tabBarLabel: ({ focused }: any) => (
-                  <Text
-                     style={[
-                        styles.tabBarLabel,
-                        {
-                           color: focused
-                              ? COLORS.light.secondary
-                              : COLORS.light.light_black
-                        }
-                     ]}
-                  >
-                     Send Money
-                  </Text>
+                  <Title index={3} focused={focused} />
                ),
                tabBarIcon: ({ focused }: any) => (
-                  <AntDesign
-                     name="arrowup"
-                     size={18}
-                     color={
-                        focused
-                           ? COLORS.light.secondary
-                           : COLORS.light.light_black
-                     }
-                  />
-               )
-            }}
-         />
-         <Tab.Screen
-            name={ROUTES.NOTIFICATION_SCREEN}
-            component={NotificationScreen}
-            options={{
-               tabBarLabel: ({ focused }: any) => (
-                  <Text
-                     style={[
-                        styles.tabBarLabel,
-                        {
-                           color: focused
-                              ? COLORS.light.secondary
-                              : COLORS.light.light_black
-                        }
-                     ]}
-                  >
-                     Chats
-                  </Text>
-               ),
-               tabBarIcon: ({ focused }: any) => (
-                  <Ionicons
-                     name="chatbubbles-outline"
-                     size={18}
-                     color={
-                        focused
-                           ? COLORS.light.secondary
-                           : COLORS.light.light_black
-                     }
+                  <Image
+                     source={tabBarIcon(3, focused)}
+                     style={styles.tabBarImage}
                   />
                )
             }}

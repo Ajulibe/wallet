@@ -22,11 +22,10 @@ interface Props {
    max?: number | null;
    value?: string | null;
    textContentType: any;
-   touched?: boolean;
    returnKeyType: any;
    placeholder?: string;
    placeholderTextColor?: any;
-   onInputChange: (value?: string) => void;
+   onInputChange: (value: string) => void;
    onSubmit: () => void;
 }
 
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
       marginVertical: 0
    },
    errorText: {
-      marginTop: hp("1%"),
+      marginTop: hp(".2%"),
       fontFamily: "Inter-Regular",
       color: COLORS.light.red,
       fontSize: 13

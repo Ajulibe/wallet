@@ -37,9 +37,7 @@ import { increaseMarginTop } from "./Animation/Constants";
 
 type Props = StackScreenProps<HomeStackParamList, ROUTES.HOME_SCREEN_STACK>;
 
-const HomeScreen: NavigationBottomTabScreenComponent<Props> = ({
-   navigation
-}) => {
+const HomeScreen = ({ navigation }: Props) => {
    const ref = useRef<ScrollView | null>(null);
    useScrollToTop(ref);
 

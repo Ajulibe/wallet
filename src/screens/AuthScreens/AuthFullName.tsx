@@ -13,19 +13,13 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackParamList } from "../../navigation/AuthStack";
 import { ROUTES } from "../../navigation/Routes";
 import CustomButton from "../../components/Button";
-import TopLogo from "../../components/TopLogo";
 import COLORS from "../../utils/Colors";
 import Input from "../../components/Input";
 import CircularProgress from "../../components/CircularProgress";
 import IMAGES from "../../utils/Images";
-import ProgressLoader from "../../components/ProgressLoader";
 import styles from "../../components/css/AuthFormCss";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import {
-   heightPercentageToDP as hp,
-   widthPercentageToDP
-} from "react-native-responsive-screen";
-import { AuthDetail } from "../../models/AuthDetail";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_FULL_NAME_SCREEN>;
 export default function AuthEmail({ navigation, route }: Props) {
@@ -34,21 +28,12 @@ export default function AuthEmail({ navigation, route }: Props) {
    const [lastName, setLastName] = useState("");
    const [fNameErrorText, setFNameErrorText] = useState("");
    const [lNameErrorText, setLNameErrorText] = useState("");
-   const [touchedAction, setTouchedAction] = useState(false);
    const [authDetail, setAuthDetail] = useState(route.params.authDetail);
 
    // set the navigation prop authDetail
    useEffect(() => {
       setAuthDetail(route.params.authDetail); //route.key, route.name, route.params,
    }, []);
-
-   let fNameInputChangeHandler = (value?: string) => {
-      setFirstName(value!);
-   };
-
-   let lNameInputChangeHandler = (value?: string) => {
-      setLastName(value!);
-   };
 
    // checking the inputs on text change
    useEffect(() => {
@@ -64,7 +49,6 @@ export default function AuthEmail({ navigation, route }: Props) {
    }, [firstName, lastName]);
 
    const onSubmit = () => {
-      setTouchedAction(true);
       setFNameErrorText("");
       setLNameErrorText("");
 
@@ -125,10 +109,9 @@ export default function AuthEmail({ navigation, route }: Props) {
                      keyboardType="default"
                      autoCapitalize="sentences"
                      returnKeyType="next"
-                     onInputChange={fNameInputChangeHandler}
+                     onInputChange={(value) => setFirstName(value)}
                      onSubmit={onSubmit}
                      initialValue=""
-                     touched={touchedAction}
                      initiallyValid={false}
                      required
                      secureTextEntry={false}
@@ -144,10 +127,9 @@ export default function AuthEmail({ navigation, route }: Props) {
                      keyboardType="default"
                      autoCapitalize="sentences"
                      returnKeyType="next"
-                     onInputChange={lNameInputChangeHandler}
+                     onInputChange={(value) => setLastName(value)}
                      onSubmit={onSubmit}
                      initialValue=""
-                     touched={touchedAction}
                      initiallyValid={false}
                      required
                      secureTextEntry={false}

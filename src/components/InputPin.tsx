@@ -17,7 +17,7 @@ interface Props {
    initialValue?: string;
    errorText?: string;
    pinVisible?: boolean;
-   onTextInputChange: (code?: string) => any;
+   onTextInputChange: (code: string) => any;
 }
 
 const InputPin = ({

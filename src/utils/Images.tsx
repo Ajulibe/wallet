@@ -23,6 +23,18 @@ const IMAGES = {
    "icon-take-tour": require("../assets/images/icon-take-tour.png"),
    "icon-edit-detail": require("../assets/images/icon-edit-detail.png"),
    "icon-password": require("../assets/images/icon-password.png"),
+   "icon-biometric": require("../assets/images/icon-biometric.png"),
+   "icon-manage-account": require("../assets/images/icon-manage-account.png"),
+   "icon-add": require("../assets/images/icon-add.png"),
+   // bottom tabs
+   "icon-tab-chat-active": require("../assets/images/icon-tab-chat-active.png"),
+   "icon-tab-chat-inactive": require("../assets/images/icon-tab-chat-inactive.png"),
+   "icon-tab-home-active": require("../assets/images/icon-tab-home-active.png"),
+   "icon-tab-home-inactive": require("../assets/images/icon-tab-home-inactive.png"),
+   "icon-tab-profile-active": require("../assets/images/icon-tab-profile-active.png"),
+   "icon-tab-profile-inactive": require("../assets/images/icon-tab-profile-inactive.png"),
+   "icon-tab-transaction-active": require("../assets/images/icon-tab-transaction-active.png"),
+   "icon-tab-transaction-inactive": require("../assets/images/icon-tab-transaction-inactive.png"),
 
    WalletIcon: require("../assets/images/WalletIcon.png"),
    slide1: require("../assets/images/slide_1.png"),
