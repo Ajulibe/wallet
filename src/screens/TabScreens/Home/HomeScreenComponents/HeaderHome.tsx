@@ -1,6 +1,13 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React from "react";
-import { StyleSheet, Image, View, ImageSourcePropType } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+   StyleSheet,
+   Image,
+   View,
+   ImageSourcePropType,
+   Animated,
+   Easing
+} from "react-native";
 import { Text } from "react-native-animatable";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ROUTES } from "../../../../navigation/Routes";
@@ -14,7 +21,8 @@ interface Props {
    subtitle?: any; // Appbar subtitle
    trailing?: JSX.Element; //the trailing/end icon(s)
    // navigation?: StackNavigationProp<any, any>; //list click listener
-   navigation?: any; //list click listener
+   navigation?: any; //list click listener,
+   hideSubtitle: boolean; //sow/hide subtitle, notification,...
 }
 const HeaderHome = (props: Props) => {
    const onNotificationClick = () => {
@@ -25,28 +33,73 @@ const HeaderHome = (props: Props) => {
          props.onNotificationClick();
       }
    };
+
+   const headerPaddingTop = useState(new Animated.Value(0))[0];
+   const ballanceHeight = useState(new Animated.Value(0))[0];
+   useEffect(() => {
+      if (props.hideSubtitle) {
+         startAnim(16);
+         startBallanceAnim(24);
+      } else {
+         startAnim(48);
+         startBallanceAnim(0);
+      }
+   }, [props.hideSubtitle]);
+
+   const startAnim = (toValue: number) => {
+      Animated.timing(headerPaddingTop, {
+         toValue: toValue,
+         duration: 300,
+         easing: Easing.linear,
+         useNativeDriver: false
+      }).start();
+   };
+   const startBallanceAnim = (toValue: number) => {
+      Animated.timing(ballanceHeight, {
+         toValue: toValue,
+         duration: 300,
+         easing: Easing.linear,
+         useNativeDriver: false
+      }).start();
+   };
+
    return (
       <>
-         <View style={styles.container}>
+         <Animated.View
+            style={[styles.container, { paddingTop: headerPaddingTop }]}
+         >
             <View style={styles.textContainer}>
                <Text style={styles.title}>{props.title}</Text>
-               {props.subtitle && (
+               {props.subtitle && !props.hideSubtitle && (
                   <Text style={styles.subtitle}>{props.subtitle}</Text>
                )}
             </View>
 
-            <TouchableOpacity
-               onPress={onNotificationClick}
-               style={styles.trailingWrapper}
-            >
-               <Image
-                  source={IMAGES["icon-notification"]}
-                  style={styles.image}
-               />
-               <View style={styles.notificationDot} />
-            </TouchableOpacity>
+            <View style={{ position: "relative", alignItems: "center" }}>
+               <TouchableOpacity
+                  onPress={onNotificationClick}
+                  style={styles.trailingWrapper}
+               >
+                  <Image
+                     source={IMAGES["icon-notification"]}
+                     style={styles.image}
+                  />
+                  <View style={styles.notificationDot} />
+                  {/* Total Ballance show on scroll up  */}
+                  <Animated.View
+                     style={[
+                        styles.ballanceWrapper,
+                        { height: ballanceHeight }
+                     ]}
+                  >
+                     <Text style={styles.ballance}>
+                        Balance: <Text style={styles.bold}>N234,934.78</Text>
+                     </Text>
+                  </Animated.View>
+               </TouchableOpacity>
+            </View>
             {props.trailing != null && props.trailing}
-         </View>
+         </Animated.View>
          <View style={styles.divider} />
       </>
    );
@@ -110,5 +163,22 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: COLORS.light.white,
       backgroundColor: "#EB5757"
+   },
+   ballanceWrapper: {
+      position: "absolute",
+      height: 50,
+      right: 0,
+      top: 0,
+      justifyContent: "center",
+      backgroundColor: COLORS.light.white,
+      alignItems: "flex-end"
+   },
+   ballance: {
+      fontFamily: "Inter-Regular",
+      lineHeight: hp(16),
+      fontSize: wp(12)
+   },
+   bold: {
+      fontFamily: "Inter-SemiBold"
    }
 });

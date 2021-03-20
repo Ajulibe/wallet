@@ -106,5 +106,25 @@ export class ChatData{
             user: ChatData.senderUser,
             chats: ChatData.chats1
         },
+        {
+            id: '8',
+            user: ChatData.senderUser,
+            chats: ChatData.chats3
+        },
+        {
+            id: '9',
+            user: ChatData.senderUser,
+            chats: ChatData.chats2
+        },
+        {
+            id: '10',
+            user: ChatData.senderUser,
+            chats: ChatData.chats3
+        },
+        {
+            id: '11',
+            user: ChatData.senderUser,
+            chats: ChatData.chats1
+        },
     ]
 }

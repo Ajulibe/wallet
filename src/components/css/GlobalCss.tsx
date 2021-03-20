@@ -14,6 +14,12 @@ const globalStyles = StyleSheet.create({
       paddingVertical: hp(30),
       color: COLORS.light.white
    },
+   scrollViewContainer: {
+      width: "100%",
+      paddingHorizontal: wp(30),
+      paddingVertical: hp(30),
+      color: COLORS.light.white
+   },
    centerHorizontal: {
       alignItems: "center"
    },

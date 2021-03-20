@@ -20,10 +20,13 @@ import { CountryData } from "../../extra/CountryData";
 import libphonenumber from "google-libphonenumber";
 import InputPhoneNumber from "../../components/InputPhoneNumber";
 import TabBar from "./Components/TabBar";
+import SendToWallet from "./Components/SendToWallet";
+import SendToBankAccount from "./Components/SendToBankAccount";
 
 type Props = StackScreenProps<HomeStackParamList, ROUTES.SEND_MONEY_SCREEN>;
 
 const SendMoneyScreen = ({ navigation }: Props) => {
+   const [activeIndex, setActiveIndex] = useState(0);
    const [btnBgColor, setBtnBgColor] = useState<string>(COLORS.light.disabled);
    const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -69,24 +72,16 @@ const SendMoneyScreen = ({ navigation }: Props) => {
                   showsVerticalScrollIndicator={false}
                >
                   <View style={globalStyles.container}>
-                     <TabBar activeIndex={0} />
-                     <Text style={globalStyles.inputLabel}>First name</Text>
-                     <InputPhoneNumber
-                        country={country}
-                        onTextInputChange={(num) => setPhoneNumber(num)}
-                        openCountryModal={(isS) => setOpenCountry(isS)}
-                        errorText={errorText}
-                        onSubmit={onSubmit}
+                     <TabBar
+                        activeIndex={activeIndex}
+                        onSendToWalletClick={() => setActiveIndex(0)}
+                        onSendToBankClick={() => setActiveIndex(1)}
                      />
-                     <View style={globalStyles.inputGap} />
-                     <View style={{ flex: 1 }} />
-
-                     <CustomButton
-                        bgColor={btnBgColor}
-                        textColor={COLORS.light.white}
-                        btnText={"Continue"}
-                        onClick={onSubmit}
-                     />
+                     {activeIndex == 0 ? (
+                        <SendToWallet navigation={navigation} />
+                     ) : (
+                        <SendToBankAccount navigation={navigation} />
+                     )}
                   </View>
                </ScrollView>
             </KeyboardAvoidingView>

@@ -13,8 +13,8 @@ import { hp, wp } from "../../../utils/Dimensions";
 
 interface Props {
    activeIndex: number;
-   onFundWalletClick?: () => void;
-   onSendMoneyClick?: () => void;
+   onSendToWalletClick: () => void;
+   onSendToBankClick: () => void;
 }
 
 const TabBar: React.FC<Props> = (props) => {
@@ -23,7 +23,7 @@ const TabBar: React.FC<Props> = (props) => {
       <Animated.View>
          <View style={styles.wallet}>
             <TouchableOpacity
-               onPress={props.onFundWalletClick}
+               onPress={props.onSendToWalletClick}
                style={[
                   styles.walletCol,
                   {
@@ -59,7 +59,7 @@ const TabBar: React.FC<Props> = (props) => {
             </TouchableOpacity>
             <View style={styles.verticalLine} />
             <TouchableOpacity
-               onPress={props.onSendMoneyClick}
+               onPress={props.onSendToBankClick}
                style={[
                   styles.walletCol,
                   {
@@ -74,7 +74,7 @@ const TabBar: React.FC<Props> = (props) => {
                   name={"bank-outline"}
                   size={18}
                   color={
-                     activeIndex == 0
+                     activeIndex == 1
                         ? COLORS.light.textBlack
                         : COLORS.light.tabBarInactive
                   }
@@ -105,7 +105,11 @@ const styles = StyleSheet.create({
    },
    wallet: {
       flexDirection: "row",
-      width: "100%"
+      width: "100%",
+      borderBottomColor: COLORS.light.tabBarInactive,
+      borderBottomWidth: 1,
+      borderTopColor: COLORS.light.tabBarInactive,
+      borderTopWidth: 1
    },
    walletCol: {
       flex: 1,

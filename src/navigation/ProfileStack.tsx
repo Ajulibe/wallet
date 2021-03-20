@@ -29,7 +29,7 @@ const ProfileStack = createStackNavigator<ProfileStackParamList>();
 
 export default function ProfileNavigationStack() {
    const headerOptions = {
-      headerShown: true,
+      headerShown: false,
       cardStyle: { backgroundColor: COLORS.light.white }
    };
    return (

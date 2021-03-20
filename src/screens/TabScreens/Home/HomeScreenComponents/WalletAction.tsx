@@ -18,7 +18,7 @@ interface Props {
 
 const WalletAction: React.FC<Props> = (props) => {
    return (
-      <Animated.View>
+      <Animated.View style={styles.container}>
          <View style={styles.wallet}>
             <TouchableOpacity
                onPress={props.onFundWalletClick}
@@ -70,7 +70,7 @@ const WalletAction: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
    container: {
       backgroundColor: "#ffffff",
-      alignItems: "center"
+      paddingVertical: 4
    },
    wallet: {
       flexDirection: "row",

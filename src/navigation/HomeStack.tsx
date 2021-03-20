@@ -6,6 +6,7 @@ import { ROUTES } from "./Routes";
 import NotificationScreen from "../screens/Notification/NotificationScreen";
 import FundMoneyScreen from "../screens/FundMoney/FundMoneyScreen";
 import SendMoneyScreen from "../screens/SendMoney/SendMoneyScreen";
+import COLORS from "../utils/Colors";
 
 export type HomeStackParamList = {
    [ROUTES.HOME_SCREEN_STACK]: undefined;
@@ -20,14 +21,14 @@ const HomeStack = createStackNavigator<HomeStackParamList>();
 export default function HomeNavigationStack() {
    const headerOptions = {
       headerShown: false,
-      cardStyle: { backgroundColor: "#fff" }
+      cardStyle: { backgroundColor: COLORS.light.white }
    };
    return (
       <HomeStack.Navigator
          initialRouteName={ROUTES.HOME_SCREEN_STACK}
          screenOptions={{
             gestureEnabled: false,
-            cardStyle: { backgroundColor: "#fff" }
+            cardStyle: { backgroundColor: COLORS.light.white }
          }}
          headerMode={"none"}
       >

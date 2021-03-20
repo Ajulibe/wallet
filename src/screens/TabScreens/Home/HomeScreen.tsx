@@ -8,7 +8,9 @@ import {
    Text,
    Easing,
    Animated,
-   Button
+   Button,
+   NativeScrollEvent,
+   NativeSyntheticEvent
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ROUTES } from "../../../navigation/Routes";
@@ -16,37 +18,25 @@ import COLORS from "../../../utils/Colors";
 import { HomeStackParamList } from "../../../navigation/HomeStack";
 import globalStyles from "../../../components/css/GlobalCss";
 import HeaderHome from "./HomeScreenComponents/HeaderHome";
-import IMAGES from "../../../utils/Images";
 import { hp, wp } from "../../../utils/Dimensions";
 import WalletAction from "./HomeScreenComponents/WalletAction";
 import { Octicons } from "@expo/vector-icons";
 import ChatList from "../Chats/Components/ChatList";
-import { useScrollToTop } from "@react-navigation/native";
 
 type Props = StackScreenProps<HomeStackParamList, ROUTES.HOME_SCREEN_STACK>;
 
 const HomeScreen = ({ navigation }: Props) => {
-   const ref = useRef<ScrollView | null>(null);
+   const [hideSubtitle, setHideSubtitle] = useState(false);
 
-   useScrollToTop(ref);
-   const value = useState(new Animated.Value(0))[0];
+   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const positionX = event.nativeEvent.contentOffset.x;
+      const positionY = event.nativeEvent.contentOffset.y;
 
-   const anim = Animated.timing(value, {
-      toValue: 100,
-      duration: 1000,
-      easing: Easing.linear,
-      useNativeDriver: false
-   });
-
-   const anim2 = Animated.timing(value, {
-      toValue: 100,
-      duration: 1000,
-      easing: Easing.linear,
-      useNativeDriver: true
-   });
-
-   const start = () => {
-      anim2.start();
+      if (positionY > 90) {
+         setHideSubtitle(true);
+      } else {
+         setHideSubtitle(false);
+      }
    };
 
    return (
@@ -58,51 +48,44 @@ const HomeScreen = ({ navigation }: Props) => {
                navigation={navigation}
                title="Hey John 👋🏼"
                subtitle="Here’s what’s happening"
+               hideSubtitle={hideSubtitle}
             />
             <ScrollView
-               contentContainerStyle={{ flexGrow: 1 }}
+               contentContainerStyle={globalStyles.scrollViewContainer}
                keyboardShouldPersistTaps="handled"
                bounces={false}
                showsVerticalScrollIndicator={false}
+               onScroll={(event) => handleScroll(event)}
+               onScrollEndDrag={(event) => handleScroll(event)}
+               scrollEventThrottle={160}
+               stickyHeaderIndices={[2]}
             >
-               <View style={globalStyles.container}>
-                  <Animated.View
-                     style={{
-                        width: 100,
-                        height: 100,
-                        backgroundColor: "red",
-                        // marginLeft: value,
-                        transform: [{ translateX: value }]
-                     }}
+               {/* WALLET BALANCE */}
+               <Text style={styles.walletBalanceText}>Wallet Ballance</Text>
+               <Text style={styles.walletBalance}>
+                  <Text>₦234,934</Text>
+                  <Text style={styles.walletBalanceFloat}>.78</Text>
+               </Text>
+               {/* SEND MONEY & FUND WALLET COMPONENT  */}
+               <WalletAction
+                  onFundWalletClick={() =>
+                     navigation.navigate(ROUTES.FUND_MONEY_SCREEN)
+                  }
+                  onSendMoneyClick={() =>
+                     navigation.navigate(ROUTES.SEND_MONEY_SCREEN)
+                  }
+               />
+               {/* RECENT CHATS */}
+               <View style={styles.recent}>
+                  <Text style={styles.recentText}>Recent Chats</Text>
+                  <Octicons
+                     size={18}
+                     name="info"
+                     color={COLORS.light.textBlack}
                   />
-                  <Button onPress={start} title="MoBE" />
-                  {/* WALLET BALANCE */}
-                  <Text style={styles.walletBalanceText}>Wallet Ballance</Text>
-                  <Text style={styles.walletBalance}>
-                     <Text>₦234,934</Text>
-                     <Text style={styles.walletBalanceFloat}>.78</Text>
-                  </Text>
-                  {/* SEND MONEY & FUND WALLET COMPONENT  */}
-                  <WalletAction
-                     onFundWalletClick={() =>
-                        navigation.navigate(ROUTES.FUND_MONEY_SCREEN)
-                     }
-                     onSendMoneyClick={() =>
-                        navigation.navigate(ROUTES.SEND_MONEY_SCREEN)
-                     }
-                  />
-                  {/* RECENT CHATS */}
-                  <View style={styles.recent}>
-                     <Text style={styles.recentText}>Recent Chats</Text>
-                     <Octicons
-                        size={18}
-                        name="info"
-                        color={COLORS.light.textBlack}
-                     />
-                  </View>
-                  {/* RECENT CHAT LIST COMPONENT  */}
-                  <ChatList onItemClick={(chatItem) => console.log(chatItem)} />
                </View>
+               {/* RECENT CHAT LIST COMPONENT  */}
+               <ChatList onItemClick={(chatItem) => console.log(chatItem)} />
             </ScrollView>
          </SafeAreaView>
       </>
@@ -128,7 +111,7 @@ const styles = StyleSheet.create({
       fontFamily: "Inter-Bold",
       fontSize: wp(28),
       lineHeight: hp(48),
-      marginBottom: hp(16)
+      marginBottom: hp(12)
    },
    walletBalanceFloat: {
       fontSize: wp(16),
@@ -136,7 +119,7 @@ const styles = StyleSheet.create({
       lineHeight: hp(24)
    },
    recent: {
-      marginTop: hp(46),
+      marginTop: hp(42),
       flexDirection: "row",
       width: "100%",
       alignItems: "center",

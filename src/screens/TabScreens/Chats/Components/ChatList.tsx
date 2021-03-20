@@ -19,8 +19,6 @@ interface Props {
 export default function ChatList(props: Props) {
    const chatLists = ChatData.chatsList;
 
-   console.log(ChatData.ref[0]);
-
    const RecentMessage = ({ chatItem }: { chatItem: ChatListInterface }) => {
       const lastChatRef = chatItem.chats[0].transactionReference;
 
