@@ -23,8 +23,8 @@ const EditProfileScreen = ({ navigation }: Props) => {
    //    // @ts-ignore */}
    return (
       <>
+         <StatusBar barStyle="light-content" />
          <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
-            <StatusBar barStyle="light-content" />
             <CustomAppbar navigation={navigation} title="Edit Profile" />
             <View
                style={[globalStyles.container, globalStyles.centerHorizontal]}

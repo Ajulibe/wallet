@@ -18,10 +18,6 @@ import { ROUTES } from "../../navigation/Routes";
 import CustomButton from "../../components/Button";
 import COLORS from "../../utils/Colors";
 import styles from "../../components/css/AuthFormCss";
-import {
-   widthPercentageToDP as wp,
-   heightPercentageToDP as hp
-} from "react-native-responsive-screen";
 import libphonenumber from "google-libphonenumber";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import IMAGES from "../../utils/Images";

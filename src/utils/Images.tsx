@@ -35,6 +35,12 @@ const IMAGES = {
    "icon-tab-profile-inactive": require("../assets/images/icon-tab-profile-inactive.png"),
    "icon-tab-transaction-active": require("../assets/images/icon-tab-transaction-active.png"),
    "icon-tab-transaction-inactive": require("../assets/images/icon-tab-transaction-inactive.png"),
+   //Home
+   "icon-notification": require("../assets/images/icon-notification.png"),
+   "icon-home-wallet": require("../assets/images/icon-home-wallet.png"),
+   "icon-home-send": require("../assets/images/icon-home-send.png"),
+   // "icon-biometric": require("../assets/images/icon-biometric.png"),
+   // "icon-biometric": require("../assets/images/icon-biometric.png"),
 
    WalletIcon: require("../assets/images/WalletIcon.png"),
    slide1: require("../assets/images/slide_1.png"),

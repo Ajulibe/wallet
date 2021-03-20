@@ -23,6 +23,7 @@ const COLORS = {
       textBlackLight: "rgba(32,47,68,0.6)",
       textBlack50: "rgba(32,47,68,0.5)", //50% opacity
       textBlack40: "rgba(32,47,68,0.4)", //40% opacity
+      tabBarInactive: "rgba(209,213,219,1)",
 
       inputBorder: "rgba(32,47,68,0.15)",
       inputBorderError: "#E39092",

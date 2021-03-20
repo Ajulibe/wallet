@@ -14,11 +14,13 @@ interface Props {
 }
 const UserProfilePhoto = (props: Props) => {
    return (
-      <TouchableOpacity
-         onPress={() => (props.onClick ? props.onClick() : null)}
+      <View
          style={[
             styles.container,
-            { width: props.imageSize, height: props.imageSize }
+            {
+               width: props.imageSize,
+               height: props.imageSize
+            }
          ]}
       >
          <ImageBackground
@@ -29,13 +31,17 @@ const UserProfilePhoto = (props: Props) => {
             style={styles.image}
          />
          <View style={styles.iconWrapper}>
-            <MaterialIcons
-               name="photo-camera"
-               size={12}
-               color={COLORS.light.white}
-            />
+            <TouchableOpacity
+               onPress={() => (props.onClick ? props.onClick() : null)}
+            >
+               <MaterialIcons
+                  name="photo-camera"
+                  size={12}
+                  color={COLORS.light.white}
+               />
+            </TouchableOpacity>
          </View>
-      </TouchableOpacity>
+      </View>
    );
 };
 
@@ -44,8 +50,6 @@ export default UserProfilePhoto;
 const styles = StyleSheet.create({
    container: {
       borderRadius: 100,
-      alignItems: "center",
-      flexDirection: "row",
       position: "relative"
    },
    image: {
@@ -58,9 +62,6 @@ const styles = StyleSheet.create({
       right: 1,
       alignItems: "center",
       justifyContent: "center",
-      fontFamily: "Inter-Medium",
-      lineHeight: hp(16),
-      fontSize: wp(14),
       color: COLORS.light.textBlack,
       width: wp(24),
       height: wp(24),

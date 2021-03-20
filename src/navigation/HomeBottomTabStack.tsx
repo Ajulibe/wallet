@@ -3,18 +3,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/TabScreens/Home/HomeScreen";
 import RecentTransaction from "../screens/TabScreens/RecentTransaction/RecentTransaction";
 import ChatListScreen from "../screens/TabScreens/Chats/ChatListScreen";
-import { Image, View, Text, StyleSheet } from "react-native";
+import { Image, View, Text, StyleSheet, Platform } from "react-native";
 import { ROUTES } from "./Routes";
-import { Feather } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import {
-   widthPercentageToDP as wp,
-   heightPercentageToDP as hp
-} from "react-native-responsive-screen";
 import COLORS from "../utils/Colors";
 import ProfileStack from "./ProfileStack";
 import IMAGES from "../utils/Images";
+import { hp, wp } from "../utils/Dimensions";
 
 export type HomeTabStackParamList = {
    [ROUTES.HOME_SCREEN]: undefined;
@@ -55,15 +49,19 @@ export default function HomeBottomTabStack() {
          case 0:
             title = "Home";
             color = focused ? COLORS.light.primary : COLORS.light.disabled;
-         case 0:
-            title = "Transaction";
+            break;
+         case 1:
+            title = "Transactions";
             color = focused ? COLORS.light.primary : COLORS.light.disabled;
-         case 0:
+            break;
+         case 2:
             title = "Chats";
             color = focused ? COLORS.light.primary : COLORS.light.disabled;
+            break;
          default:
             title = "Profile";
             color = focused ? COLORS.light.primary : COLORS.light.disabled;
+            break;
       }
       return (
          <Text
@@ -83,13 +81,14 @@ export default function HomeBottomTabStack() {
       <Tab.Navigator
          tabBarOptions={{
             style: {
+               height: Platform.OS === "ios" ? 90 : 80,
                shadowOffset: {
                   width: 0,
                   height: 1
                },
                shadowColor: COLORS.light.lightGrey,
                shadowOpacity: 0.2,
-               paddingTop: hp("1%")
+               paddingTop: hp(16)
             },
             activeTintColor: COLORS.light.secondary,
             inactiveTintColor: COLORS.light.tint
@@ -162,38 +161,14 @@ export default function HomeBottomTabStack() {
 const styles = StyleSheet.create({
    tabBarLabel: {
       fontFamily: "Inter-Regular",
-      fontSize: hp("1%"),
-      marginBottom: hp("1%")
+      fontSize: hp(12),
+      lineHeight: hp(16),
+      marginBottom: hp(12)
    },
    tabBarImage: {
       resizeMode: "contain",
-      width: wp("4.50%"),
-      height: hp("2.08%")
-   },
-   tabBarIconView: {
-      width: wp("14.5%%"),
-      height: wp("14.5%"),
-      backgroundColor: "#ffffff",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: wp("14.5%"),
-      position: "absolute",
-      bottom: hp("1.2%"),
-      borderWidth: 0.2,
-      borderColor: "#8F91A1"
-   },
-   innerTabIconView: {
-      width: wp("10.5%%"),
-      height: wp("10.5%"),
-      backgroundColor: "#00296B",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: wp("10.5%"),
-      shadowOffset: {
-         width: 0,
-         height: 0
-      }
-      // shadowColor: "#000",
-      // shadowOpacity: 1
+      width: wp(20),
+      height: hp(20),
+      marginBottom: hp(2)
    }
 });

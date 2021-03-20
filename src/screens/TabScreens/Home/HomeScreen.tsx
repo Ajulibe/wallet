@@ -1,123 +1,110 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
    View,
    StyleSheet,
-   Text,
    ScrollView,
    SafeAreaView,
-   Animated
+   StatusBar,
+   Text,
+   Easing,
+   Animated,
+   Button
 } from "react-native";
-import {
-   widthPercentageToDP as wp,
-   heightPercentageToDP as hp
-} from "react-native-responsive-screen";
-import {
-   NavigationTabProp,
-   NavigationBottomTabScreenComponent
-} from "react-navigation-tabs";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useScrollToTop } from "@react-navigation/native";
 import { ROUTES } from "../../../navigation/Routes";
 import COLORS from "../../../utils/Colors";
 import { HomeStackParamList } from "../../../navigation/HomeStack";
-
-//COMPONENT IMPORTS
-import RecentTransactionsView from "./HomeCcreenComponents/RecentTransactionsView";
-import QuickOptions from "./HomeCcreenComponents/QuickOptions";
-import ImageBackgroundView from "./HomeCcreenComponents/ImageBackgroundView";
-
-//ANIMATION IMPORTS
-import { headerHeight } from "./Animation/Constants";
-import { BottomViewHeight } from "./Animation/Constants";
-import { heroTitleOpacity } from "./Animation/Constants";
-import { rewardsTitleOpacity } from "./Animation/Constants";
-import { newDivPosition } from "./Animation/Constants";
-import { newDivOpacity } from "./Animation/Constants";
-import { increaseMarginTop } from "./Animation/Constants";
+import globalStyles from "../../../components/css/GlobalCss";
+import HeaderHome from "./HomeScreenComponents/HeaderHome";
+import IMAGES from "../../../utils/Images";
+import { hp, wp } from "../../../utils/Dimensions";
+import WalletAction from "./HomeScreenComponents/WalletAction";
+import { Octicons } from "@expo/vector-icons";
+import ChatList from "../Chats/Components/ChatList";
+import { useScrollToTop } from "@react-navigation/native";
 
 type Props = StackScreenProps<HomeStackParamList, ROUTES.HOME_SCREEN_STACK>;
 
 const HomeScreen = ({ navigation }: Props) => {
    const ref = useRef<ScrollView | null>(null);
-   useScrollToTop(ref);
 
-   const scrollY = useRef(new Animated.Value(0)).current;
+   useScrollToTop(ref);
+   const value = useState(new Animated.Value(0))[0];
+
+   const anim = Animated.timing(value, {
+      toValue: 100,
+      duration: 1000,
+      easing: Easing.linear,
+      useNativeDriver: false
+   });
+
+   const anim2 = Animated.timing(value, {
+      toValue: 100,
+      duration: 1000,
+      easing: Easing.linear,
+      useNativeDriver: true
+   });
+
+   const start = () => {
+      anim2.start();
+   };
 
    return (
       <>
-         <SafeAreaView
-            style={{ flex: 0, backgroundColor: COLORS.light.secondary }}
-         />
-         <Animated.View style={styles.container}>
-            <ImageBackgroundView
-               newDivOpacity={newDivOpacity}
-               headerHeight={headerHeight}
-               newDivPosition={newDivPosition}
-               heroTitleOpacity={heroTitleOpacity}
-               increaseMarginTop={increaseMarginTop}
-               rewardsTitleOpacity={rewardsTitleOpacity}
-               onPress={() => {
-                  navigation.navigate(ROUTES.PROFILE_STACK);
-               }}
-               scrollY={scrollY}
+         <StatusBar barStyle="light-content" />
+         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
+            {/* HOME HEADER  */}
+            <HeaderHome
+               navigation={navigation}
+               title="Hey John 👋🏼"
+               subtitle="Here’s what’s happening"
             />
-
-            <Animated.View
-               style={[
-                  styles.bottomView,
-                  {
-                     height: BottomViewHeight(scrollY)
-                  }
-               ]}
+            <ScrollView
+               contentContainerStyle={{ flexGrow: 1 }}
+               keyboardShouldPersistTaps="handled"
+               bounces={false}
+               showsVerticalScrollIndicator={false}
             >
-               <ScrollView
-                  showsVerticalScrollIndicator={false}
-                  ref={ref}
-                  style={styles.scrollViewStyle}
-                  onScroll={Animated.event(
-                     [
-                        {
-                           nativeEvent: {
-                              contentOffset: {
-                                 y: scrollY
-                              }
-                           }
-                        }
-                     ],
-                     { useNativeDriver: false }
-                  )}
-                  scrollEventThrottle={10}
-               >
-                  <QuickOptions />
-
-                  <View style={{ marginTop: hp("3.57%") }}>
-                     <View
-                        style={[
-                           { width: wp("90%") },
-                           styles.mainRewardsContainer
-                        ]}
-                     >
-                        <Text style={styles.recentText}>
-                           Recent Transactions
-                        </Text>
-                        <Text
-                           style={[
-                              styles.recentText,
-                              {
-                                 fontSize: wp("3.38%"),
-                                 fontFamily: "Inter-Regular"
-                              }
-                           ]}
-                        >
-                           View All
-                        </Text>
-                     </View>
-
-                     <RecentTransactionsView />
+               <View style={globalStyles.container}>
+                  <Animated.View
+                     style={{
+                        width: 100,
+                        height: 100,
+                        backgroundColor: "red",
+                        // marginLeft: value,
+                        transform: [{ translateX: value }]
+                     }}
+                  />
+                  <Button onPress={start} title="MoBE" />
+                  {/* WALLET BALANCE */}
+                  <Text style={styles.walletBalanceText}>Wallet Ballance</Text>
+                  <Text style={styles.walletBalance}>
+                     <Text>₦234,934</Text>
+                     <Text style={styles.walletBalanceFloat}>.78</Text>
+                  </Text>
+                  {/* SEND MONEY & FUND WALLET COMPONENT  */}
+                  <WalletAction
+                     onFundWalletClick={() =>
+                        navigation.navigate(ROUTES.FUND_MONEY_SCREEN)
+                     }
+                     onSendMoneyClick={() =>
+                        navigation.navigate(ROUTES.SEND_MONEY_SCREEN)
+                     }
+                  />
+                  {/* RECENT CHATS */}
+                  <View style={styles.recent}>
+                     <Text style={styles.recentText}>Recent Chats</Text>
+                     <Octicons
+                        size={18}
+                        name="info"
+                        color={COLORS.light.textBlack}
+                     />
                   </View>
-               </ScrollView>
-            </Animated.View>
-         </Animated.View>
+                  {/* RECENT CHAT LIST COMPONENT  */}
+                  <ChatList onItemClick={(chatItem) => console.log(chatItem)} />
+               </View>
+            </ScrollView>
+         </SafeAreaView>
       </>
    );
 };
@@ -125,47 +112,42 @@ const HomeScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
    container: {
       backgroundColor: "#ffffff",
-      paddingLeft: wp("7.24%"),
-      paddingRight: wp("7.24%"),
-      alignItems: "center",
-      height: hp("100%")
-   },
-   mainRewardsContainer: {
-      flexDirection: "row",
-      justifyContent: "space-between",
       alignItems: "center"
    },
-   giftImage: {
-      resizeMode: "contain",
-      width: hp("1.82%"),
-      height: hp("1.82%"),
-      tintColor: "#ffffff"
-   },
-   newRewards: {
-      color: "#ffffff",
-      textAlign: "center",
-      fontSize: wp("3.38%"),
+   walletBalanceText: {
+      marginTop: hp(8),
       fontFamily: "Inter-Regular",
-      lineHeight: hp("2.57%")
+      fontSize: wp(14),
+      lineHeight: hp(24),
+      color: COLORS.light.textBlack40,
+      textAlign: "center"
    },
-   bottomView: {
-      backgroundColor: "#ffffff",
-      paddingTop: hp("1%"),
-      // position: "absolute",
-      // bottom: 0,
-      // left: 0
-      flex: 0.8
+   walletBalance: {
+      color: COLORS.light.textBlack,
+      textAlign: "center",
+      fontFamily: "Inter-Bold",
+      fontSize: wp(28),
+      lineHeight: hp(48),
+      marginBottom: hp(16)
    },
-   scrollViewStyle: {
-      width: wp("90%"),
-      height: hp("70%"),
-      marginLeft: wp("5%")
+   walletBalanceFloat: {
+      fontSize: wp(16),
+      fontFamily: "Inter-Medium",
+      lineHeight: hp(24)
+   },
+   recent: {
+      marginTop: hp(46),
+      flexDirection: "row",
+      width: "100%",
+      alignItems: "center",
+      marginBottom: hp(12)
    },
    recentText: {
-      color: "rgba(128,148,181,1)",
-      lineHeight: hp("2.57%"),
-      fontSize: wp("3.9%"),
-      fontFamily: "Inter-Bold"
+      fontSize: wp(18),
+      fontFamily: "Inter-Medium",
+      lineHeight: hp(24),
+      color: COLORS.light.textBlack,
+      marginRight: wp(6)
    }
 });
 

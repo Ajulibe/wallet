@@ -41,7 +41,7 @@ export enum ROUTES {
    // OTHER SCREENS
 
    //WALLET ACTIONS
-   ADD_MONEY_SCREEN = "AddMoneyScreen",
+   FUND_MONEY_SCREEN = "AddMoneyScreen",
    SEND_MONEY_SCREEN = "SendMoneyScreen",
    // NOTIFICATION...
    NOTIFICATION_SCREEN = "NotificationScreen"

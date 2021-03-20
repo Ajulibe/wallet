@@ -13,6 +13,7 @@ export interface UserInterface {
    firstName: string;
    lastName: string;
    emailAddress?: string;
+   photoUrl?: string;
    accessToken?: string;
    accessTokenExpires?: string;
    refreshToken?: string;

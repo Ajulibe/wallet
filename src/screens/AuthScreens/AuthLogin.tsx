@@ -27,8 +27,6 @@ import {
    widthPercentageToDP as wp,
    heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-import bcrypt from "bcrypt";
-import { AuthDetail } from "../../models/AuthDetail";
 import { CountryData } from "../../extra/CountryData";
 
 //redux wahala
@@ -238,7 +236,6 @@ const AuthLogin = ({ navigation }: Props) => {
                         placeholder="eg. 1234"
                         placeholderTextColor=""
                         errorText={pinErrorText}
-                        touched={true}
                         keyboardType="number-pad"
                         autoCapitalize="sentences"
                         autoCompleteType={"postal-code"}

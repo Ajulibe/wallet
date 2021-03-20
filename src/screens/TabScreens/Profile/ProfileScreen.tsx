@@ -7,10 +7,6 @@ import {
    StatusBar,
    Text
 } from "react-native";
-import {
-   NavigationTabProp,
-   NavigationBottomTabScreenComponent
-} from "react-navigation-tabs";
 import { useScrollToTop } from "@react-navigation/native";
 import ListTile from "../../../components/ListTile";
 import IMAGES from "../../../utils/Images";
@@ -22,6 +18,7 @@ import CardAccountNo from "../../../components/CardAccountNo";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ProfileStackParamList } from "../../../navigation/ProfileStack";
 import { ROUTES } from "../../../navigation/Routes";
+import HeaderHome from "../Home/HomeScreenComponents/HeaderHome";
 
 type Props = StackScreenProps<ProfileStackParamList, ROUTES.PROFILE_SCREEN>;
 
@@ -32,7 +29,8 @@ const ProfileScreen = ({ navigation }: Props) => {
    return (
       <>
          <StatusBar barStyle="light-content" />
-         <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
+            <HeaderHome navigation={navigation} title="My Profile" />
             <ScrollView
                contentContainerStyle={{ flexGrow: 1 }}
                keyboardShouldPersistTaps="handled"
@@ -63,13 +61,21 @@ const ProfileScreen = ({ navigation }: Props) => {
                      }
                   />
                   <ListTile
+                     leading={IMAGES["icon-edit-profile"]}
+                     title="Verify Account"
+                     subtitle="Enter your BVN"
+                     onClick={() =>
+                        navigation.navigate(ROUTES.EDIT_PROFILE_SCREEN)
+                     }
+                  />
+                  <ListTile
                      leading={IMAGES["icon-password"]}
                      title="Security"
                      onClick={() => navigation.navigate(ROUTES.SECURITY_SCREEN)}
                   />
                   <ListTile
                      leading={IMAGES["icon-manage-account"]}
-                     title="Manage payment methods "
+                     title="Manage Account "
                      onClick={() =>
                         navigation.navigate(ROUTES.PAYMENT_METHOD_SCREEN)
                      }

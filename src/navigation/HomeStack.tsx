@@ -3,15 +3,25 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeBottomTabStack from "./HomeBottomTabStack";
 import ProfileStack from "./ProfileStack";
 import { ROUTES } from "./Routes";
+import NotificationScreen from "../screens/Notification/NotificationScreen";
+import FundMoneyScreen from "../screens/FundMoney/FundMoneyScreen";
+import SendMoneyScreen from "../screens/SendMoney/SendMoneyScreen";
 
 export type HomeStackParamList = {
    [ROUTES.HOME_SCREEN_STACK]: undefined;
    [ROUTES.PROFILE_STACK]: undefined;
+   [ROUTES.NOTIFICATION_SCREEN]: undefined;
+   [ROUTES.SEND_MONEY_SCREEN]: undefined;
+   [ROUTES.FUND_MONEY_SCREEN]: undefined;
 };
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
 
 export default function HomeNavigationStack() {
+   const headerOptions = {
+      headerShown: false,
+      cardStyle: { backgroundColor: "#fff" }
+   };
    return (
       <HomeStack.Navigator
          initialRouteName={ROUTES.HOME_SCREEN_STACK}
@@ -24,19 +34,31 @@ export default function HomeNavigationStack() {
          <HomeStack.Screen
             name={ROUTES.HOME_SCREEN_STACK}
             component={HomeBottomTabStack}
-            options={{
-               headerShown: false,
-               cardStyle: { backgroundColor: "#fff" }
-            }}
+            options={headerOptions}
          />
 
          <HomeStack.Screen
             name={ROUTES.PROFILE_STACK}
             component={ProfileStack}
-            options={{
-               headerShown: false,
-               cardStyle: { backgroundColor: "#fff" }
-            }}
+            options={headerOptions}
+         />
+
+         <HomeStack.Screen
+            name={ROUTES.NOTIFICATION_SCREEN}
+            component={NotificationScreen}
+            options={headerOptions}
+         />
+
+         <HomeStack.Screen
+            name={ROUTES.FUND_MONEY_SCREEN}
+            component={FundMoneyScreen}
+            options={headerOptions}
+         />
+
+         <HomeStack.Screen
+            name={ROUTES.SEND_MONEY_SCREEN}
+            component={SendMoneyScreen}
+            options={headerOptions}
          />
       </HomeStack.Navigator>
    );

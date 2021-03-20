@@ -21,8 +21,10 @@ interface Props {
 const CustomAppbar = (props: Props) => {
    const onBackPress = () => {
       if (props.onBackPress == null) {
+         //default back button behavior
          props.navigation?.goBack();
       } else {
+         //Overriding the back buton from the screen
          props.onBackPress();
       }
    };
