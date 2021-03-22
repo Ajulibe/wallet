@@ -24,7 +24,7 @@ const EditProfileScreen = ({ navigation }: Props) => {
    return (
       <>
          {/* <StatusBar barStyle="light-content" /> */}
-         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
+         <SafeAreaView style={globalStyles.AndroidSafeArea}>
             <CustomAppbar navigation={navigation} title="Edit Profile" />
             <View
                style={[globalStyles.container, globalStyles.centerHorizontal]}

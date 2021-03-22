@@ -47,7 +47,7 @@ const ChangePersonalDetailScreen = ({ navigation }: Props) => {
    const onSubmit = () => {};
    return (
       <>
-         <SafeAreaView style={{ flex: 1 }}>
+         <SafeAreaView style={globalStyles.AndroidSafeArea}>
             <CustomAppbar navigation={navigation} title="Edit Profile" />
             <KeyboardAvoidingView
                behavior={"padding"}

@@ -57,7 +57,7 @@ const SendMoneyScreen = ({ navigation }: Props) => {
    const onSubmit = () => {};
    return (
       <>
-         <SafeAreaView style={{ flex: 1 }}>
+         <SafeAreaView style={globalStyles.AndroidSafeArea}>
             {/* <StatusBar barStyle="light-content" /> */}
             <CustomAppbar navigation={navigation} title="" />
             <KeyboardAvoidingView

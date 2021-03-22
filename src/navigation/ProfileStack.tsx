@@ -13,6 +13,7 @@ import EnableBiometric from "../screens/TabScreens/Profile/Sections/Security/Sec
 import PaymentMethod from "../screens/TabScreens/Profile/Sections/ManageAccount/PaymentMethod";
 import { ROUTES } from "./Routes";
 import COLORS from "../utils/Colors";
+import AddPaymentCardScreen from "../screens/TabScreens/Profile/Sections/ManageAccount/AddPaymentCardScreen";
 
 export type ProfileStackParamList = {
    [ROUTES.PROFILE_SCREEN]: undefined;
@@ -23,6 +24,7 @@ export type ProfileStackParamList = {
    [ROUTES.CHANGE_PIN_SCREEN]: undefined;
    [ROUTES.ENABLE_BIOMETRIC_SCREEN]: undefined;
    [ROUTES.PAYMENT_METHOD_SCREEN]: undefined;
+   [ROUTES.ADD_PAYMENT_CARD_SCREEN]: undefined;
 };
 
 const ProfileStack = createStackNavigator<ProfileStackParamList>();
@@ -85,6 +87,11 @@ export default function ProfileNavigationStack() {
          <ProfileStack.Screen
             name={ROUTES.PAYMENT_METHOD_SCREEN}
             component={PaymentMethod}
+            options={headerOptions}
+         />
+         <ProfileStack.Screen
+            name={ROUTES.ADD_PAYMENT_CARD_SCREEN}
+            component={AddPaymentCardScreen}
             options={headerOptions}
          />
       </ProfileStack.Navigator>

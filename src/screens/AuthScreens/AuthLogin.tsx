@@ -37,11 +37,11 @@ import { UserInterface } from "../../store/types/AuthTypes";
 import { TextInput } from "react-native-gesture-handler";
 import { CountryPicker } from "../../components/CountryPicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import STORAGE_KEYS from "../../utils/StorageKeys";
 import InputPin from "../../components/InputPin";
 import libphonenumber from "google-libphonenumber";
 import InputPhoneNumber from "../../components/InputPhoneNumber";
 import Input from "../../components/Input";
+import AsyncStorageUtil from "../../utils/AsyncStorageUtil";
 
 type Props = StackScreenProps<
    AuthStackParamList,
@@ -70,10 +70,8 @@ const AuthLogin = ({ navigation }: Props) => {
    );
    //check async storage for phone no & user details
    useEffect(() => {
-      AsyncStorage.getItem(STORAGE_KEYS.USER).then((u) =>
-         setLoggedUser(JSON.parse(u!))
-      );
-      AsyncStorage.getItem(STORAGE_KEYS.PHONE_NUMBER).then((no) => {
+      AsyncStorageUtil.getUser().then((u) => setLoggedUser(JSON.parse(u!)));
+      AsyncStorageUtil.getPhoneNumber().then((no) => {
          if (phoneNumber == "") setPhoneNumber(no!);
       });
    }, []);
@@ -123,8 +121,8 @@ const AuthLogin = ({ navigation }: Props) => {
    useEffect(() => {
       if (success) {
          if (user.phoneNumber != "") {
-            AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
-            AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+            AsyncStorageUtil.setPhoneNumber(user.phoneNumber);
+            AsyncStorageUtil.setUser(JSON.stringify(user));
             // navigate the next screen
             navigation.navigate(ROUTES.HOME_SCREEN_STACK);
          }

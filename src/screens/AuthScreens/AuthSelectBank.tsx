@@ -16,11 +16,7 @@ import { ROUTES } from "../../navigation/Routes";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import IMAGES from "../../utils/Images";
 import styles from "../../components/css/AuthFormCss";
-import UTILITIES from "../../utils/Utilities";
-import * as LocalAuthentication from "expo-local-authentication";
-import { widthPercentageToDP } from "react-native-responsive-screen";
-import { CheckBox } from "react-native-elements";
-import { STORAGE_KEYS } from "../../utils/StorageKeys";
+import AsyncStorageUtil from "../../utils/AsyncStorageUtil";
 import { BankPicker } from "../../components/BankPicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -81,8 +77,8 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
    useEffect(() => {
       if (success) {
          if (user.phoneNumber != "") {
-            AsyncStorage.setItem(STORAGE_KEYS.PHONE_NUMBER, user.phoneNumber);
-            AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+            AsyncStorageUtil.setPhoneNumber(user.phoneNumber);
+            AsyncStorageUtil.setUser(JSON.stringify(user));
             // navigate the next screen
             navigation.navigate(ROUTES.AUTH_FINAL_LOADING_SCREEN);
          }

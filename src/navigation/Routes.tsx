@@ -37,6 +37,7 @@ export enum ROUTES {
    CHANGE_PIN_SCREEN = "ChangePinScreenScreen",
    ENABLE_BIOMETRIC_SCREEN = "EnableBiometricScreen",
    PAYMENT_METHOD_SCREEN = "PaymentMethodScreen",
+   ADD_PAYMENT_CARD_SCREEN = "AddPaymentCardScreen",
 
    // OTHER SCREENS
 

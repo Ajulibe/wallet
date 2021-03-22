@@ -1,8 +1,13 @@
-import { StyleSheet } from "react-native";
+import { Platform, StatusBar, StyleSheet } from "react-native";
 import COLORS from "../../utils/Colors";
 import { hp, wp } from "../../utils/Dimensions";
 
 const globalStyles = StyleSheet.create({
+   AndroidSafeArea: {
+      flex: 1,
+      backgroundColor: COLORS.light.white,
+      paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+   },
    wrapper: {
       flex: 1,
       backgroundColor: "green"

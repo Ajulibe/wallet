@@ -1,53 +1,71 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
-   View,
    StyleSheet,
-   Text,
-   Image,
    ScrollView,
-   SafeAreaView
+   SafeAreaView,
+   NativeScrollEvent,
+   NativeSyntheticEvent,
+   Platform
 } from "react-native";
-import {
-   widthPercentageToDP as wp,
-   heightPercentageToDP as hp
-} from "react-native-responsive-screen";
-import {
-   NavigationTabProp,
-   NavigationBottomTabScreenComponent
-} from "react-navigation-tabs";
-import { useScrollToTop } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { ROUTES } from "../../../navigation/Routes";
+import COLORS from "../../../utils/Colors";
+import { HomeStackParamList } from "../../../navigation/HomeStack";
+import globalStyles from "../../../components/css/GlobalCss";
+import HeaderHome from "../Home/HomeScreenComponents/HeaderHome";
+import { hp, wp } from "../../../utils/Dimensions";
+import ChatList from "../Chats/Components/ChatList";
 
-type Props = {
-   navigation: NavigationTabProp<"Shop">;
-};
+type Props = StackScreenProps<HomeStackParamList, ROUTES.HOME_SCREEN_STACK>;
 
 const ChatListScreen = ({ navigation }: Props) => {
-   const ref = useRef<ScrollView | null>(null);
+   const [hideSubtitle, setHideSubtitle] = useState(false);
 
-   useScrollToTop(ref);
+   //Hide Subtitle(& notification bell) on 90px scroll up
+   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const positionY = event.nativeEvent.contentOffset.y;
+
+      if (positionY > 100) {
+         setHideSubtitle(true);
+      } else if (hideSubtitle) {
+         if (Platform.OS == "android") {
+            if (positionY < 4) setHideSubtitle(false);
+         } else {
+            if (positionY < 80) setHideSubtitle(false);
+         }
+      }
+   };
 
    return (
-      <SafeAreaView style={{ backgroundColor: "#FfFfFf" }}>
-         <ScrollView ref={ref}>
-            <View style={styles.container}>
-               <Text style={styles.header}>Dhaka, Banassre</Text>
-            </View>
-         </ScrollView>
-      </SafeAreaView>
+      <>
+         <SafeAreaView style={globalStyles.AndroidSafeArea}>
+            {/* HOME HEADER  */}
+            <HeaderHome
+               navigation={navigation}
+               title="Recent Chats"
+               hideSubtitle={hideSubtitle}
+            />
+            <ScrollView
+               contentContainerStyle={globalStyles.scrollViewContainer}
+               keyboardShouldPersistTaps="handled"
+               bounces={false}
+               showsVerticalScrollIndicator={false}
+               onScroll={(event) => handleScroll(event)}
+               onScrollEndDrag={(event) => handleScroll(event)}
+               scrollEventThrottle={160}
+            >
+               {/* RECENT CHAT LIST COMPONENT  */}
+               <ChatList onItemClick={(chatItem) => console.log(chatItem)} />
+            </ScrollView>
+         </SafeAreaView>
+      </>
    );
 };
 
 const styles = StyleSheet.create({
    container: {
       backgroundColor: "#ffffff",
-      flex: 1,
       alignItems: "center"
-   },
-
-   header: {
-      fontSize: 18,
-      color: "#4C4F4D",
-      marginBottom: hp("1.4%")
    }
 });
 

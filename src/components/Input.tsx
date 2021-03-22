@@ -16,7 +16,7 @@ interface Props {
    autoCapitalize: any;
    errorText: string;
    initialValue: string;
-   initiallyValid: boolean;
+   initiallyValid?: boolean;
    email?: string | null;
    min?: number | null;
    max?: number | null;
@@ -26,13 +26,14 @@ interface Props {
    placeholder?: string;
    placeholderTextColor?: any;
    onInputChange: (value: string) => void;
-   onSubmit: () => void;
+   onSubmit?: () => void;
+   onDeletePress?: () => void;
 }
 
 const Input: React.FC<Props> = (props) => {
    const [borderColor, setBorderColor] = useState(COLORS.light.inputBorder);
 
-   const { onInputChange, onSubmit } = props;
+   const { onInputChange, onSubmit, onDeletePress } = props;
 
    return (
       <View style={[styles.formControl]}>
@@ -52,9 +53,14 @@ const Input: React.FC<Props> = (props) => {
             placeholderTextColor={COLORS.light.inputPlaceholder}
             value={props.value!}
             onChangeText={(newVal) => onInputChange(newVal)}
-            onSubmitEditing={() => onSubmit()}
+            onSubmitEditing={() => onSubmit != null && onSubmit()}
             onBlur={() => setBorderColor(COLORS.light.inputBorder)}
             onFocus={() => setBorderColor(COLORS.light.textBlack)}
+            onKeyPress={({ nativeEvent }) => {
+               nativeEvent.key === "Backspace" &&
+                  onDeletePress != null &&
+                  onDeletePress();
+            }}
          />
          {props.errorText != "" && (
             <View style={styles.errorContainer}>

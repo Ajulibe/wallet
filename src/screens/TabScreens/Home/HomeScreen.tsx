@@ -43,7 +43,7 @@ const HomeScreen = ({ navigation }: Props) => {
 
    return (
       <>
-         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
+         <SafeAreaView style={globalStyles.AndroidSafeArea}>
             {/* HOME HEADER  */}
             <HeaderHome
                navigation={navigation}
