@@ -21,7 +21,7 @@ const EnableBiometricScreen: React.FC<Props> = ({ navigation }) => {
    return (
       <>
          <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
-            <StatusBar barStyle="light-content" />
+            {/* <StatusBar barStyle="light-content" /> */}
             <CustomAppbar navigation={navigation} title="" />
             <View
                style={[globalStyles.container, globalStyles.centerHorizontal]}

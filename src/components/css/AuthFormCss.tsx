@@ -5,7 +5,7 @@ import {
    heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 
-const styles = StyleSheet.create({
+const authStyles = StyleSheet.create({
    wrapper: {
       position: "relative",
       flex: 1,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
       color: COLORS.light.textBlack,
       marginTop: hp("1%"),
       textAlign: "left",
-      fontSize: wp("3.5%"),
+      fontSize: wp("3.73%"),
       fontFamily: "Inter-Regular",
       marginBottom: 6
    },
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
    }
 });
 
-export default styles;
+export default authStyles;

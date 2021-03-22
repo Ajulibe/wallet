@@ -48,12 +48,11 @@ const ChangePersonalDetailScreen = ({ navigation }: Props) => {
    return (
       <>
          <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content" />
             <CustomAppbar navigation={navigation} title="Edit Profile" />
             <KeyboardAvoidingView
                behavior={"padding"}
                style={{ flex: 1 }}
-               keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+               keyboardVerticalOffset={Platform.OS == "android" ? -300 : -50}
             >
                <ScrollView
                   contentContainerStyle={{

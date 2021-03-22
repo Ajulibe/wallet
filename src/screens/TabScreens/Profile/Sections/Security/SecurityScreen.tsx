@@ -26,7 +26,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }: Props) => {
    return (
       <>
          <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
-            <StatusBar barStyle="light-content" />
+            {/* <StatusBar barStyle="light-content" /> */}
             <CustomAppbar navigation={navigation} title="Security" />
             <View
                style={[globalStyles.container, globalStyles.centerHorizontal]}

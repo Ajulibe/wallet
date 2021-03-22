@@ -4,10 +4,11 @@ import COLORS from "../../../utils/Colors";
 import globalStyles from "../../../components/css/GlobalCss";
 import CustomButton from "../../../components/Button";
 import { CountryData } from "../../../extra/CountryData";
-import libphonenumber from "google-libphonenumber";
-import InputPhoneNumber from "../../../components/InputPhoneNumber";
 import * as Animatable from "react-native-animatable";
-import { hp } from "../../../utils/Dimensions";
+import { hp, wp } from "../../../utils/Dimensions";
+import authStyles from "../../../components/css/AuthFormCss";
+import Input from "../../../components/Input";
+import InputSelectOption from "../../../components/InputSelectOption";
 
 interface Props {
    navigation: any;
@@ -15,57 +16,79 @@ interface Props {
 
 const SendToBankAccount = ({ navigation }: Props) => {
    const [btnBgColor, setBtnBgColor] = useState<string>(COLORS.light.disabled);
-   const [phoneNumber, setPhoneNumber] = useState("");
+   const [bankName, setBankName] = useState("");
+   const [accountNumber, setAccountNumber] = useState("");
 
-   const [errorText, setErrorText] = useState("");
+   const [bankNameErrorText, setBankNameErrorText] = useState("");
+   const [accNoErrorText, setAccNoErrorText] = useState("");
 
-   // country data
-   const [openCountry, setOpenCountry] = useState(false); //couhntry show/hide listener
-   const [country, setCountry] = useState(CountryData.africaCountries[0]);
-   // google libphonenumber init
-   const phoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
-   const completePhone = (phone: string) =>
-      phoneNumberUtil.parseAndKeepRawInput(phone, country.code);
    // checking the inputs on text change
    useEffect(() => {
-      if (phoneNumber == null) return;
-      if (phoneNumber.length < 6) {
-         setBtnBgColor(COLORS.light.disabled);
-      } else if (!phoneNumberUtil.isValidNumber(completePhone(phoneNumber))) {
+      if (bankName != "" && accountNumber != "") {
          setBtnBgColor(COLORS.light.disabled);
       } else {
+         setAccNoErrorText("");
+         setBankNameErrorText("");
          setBtnBgColor(COLORS.light.primary);
-         setErrorText("");
       }
-   }, [phoneNumber]);
+   }, [bankName, accountNumber]);
 
+   const onClick = () => {};
    const onSubmit = () => {};
    return (
       <>
          <Animatable.View
             style={styles.container}
             key={0}
-            animation={"fadeIn"}
+            animation={"fadeIn"} //pulse
             easing={"linear"}
-            duration={1000}
+            duration={500}
          >
-            <Text style={globalStyles.inputLabel}>Hello name</Text>
-            <InputPhoneNumber
-               country={country}
-               onTextInputChange={(num) => setPhoneNumber(num)}
-               openCountryModal={(isS) => setOpenCountry(isS)}
-               errorText={errorText}
-               onSubmit={onSubmit}
-            />
-            <View style={globalStyles.inputGap} />
-            <View style={{ flex: 1 }} />
+            <View style={styles.body}>
+               <Text
+                  style={[
+                     authStyles.formSubtitle,
+                     { color: COLORS.light.textBlack }
+                  ]}
+               >
+                  Enter the bank account details of the person you are sending
+                  money to
+               </Text>
+               <Text style={authStyles.inputLabel}>Select Bank</Text>
+               <InputSelectOption
+                  placeHolder={"eg Guaranty Trust Bank"}
+                  value={bankName}
+                  errorText={bankNameErrorText}
+                  onClick={onClick}
+               />
+               <Text style={authStyles.inputLabel}>Bank Account Number</Text>
+               <Input
+                  placeholder="eg 0483659072"
+                  placeholderTextColor=""
+                  errorText={accNoErrorText}
+                  keyboardType="default"
+                  autoCapitalize="sentences"
+                  returnKeyType="next"
+                  onInputChange={(value) => setAccountNumber(value)}
+                  onSubmit={onSubmit}
+                  initialValue=""
+                  initiallyValid={false}
+                  required
+                  secureTextEntry={false}
+                  minLength={2}
+                  textContentType="none"
+               />
+               <View style={{ flex: 1 }} />
+            </View>
 
-            <CustomButton
-               bgColor={btnBgColor}
-               textColor={COLORS.light.white}
-               btnText={"Continue"}
-               onClick={onSubmit}
-            />
+            <View style={styles.footer}>
+               <CustomButton
+                  bgColor={btnBgColor}
+                  textColor={COLORS.light.white}
+                  btnText={"Continue"}
+                  onClick={onSubmit}
+               />
+            </View>
          </Animatable.View>
       </>
    );
@@ -75,6 +98,19 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       paddingVertical: hp(16)
+   },
+   body: {
+      flex: 1,
+      // backgroundColor: "#F9FAFB",
+      paddingVertical: hp(16),
+      paddingHorizontal: wp(30)
+   },
+   footer: {
+      backgroundColor: COLORS.light.white,
+      paddingVertical: hp(8),
+      paddingHorizontal: wp(30),
+      borderTopColor: COLORS.light.tabBarInactive,
+      borderTopWidth: 1
    }
 });
 

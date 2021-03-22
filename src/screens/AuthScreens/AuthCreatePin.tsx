@@ -126,7 +126,7 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
       <KeyboardAvoidingView
          behavior={"padding"}
          style={{ flex: 1 }}
-         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+         keyboardVerticalOffset={Platform.OS == "android" ? -300 : -50}
       >
          <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
@@ -135,7 +135,7 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
             <View style={styles.wrapper}>
                {/* redirect user  */}
 
-               <StatusBar backgroundColor={COLORS.light.white} />
+               {/* <StatusBar backgroundColor={COLORS.light.white} /> */}
                {/* top menu  */}
                <View style={styles.container}>
                   <View style={styles.progressWrapper}>
@@ -198,6 +198,7 @@ const AuthCreatePin = ({ navigation, route }: Props) => {
                      }}
                      onPress={() => onSwitchChange()}
                   />
+                  <View style={{ flex: 1 }} />
 
                   <CustomButton
                      bgColor={btnBgColor}

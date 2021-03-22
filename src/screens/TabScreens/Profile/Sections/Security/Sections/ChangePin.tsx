@@ -46,7 +46,7 @@ const ChangePinScreen = ({ navigation }: Props) => {
    return (
       <>
          <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content" />
+            {/* <StatusBar barStyle="light-content" /> */}
             <CustomAppbar navigation={navigation} title="Change Pin" />
             <KeyboardAvoidingView
                behavior={"padding"}

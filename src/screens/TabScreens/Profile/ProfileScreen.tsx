@@ -1,12 +1,5 @@
 import React, { useRef } from "react";
-import {
-   View,
-   StyleSheet,
-   ScrollView,
-   SafeAreaView,
-   StatusBar,
-   Text
-} from "react-native";
+import { View, StyleSheet, ScrollView, SafeAreaView, Text } from "react-native";
 import { useScrollToTop } from "@react-navigation/native";
 import ListTile from "../../../components/ListTile";
 import IMAGES from "../../../utils/Images";
@@ -28,7 +21,7 @@ const ProfileScreen = ({ navigation }: Props) => {
 
    return (
       <>
-         <StatusBar barStyle="light-content" />
+         {/* <StatusBar barStyle="light-content" /> */}
          <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
             <HeaderHome navigation={navigation} title="My Profile" />
             <ScrollView
@@ -46,7 +39,9 @@ const ProfileScreen = ({ navigation }: Props) => {
                   <UserProfilePhoto imageSrc="" imageSize={90} />
 
                   <Text style={styles.profileName}>John Doe</Text>
-                  <Text style={styles.profilePhone}>+2348078213212</Text>
+                  <Text style={styles.profilePhone} textBreakStrategy="simple">
+                     {" +2348078213212 "}
+                  </Text>
 
                   <CardAccountNo bank={{} as any} />
 
@@ -56,14 +51,6 @@ const ProfileScreen = ({ navigation }: Props) => {
                      leading={IMAGES["icon-edit-profile"]}
                      title="Edit Profile"
                      subtitle="Change your name, email address, photo"
-                     onClick={() =>
-                        navigation.navigate(ROUTES.EDIT_PROFILE_SCREEN)
-                     }
-                  />
-                  <ListTile
-                     leading={IMAGES["icon-edit-profile"]}
-                     title="Verify Account"
-                     subtitle="Enter your BVN"
                      onClick={() =>
                         navigation.navigate(ROUTES.EDIT_PROFILE_SCREEN)
                      }
@@ -86,6 +73,14 @@ const ProfileScreen = ({ navigation }: Props) => {
                      onClick={() => null}
                   />
                   <View style={styles.divider} />
+                  <ListTile
+                     leading={IMAGES["icon-verify-account"]}
+                     title="Verify Account"
+                     onClick={() =>
+                        navigation.navigate(ROUTES.EDIT_PROFILE_SCREEN)
+                     }
+                  />
+                  <View style={[styles.divider, { marginTop: 16 }]} />
                   <ListTile
                      leading={IMAGES["icon-take-tour"]}
                      title="Take Tour"
@@ -133,7 +128,7 @@ const styles = StyleSheet.create({
       fontSize: wp(12),
       fontFamily: "Inter-Regular",
       color: COLORS.light.textBlack40,
-      lineHeight: hp(12),
+      // lineHeight: hp(12),
       marginBottom: 28
    },
    cardWrapper: {

@@ -1,13 +1,6 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import {
-   StyleSheet,
-   Image,
-   View,
-   ImageSourcePropType,
-   Animated,
-   Easing
-} from "react-native";
+import { StyleSheet, Image, View, Animated, Easing } from "react-native";
 import { Text } from "react-native-animatable";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ROUTES } from "../../../../navigation/Routes";
@@ -22,7 +15,8 @@ interface Props {
    trailing?: JSX.Element; //the trailing/end icon(s)
    // navigation?: StackNavigationProp<any, any>; //list click listener
    navigation?: any; //list click listener,
-   hideSubtitle: boolean; //sow/hide subtitle, notification,...
+   hideSubtitle?: boolean; //sow/hide subtitle, notification,...
+   showBallance?: boolean;
 }
 const HeaderHome = (props: Props) => {
    const onNotificationClick = () => {
@@ -39,13 +33,14 @@ const HeaderHome = (props: Props) => {
    useEffect(() => {
       if (props.hideSubtitle) {
          startAnim(16);
-         startBallanceAnim(24);
+         //whether show ballance in the top right
+         if (props.showBallance) startBallanceAnim(24);
       } else {
          startAnim(48);
          startBallanceAnim(0);
       }
    }, [props.hideSubtitle]);
-
+   //Toolbar(AppBar) header padding animation
    const startAnim = (toValue: number) => {
       Animated.timing(headerPaddingTop, {
          toValue: toValue,
@@ -54,6 +49,7 @@ const HeaderHome = (props: Props) => {
          useNativeDriver: false
       }).start();
    };
+   //Show/Hide Ballance Animation with height anim timing
    const startBallanceAnim = (toValue: number) => {
       Animated.timing(ballanceHeight, {
          toValue: toValue,
@@ -75,29 +71,34 @@ const HeaderHome = (props: Props) => {
                )}
             </View>
 
-            <View style={{ position: "relative", alignItems: "center" }}>
-               <TouchableOpacity
-                  onPress={onNotificationClick}
-                  style={styles.trailingWrapper}
-               >
+            {/* <View style={{ position: "relative", alignItems: "center" }}> */}
+            <View
+               // onPress={onNotificationClick}
+               style={styles.trailingWrapper}
+            >
+               <TouchableOpacity onPress={onNotificationClick}>
                   <Image
                      source={IMAGES["icon-notification"]}
                      style={styles.image}
                   />
                   <View style={styles.notificationDot} />
-                  {/* Total Ballance show on scroll up  */}
-                  <Animated.View
-                     style={[
-                        styles.ballanceWrapper,
-                        { height: ballanceHeight }
-                     ]}
-                  >
-                     <Text style={styles.ballance}>
-                        Balance: <Text style={styles.bold}>N234,934.78</Text>
-                     </Text>
-                  </Animated.View>
                </TouchableOpacity>
+               {/* Total Ballance show on scroll up  */}
+               <Animated.View
+                  style={[
+                     styles.ballanceWrapper,
+                     {
+                        height: ballanceHeight
+                        // width: !props.hideSubtitle ? 0 : 130
+                     }
+                  ]}
+               >
+                  <Text style={styles.ballance}>
+                     Balance: <Text style={styles.bold}>N234,934.78</Text>
+                  </Text>
+               </Animated.View>
             </View>
+            {/* </View> */}
             {props.trailing != null && props.trailing}
          </Animated.View>
          <View style={styles.divider} />
@@ -166,12 +167,13 @@ const styles = StyleSheet.create({
    },
    ballanceWrapper: {
       position: "absolute",
-      height: 50,
       right: 0,
-      top: 0,
+      // top: 0,
+      bottom: 0,
       justifyContent: "center",
       backgroundColor: COLORS.light.white,
-      alignItems: "flex-end"
+      alignItems: "flex-end",
+      overflow: "hidden"
    },
    ballance: {
       fontFamily: "Inter-Regular",

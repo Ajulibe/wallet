@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Image, StatusBar } from "react-native";
+import { View, StyleSheet, Image, StatusBar, SafeAreaView } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import {
    widthPercentageToDP as wp,
@@ -9,6 +9,7 @@ import { RootStackParamList } from "../../navigation/MainNavigator";
 import { ROUTES } from "../../navigation/Routes";
 import COLORS from "../../utils/Colors";
 import IMAGES from "../../utils/Images";
+import { StatusBar as SB } from "expo-status-bar";
 
 type Props = StackScreenProps<RootStackParamList, ROUTES.SPLASH_SCREEN>;
 
@@ -21,12 +22,7 @@ export default function SplashScreen({ navigation }: Props) {
 
    return (
       // <SafeAreaView style={{ flex: 1 }}>
-
       <View style={styles.wrapper}>
-         <StatusBar
-            backgroundColor={COLORS.light.white}
-            barStyle={"light-content"}
-         />
          <View style={styles.container}>
             <Image source={IMAGES.logo} style={styles.logo} />
          </View>

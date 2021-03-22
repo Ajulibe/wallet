@@ -26,6 +26,7 @@ const IMAGES = {
    "icon-biometric": require("../assets/images/icon-biometric.png"),
    "icon-manage-account": require("../assets/images/icon-manage-account.png"),
    "icon-add": require("../assets/images/icon-add.png"),
+   "icon-verify-account": require("../assets/images/icon-verify-account.png"),
    // bottom tabs
    "icon-tab-chat-active": require("../assets/images/icon-tab-chat-active.png"),
    "icon-tab-chat-inactive": require("../assets/images/icon-tab-chat-inactive.png"),

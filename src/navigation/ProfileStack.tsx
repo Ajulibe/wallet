@@ -41,7 +41,10 @@ export default function ProfileNavigationStack() {
             gestureEnabled: true,
             headerShown: false,
             gestureDirection: "horizontal",
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            headerStyle: {
+               backgroundColor: "#fff"
+            }
          }}
       >
          <ProfileStack.Screen

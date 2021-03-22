@@ -120,14 +120,14 @@ const AuthPhoneNoVerify = ({ navigation, route }: Props) => {
       <KeyboardAvoidingView
          behavior={"padding"}
          style={{ flex: 1 }}
-         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+         keyboardVerticalOffset={Platform.OS == "android" ? -300 : -50}
       >
          <ScrollView
             contentContainerStyle={{ flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
          >
             <View style={styles.wrapper}>
-               <StatusBar backgroundColor={COLORS.light.white} />
+               {/* <StatusBar backgroundColor={COLORS.light.white} /> */}
 
                <View style={styles.container}>
                   <View style={styles.progressWrapper}>

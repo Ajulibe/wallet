@@ -43,7 +43,10 @@ export default function AuthNavigationStack() {
             gestureEnabled: true,
             headerShown: false,
             gestureDirection: "horizontal",
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            headerStyle: {
+               backgroundColor: "#fff"
+            }
          }}
       >
          <AuthStack.Screen

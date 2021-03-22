@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppLoading from "expo-app-loading";
@@ -8,6 +8,7 @@ import * as Font from "expo-font";
 import Navigation from "./src/navigation/MainNavigator";
 import { Switch } from "react-native";
 import theme from "./src/utils/Colors";
+import { StatusBar } from "react-native";
 
 export const ThemeContext = React.createContext({});
 
@@ -28,6 +29,8 @@ export default function App() {
       });
    };
 
+   // return <Navigation />;
+
    const [fontLoaded, setFontLoaded] = useState(false);
    if (!fontLoaded) {
       return (
@@ -44,8 +47,6 @@ export default function App() {
       <ThemeContext.Provider value={darkMode ? theme.dark : theme.light}>
          <Provider store={store}>
             <SafeAreaProvider>
-               <StatusBar hidden={true} backgroundColor="#582ED7" />
-               {/* <Switch value={darkMode} onValueChange={setDarkMode} /> */}
                <Navigation />
             </SafeAreaProvider>
          </Provider>

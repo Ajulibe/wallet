@@ -1,5 +1,8 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+   CardStyleInterpolators,
+   createStackNavigator
+} from "@react-navigation/stack";
 import HomeBottomTabStack from "./HomeBottomTabStack";
 import ProfileStack from "./ProfileStack";
 import { ROUTES } from "./Routes";
@@ -28,7 +31,11 @@ export default function HomeNavigationStack() {
          initialRouteName={ROUTES.HOME_SCREEN_STACK}
          screenOptions={{
             gestureEnabled: false,
-            cardStyle: { backgroundColor: COLORS.light.white }
+            cardStyle: { backgroundColor: COLORS.light.white },
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            headerStyle: {
+               backgroundColor: "#fff"
+            }
          }}
          headerMode={"none"}
       >

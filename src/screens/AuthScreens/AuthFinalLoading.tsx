@@ -58,10 +58,10 @@ const AuthGetStarted = ({ navigation, route }: Props) => {
    return (
       <View style={{ flex: 1 }}>
          <View style={styles.wrapper}>
-            <StatusBar
+            {/* <StatusBar
                backgroundColor={COLORS.light.secondary}
                barStyle={"light-content"}
-            />
+            /> */}
 
             <View style={styles.container}>
                <CircularProgress

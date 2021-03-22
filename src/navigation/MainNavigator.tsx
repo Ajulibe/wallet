@@ -5,6 +5,7 @@ import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import HomeStack from "./HomeStack";
 import AuthStack from "./AuthStack";
 import { ROUTES } from "./Routes";
+import COLORS from "../utils/Colors";
 
 export type RootStackParamList = {
    [ROUTES.SPLASH_SCREEN]: undefined;
@@ -20,12 +21,19 @@ export default function MainNavigator() {
             initialRouteName={ROUTES.SPLASH_SCREEN}
             headerMode={"none"}
             screenOptions={{
-               cardStyle: { backgroundColor: "#fff" }
+               headerStyle: {
+                  backgroundColor: "#fff"
+               },
+               cardStyle: { backgroundColor: COLORS.light.white }
             }}
          >
             <MainStack.Screen
                name={ROUTES.SPLASH_SCREEN}
                component={SplashScreen}
+               options={{
+                  // headerTintColor: "#444",
+                  cardStyle: { backgroundColor: COLORS.light.white }
+               }}
             />
             <MainStack.Screen
                name={ROUTES.AUTHENTICATION_STACK}

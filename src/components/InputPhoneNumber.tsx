@@ -108,7 +108,7 @@ const inputStyles = StyleSheet.create({
       borderRadius: 2,
       flexDirection: "row",
       alignItems: "center",
-      marginTop: 8,
+      // marginTop: 8,
       marginBottom: 8,
       backgroundColor: COLORS.light.inputBg,
       borderColor: COLORS.light.inputBorder

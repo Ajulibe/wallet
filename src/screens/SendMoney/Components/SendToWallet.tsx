@@ -7,7 +7,8 @@ import { CountryData } from "../../../extra/CountryData";
 import libphonenumber from "google-libphonenumber";
 import InputPhoneNumber from "../../../components/InputPhoneNumber";
 import * as Animatable from "react-native-animatable";
-import { hp } from "../../../utils/Dimensions";
+import { hp, wp } from "../../../utils/Dimensions";
+import authStyles from "../../../components/css/AuthFormCss";
 
 interface Props {
    navigation: any;
@@ -49,23 +50,44 @@ const SendToWallet = ({ navigation }: Props) => {
             easing={"linear"}
             duration={500}
          >
-            <Text style={globalStyles.inputLabel}>First name</Text>
-            <InputPhoneNumber
-               country={country}
-               onTextInputChange={(num) => setPhoneNumber(num)}
-               openCountryModal={(isS) => setOpenCountry(isS)}
-               errorText={errorText}
-               onSubmit={onSubmit}
-            />
-            <View style={globalStyles.inputGap} />
-            <View style={{ flex: 1 }} />
+            <View style={styles.body}>
+               <Text
+                  style={[
+                     authStyles.formSubtitle,
+                     { color: COLORS.light.textBlack, display: "none" }
+                  ]}
+               >
+                  Enter the phone number of the person you are sending money to
+                  or select from your contacts.
+               </Text>
+               <Text style={authStyles.inputLabel}>Phone Number</Text>
+               <InputPhoneNumber
+                  country={country}
+                  onTextInputChange={(num) => setPhoneNumber(num)}
+                  openCountryModal={(isS) => setOpenCountry(isS)}
+                  errorText={errorText}
+                  onSubmit={onSubmit}
+               />
+               <Text
+                  style={[
+                     authStyles.formSubtitle,
+                     { color: COLORS.light.textBlack }
+                  ]}
+               >
+                  The money will be sent to this phone number instantly even if
+                  they don’t have a SurePay account
+               </Text>
+               <View style={{ flex: 1 }} />
+            </View>
 
-            <CustomButton
-               bgColor={btnBgColor}
-               textColor={COLORS.light.white}
-               btnText={"Continue"}
-               onClick={onSubmit}
-            />
+            <View style={styles.footer}>
+               <CustomButton
+                  bgColor={btnBgColor}
+                  textColor={COLORS.light.white}
+                  btnText={"Continue"}
+                  onClick={onSubmit}
+               />
+            </View>
          </Animatable.View>
       </>
    );
@@ -75,6 +97,19 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       paddingVertical: hp(16)
+   },
+   body: {
+      flex: 1,
+      // backgroundColor: "#F9FAFB",
+      paddingVertical: hp(16),
+      paddingHorizontal: wp(30)
+   },
+   footer: {
+      backgroundColor: COLORS.light.white,
+      paddingVertical: hp(8),
+      paddingHorizontal: wp(30),
+      borderTopColor: COLORS.light.tabBarInactive,
+      borderTopWidth: 1
    }
 });
 

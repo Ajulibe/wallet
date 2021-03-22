@@ -22,6 +22,8 @@ import InputPhoneNumber from "../../components/InputPhoneNumber";
 import TabBar from "./Components/TabBar";
 import SendToWallet from "./Components/SendToWallet";
 import SendToBankAccount from "./Components/SendToBankAccount";
+import authStyles from "../../components/css/AuthFormCss";
+import { hp, wp } from "../../utils/Dimensions";
 
 type Props = StackScreenProps<HomeStackParamList, ROUTES.SEND_MONEY_SCREEN>;
 
@@ -56,7 +58,7 @@ const SendMoneyScreen = ({ navigation }: Props) => {
    return (
       <>
          <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content" />
+            {/* <StatusBar barStyle="light-content" /> */}
             <CustomAppbar navigation={navigation} title="" />
             <KeyboardAvoidingView
                behavior={"padding"}
@@ -71,7 +73,16 @@ const SendMoneyScreen = ({ navigation }: Props) => {
                   bounces={false}
                   showsVerticalScrollIndicator={false}
                >
-                  <View style={globalStyles.container}>
+                  <View
+                     style={[globalStyles.container, { paddingHorizontal: 0 }]}
+                  >
+                     <View style={styles.header}>
+                        <Text style={styles.headerTitile}>Send Money</Text>
+                        <Text style={[authStyles.formSubtitle]}>
+                           Send money to another SurePay user's wallet or to a
+                           bank account.
+                        </Text>
+                     </View>
                      <TabBar
                         activeIndex={activeIndex}
                         onSendToWalletClick={() => setActiveIndex(0)}
@@ -90,6 +101,15 @@ const SendMoneyScreen = ({ navigation }: Props) => {
    );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+   header: {
+      paddingHorizontal: wp(30)
+   },
+   headerTitile: {
+      fontSize: wp(24),
+      lineHeight: hp(36),
+      fontFamily: "Inter-Bold"
+   }
+});
 
 export default SendMoneyScreen;

@@ -12,6 +12,7 @@ const globalStyles = StyleSheet.create({
       width: "100%",
       paddingHorizontal: wp(30),
       paddingVertical: hp(30),
+      paddingBottom: hp(54),
       color: COLORS.light.white
    },
    scrollViewContainer: {
@@ -34,7 +35,7 @@ const globalStyles = StyleSheet.create({
       fontSize: wp(14),
       lineHeight: hp(24),
       fontFamily: "Inter-Regular",
-      marginBottom: 6
+      marginBottom: 0
    },
    inputGap: {
       height: 8

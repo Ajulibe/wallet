@@ -175,7 +175,7 @@ const AuthLogin = ({ navigation }: Props) => {
       <KeyboardAvoidingView
          behavior={"padding"}
          style={{ flex: 1 }}
-         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+         keyboardVerticalOffset={Platform.OS == "android" ? -300 : -50}
       >
          <CountryPicker
             isVisible={openCountry ? true : false}
@@ -189,7 +189,7 @@ const AuthLogin = ({ navigation }: Props) => {
             bounces={false}
          >
             <View style={styles.wrapper}>
-               <StatusBar backgroundColor={COLORS.light.white} />
+               {/* <StatusBar backgroundColor={COLORS.light.white} /> */}
 
                <View style={styles2.container}>
                   <View style={styles2.body}>

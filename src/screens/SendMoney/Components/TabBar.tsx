@@ -36,10 +36,10 @@ const TabBar: React.FC<Props> = (props) => {
             >
                <Ionicons
                   name={"wallet-outline"}
-                  size={18}
+                  size={20}
                   color={
                      activeIndex == 0
-                        ? COLORS.light.textBlack
+                        ? COLORS.light.primary
                         : COLORS.light.tabBarInactive
                   }
                />
@@ -72,10 +72,10 @@ const TabBar: React.FC<Props> = (props) => {
             >
                <MaterialCommunityIcons
                   name={"bank-outline"}
-                  size={18}
+                  size={20}
                   color={
                      activeIndex == 1
-                        ? COLORS.light.textBlack
+                        ? COLORS.light.primary
                         : COLORS.light.tabBarInactive
                   }
                />

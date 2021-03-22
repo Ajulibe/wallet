@@ -94,7 +94,7 @@ const AuthSelectBank = ({ navigation, route }: Props) => {
       <View style={styles.wrapper}>
          {/* redirect user  */}
 
-         <StatusBar backgroundColor={COLORS.light.white} />
+         {/* <StatusBar backgroundColor={COLORS.light.white} /> */}
          {/* top menu  */}
          <View style={styles.container}>
             <View style={styles.progressWrapper}>

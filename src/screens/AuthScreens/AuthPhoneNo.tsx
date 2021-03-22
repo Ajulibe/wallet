@@ -31,6 +31,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import STORAGE_KEYS from "../../utils/StorageKeys";
 import CircularProgress from "../../components/CircularProgress";
 import InputPhoneNumber from "../../components/InputPhoneNumber";
+import { Header } from "react-navigation-stack";
 
 type Props = StackScreenProps<AuthStackParamList, ROUTES.AUTH_PHONE_NO_SCREEN>;
 
@@ -102,7 +103,8 @@ const AuthPhoneNo = ({ navigation }: Props) => {
       <KeyboardAvoidingView
          behavior={"padding"}
          style={{ flex: 1 }}
-         keyboardVerticalOffset={Platform.OS == "android" ? 0 : -50}
+         enabled
+         keyboardVerticalOffset={Platform.OS == "android" ? -300 : -50}
       >
          {/* country picker bottom sheet  */}
          <CountryPicker
@@ -117,20 +119,10 @@ const AuthPhoneNo = ({ navigation }: Props) => {
             bounces={false}
          >
             <View style={[styles.wrapper, {}]}>
-               <StatusBar backgroundColor={COLORS.light.white} />
+               {/* <StatusBar backgroundColor={COLORS.light.white} /> */}
 
                {/* container view  */}
-               <Animated.View
-                  style={[
-                     styles.container,
-                     {
-                        // opacity: Animated.add(
-                        //    0.5,
-                        //    Animated.multiply(!openCountry ? 1 : 0, 1.0)
-                        // )
-                     }
-                  ]}
-               >
+               <Animated.View style={styles.container}>
                   <View style={styles.progressWrapper}>
                      <TouchableOpacity onPress={() => navigation.goBack()}>
                         <MaterialIcons

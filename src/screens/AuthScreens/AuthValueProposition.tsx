@@ -40,10 +40,10 @@ class AuthValueProposition extends React.PureComponent<Props> {
       return (
          // <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
          <View style={styles.wrapper}>
-            <StatusBar
+            {/* <StatusBar
                backgroundColor={COLORS.light.secondary}
                barStyle={"light-content"}
-            />
+            /> */}
 
             <View style={styles.container}>
                <View style={styles.body}>

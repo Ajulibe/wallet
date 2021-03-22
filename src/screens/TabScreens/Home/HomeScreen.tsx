@@ -1,16 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
    View,
    StyleSheet,
    ScrollView,
    SafeAreaView,
-   StatusBar,
    Text,
-   Easing,
-   Animated,
-   Button,
    NativeScrollEvent,
-   NativeSyntheticEvent
+   NativeSyntheticEvent,
+   Platform
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ROUTES } from "../../../navigation/Routes";
@@ -28,20 +25,24 @@ type Props = StackScreenProps<HomeStackParamList, ROUTES.HOME_SCREEN_STACK>;
 const HomeScreen = ({ navigation }: Props) => {
    const [hideSubtitle, setHideSubtitle] = useState(false);
 
+   //Hide Subtitle(& notification bell) on 90px scroll up
    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const positionX = event.nativeEvent.contentOffset.x;
       const positionY = event.nativeEvent.contentOffset.y;
 
-      if (positionY > 90) {
+      if (positionY > 100) {
          setHideSubtitle(true);
-      } else {
-         setHideSubtitle(false);
+      } else if (hideSubtitle) {
+         if (Platform.OS == "android") {
+            if (positionY < 4) setHideSubtitle(false);
+         } else {
+            if (positionY < 80) setHideSubtitle(false);
+         }
       }
    };
 
    return (
       <>
-         <StatusBar barStyle="light-content" />
          <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.light.white }}>
             {/* HOME HEADER  */}
             <HeaderHome
@@ -49,6 +50,7 @@ const HomeScreen = ({ navigation }: Props) => {
                title="Hey John 👋🏼"
                subtitle="Here’s what’s happening"
                hideSubtitle={hideSubtitle}
+               showBallance={true}
             />
             <ScrollView
                contentContainerStyle={globalStyles.scrollViewContainer}
@@ -62,10 +64,12 @@ const HomeScreen = ({ navigation }: Props) => {
             >
                {/* WALLET BALANCE */}
                <Text style={styles.walletBalanceText}>Wallet Ballance</Text>
-               <Text style={styles.walletBalance}>
-                  <Text>₦234,934</Text>
-                  <Text style={styles.walletBalanceFloat}>.78</Text>
-               </Text>
+               <View style={styles.walletBalance}>
+                  <Text>
+                     <Text style={styles.walletBalanceBold}>₦234,934</Text>
+                     <Text style={styles.walletBalanceFloat}>.78</Text>
+                  </Text>
+               </View>
                {/* SEND MONEY & FUND WALLET COMPONENT  */}
                <WalletAction
                   onFundWalletClick={() =>
@@ -106,12 +110,17 @@ const styles = StyleSheet.create({
       textAlign: "center"
    },
    walletBalance: {
+      marginBottom: hp(12),
+      justifyContent: "center",
+      flexDirection: "row",
+      alignItems: "baseline"
+   },
+   walletBalanceBold: {
       color: COLORS.light.textBlack,
       textAlign: "center",
       fontFamily: "Inter-Bold",
       fontSize: wp(28),
-      lineHeight: hp(48),
-      marginBottom: hp(12)
+      lineHeight: hp(48)
    },
    walletBalanceFloat: {
       fontSize: wp(16),
