@@ -79,7 +79,6 @@ const SendToWallet = ({ navigation }: Props) => {
                </Text>
                <View style={{ flex: 1 }} />
             </View>
-
             <View style={styles.footer}>
                <CustomButton
                   bgColor={btnBgColor}
@@ -96,7 +95,8 @@ const SendToWallet = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-      paddingVertical: hp(16)
+      paddingTop: hp(16),
+      backgroundColor: "#F9FAFB"
    },
    body: {
       flex: 1,

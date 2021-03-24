@@ -8,12 +8,12 @@ export interface BankInterface {
 export class BankData {
   static banks: BankInterface[] = [
     {
-      bankName: "Guaranty Trust Bank (GTB)",
+      bankName: "Guaranty Trust Bank",
       bankCode: "737",
       bankLogo: "https://pbs.twimg.com/profile_images/942788290687721474/RqUYFKPh.jpg",
     },
     {
-      bankName: "First Bank",
+      bankName: "First Bank of Nigeria",
       bankCode: "894",
       bankLogo: "https://upload.wikimedia.org/wikipedia/en/8/84/FirstBank_Logo.jpg.png",
     },

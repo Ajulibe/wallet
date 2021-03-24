@@ -8,26 +8,26 @@ import {
    KeyboardAvoidingView,
    Platform
 } from "react-native";
-import COLORS from "../../utils/Colors";
+import COLORS from "../../../utils/Colors";
 import { StackScreenProps } from "@react-navigation/stack";
-import { SendMoneyStackParamList } from "../../navigation/SendMoneyStack";
-import { ROUTES } from "../../navigation/Routes";
-import CustomAppbar from "../../components/CustomAppbar";
-import globalStyles from "../../components/css/GlobalCss";
-import { CountryData } from "../../extra/CountryData";
+import { SendMoneyStackParamList } from "../../../navigation/SendMoneyStack";
+import { ROUTES } from "../../../navigation/Routes";
+import CustomAppbar from "../../../components/CustomAppbar";
+import globalStyles from "../../../components/css/GlobalCss";
+import { CountryData } from "../../../extra/CountryData";
 import libphonenumber from "google-libphonenumber";
-import TabBar from "./Components/TabBar";
-import SendToWallet from "./Components/SendToWallet";
-import SendToBankAccount from "./Components/SendToBankAccount";
-import authStyles from "../../components/css/AuthFormCss";
-import { hp, wp } from "../../utils/Dimensions";
+import TabBar from "../Components/TabBar";
+import SendToWallet from "../Components/SendToWallet";
+import SendToBankAccount from "../Components/SendToBankAccount";
+import authStyles from "../../../components/css/AuthFormCss";
+import { hp, wp } from "../../../utils/Dimensions";
 
 type Props = StackScreenProps<
    SendMoneyStackParamList,
-   ROUTES.SEND_MONEY_SCREEN
+   ROUTES.SEND_MONEY_ENTER_PIN_SCREEN
 >;
 
-const SendMoneyScreen = ({ navigation }: Props) => {
+const SendMoneyEnterPin = ({ navigation }: Props) => {
    const [activeIndex, setActiveIndex] = useState(0);
    const [btnBgColor, setBtnBgColor] = useState<string>(COLORS.light.disabled);
    const [phoneNumber, setPhoneNumber] = useState("");
@@ -108,9 +108,8 @@ const styles = StyleSheet.create({
    headerTitile: {
       fontSize: wp(24),
       lineHeight: hp(36),
-      fontFamily: "Inter-Bold",
-      color: COLORS.light.textBlack
+      fontFamily: "Inter-Bold"
    }
 });
 
-export default SendMoneyScreen;
+export default SendMoneyEnterPin;

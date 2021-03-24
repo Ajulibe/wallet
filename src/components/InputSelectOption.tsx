@@ -1,6 +1,7 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import {
    widthPercentageToDP as wp,
    heightPercentageToDP as hp
@@ -20,11 +21,12 @@ const InputSelectOption = (props: Props) => {
    //color of the text
    let textColor = (): string => {
       if (errorText != "") return COLORS.light.inputTextError;
-      else if (props.value == "") return COLORS.light.inputPlaceholder;
+      else if (props.value == "" || props.value == null)
+         return COLORS.light.inputPlaceholder;
       else return COLORS.light.inputText;
    };
    return (
-      <View>
+      <TouchableOpacity onPress={() => props.onClick()}>
          <View
             style={[
                inputStyles.formControl,
@@ -48,9 +50,11 @@ const InputSelectOption = (props: Props) => {
                   }
                ]}
             >
-               {props.value != "" ? props.value : props.placeHolder}
+               {props.value != "" && props.value != null
+                  ? props.value
+                  : props.placeHolder}
             </Text>
-            <AntDesign name="caretdown" size={14} style={{ marginRight: 16 }} />
+            <AntDesign name="caretdown" size={12} style={{ marginRight: 16 }} />
          </View>
 
          {errorText != "" && (
@@ -58,7 +62,7 @@ const InputSelectOption = (props: Props) => {
                <Text style={inputStyles.errorText}>{errorText}</Text>
             </View>
          )}
-      </View>
+      </TouchableOpacity>
    );
 };
 

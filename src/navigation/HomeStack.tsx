@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/stack";
 import HomeBottomTabStack from "./HomeBottomTabStack";
 import ProfileStack from "./ProfileStack";
+import SendMoneyStack from "./SendMoneyStack";
 import { ROUTES } from "./Routes";
 import NotificationScreen from "../screens/Notification/NotificationScreen";
 import FundMoneyScreen from "../screens/FundMoney/FundMoneyScreen";
@@ -15,8 +16,8 @@ export type HomeStackParamList = {
    [ROUTES.HOME_SCREEN_STACK]: undefined;
    [ROUTES.PROFILE_STACK]: undefined;
    [ROUTES.NOTIFICATION_SCREEN]: undefined;
-   [ROUTES.SEND_MONEY_SCREEN]: undefined;
-   [ROUTES.FUND_MONEY_SCREEN]: undefined;
+   [ROUTES.SEND_MONEY_STACK]: undefined; //points to send money stack
+   [ROUTES.FUND_MONEY_STACK]: undefined; //points to fund money stack
 };
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
@@ -58,14 +59,14 @@ export default function HomeNavigationStack() {
          />
 
          <HomeStack.Screen
-            name={ROUTES.FUND_MONEY_SCREEN}
+            name={ROUTES.FUND_MONEY_STACK}
             component={FundMoneyScreen}
             options={headerOptions}
          />
 
          <HomeStack.Screen
-            name={ROUTES.SEND_MONEY_SCREEN}
-            component={SendMoneyScreen}
+            name={ROUTES.SEND_MONEY_STACK}
+            component={SendMoneyStack}
             options={headerOptions}
          />
       </HomeStack.Navigator>

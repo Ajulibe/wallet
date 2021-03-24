@@ -1,14 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, Text, Animated } from "react-native";
 import COLORS from "../../../utils/Colors";
-import globalStyles from "../../../components/css/GlobalCss";
 import CustomButton from "../../../components/Button";
 import { CountryData } from "../../../extra/CountryData";
 import * as Animatable from "react-native-animatable";
 import { hp, wp } from "../../../utils/Dimensions";
 import authStyles from "../../../components/css/AuthFormCss";
 import Input from "../../../components/Input";
+import BankPickerModal from "../../../components/BankPickerModal";
 import InputSelectOption from "../../../components/InputSelectOption";
+import { BankInterface } from "../../../extra/BankData";
+import { ROUTES } from "../../../navigation/Routes";
 
 interface Props {
    navigation: any;
@@ -16,27 +18,36 @@ interface Props {
 
 const SendToBankAccount = ({ navigation }: Props) => {
    const [btnBgColor, setBtnBgColor] = useState<string>(COLORS.light.disabled);
-   const [bankName, setBankName] = useState("");
    const [accountNumber, setAccountNumber] = useState("");
 
    const [bankNameErrorText, setBankNameErrorText] = useState("");
    const [accNoErrorText, setAccNoErrorText] = useState("");
+   // Bank Modal data
+   const [openBankModal, setOpenBankModal] = useState(false); // show/hide listener
+   const [bank, setBank] = useState({} as BankInterface); //USER'S BANK
 
    // checking the inputs on text change
    useEffect(() => {
-      if (bankName != "" && accountNumber != "") {
+      if (bank.bankName != "" && accountNumber != "") {
          setBtnBgColor(COLORS.light.disabled);
       } else {
          setAccNoErrorText("");
          setBankNameErrorText("");
          setBtnBgColor(COLORS.light.primary);
       }
-   }, [bankName, accountNumber]);
+   }, [bank, accountNumber]);
 
-   const onClick = () => {};
-   const onSubmit = () => {};
+   const onSubmit = () => {
+      navigation.navigate(ROUTES.AMOUNT_TO_SEND_SCREEN);
+   };
    return (
       <>
+         <BankPickerModal
+            isVisible={openBankModal ? true : false}
+            onClose={() => setOpenBankModal(false)}
+            current={bank}
+            onBankChange={(newBank) => setBank(newBank)}
+         />
          <Animatable.View
             style={styles.container}
             key={0}
@@ -57,18 +68,18 @@ const SendToBankAccount = ({ navigation }: Props) => {
                <Text style={authStyles.inputLabel}>Select Bank</Text>
                <InputSelectOption
                   placeHolder={"eg Guaranty Trust Bank"}
-                  value={bankName}
+                  value={bank.bankName}
                   errorText={bankNameErrorText}
-                  onClick={onClick}
+                  onClick={() => setOpenBankModal(true)}
                />
                <Text style={authStyles.inputLabel}>Bank Account Number</Text>
                <Input
                   placeholder="eg 0483659072"
                   placeholderTextColor=""
                   errorText={accNoErrorText}
-                  keyboardType="default"
+                  keyboardType="number-pad"
                   autoCapitalize="sentences"
-                  returnKeyType="next"
+                  returnKeyType="done"
                   onInputChange={(value) => setAccountNumber(value)}
                   onSubmit={onSubmit}
                   initialValue=""
@@ -76,6 +87,7 @@ const SendToBankAccount = ({ navigation }: Props) => {
                   required
                   secureTextEntry={false}
                   minLength={2}
+                  maxLength={10}
                   textContentType="none"
                />
                <View style={{ flex: 1 }} />
@@ -97,7 +109,8 @@ const SendToBankAccount = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-      paddingVertical: hp(16)
+      paddingTop: hp(16),
+      backgroundColor: "#F9FAFB"
    },
    body: {
       flex: 1,

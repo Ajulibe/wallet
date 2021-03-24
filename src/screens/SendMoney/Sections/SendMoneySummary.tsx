@@ -18,13 +18,16 @@ import { hp, wp } from "../../../utils/Dimensions";
 import globalStyles from "../../../components/css/GlobalCss";
 import CardAccountNo from "../../../components/CardAccountNo";
 import { StackScreenProps } from "@react-navigation/stack";
-import { ProfileStackParamList } from "../../../navigation/ProfileStack";
+import { SendMoneyStackParamList } from "../../../navigation/SendMoneyStack";
 import { ROUTES } from "../../../navigation/Routes";
-import HeaderHome from "../Home/HomeScreenComponents/HeaderHome";
+import CustomAppbar from "../../../components/CustomAppbar";
 
-type Props = StackScreenProps<ProfileStackParamList, ROUTES.PROFILE_SCREEN>;
+type Props = StackScreenProps<
+   SendMoneyStackParamList,
+   ROUTES.SEND_MONEY_SUMMARY_SCREEN
+>;
 
-const ProfileScreen = ({ navigation }: Props) => {
+const SendMoneySummary = ({ navigation }: Props) => {
    const [hideSubtitle, setHideSubtitle] = useState(false);
    const ref = useRef<ScrollView | null>(null);
    useScrollToTop(ref);
@@ -56,11 +59,7 @@ const ProfileScreen = ({ navigation }: Props) => {
       <>
          {/* <StatusBar barStyle="light-content" /> */}
          <SafeAreaView style={globalStyles.AndroidSafeArea}>
-            <HeaderHome
-               navigation={navigation}
-               title="My Profile"
-               hideSubtitle={hideSubtitle}
-            />
+            <CustomAppbar navigation={navigation} title="Sending Money To" />
             <ScrollView
                contentContainerStyle={{ flexGrow: 1 }}
                keyboardShouldPersistTaps="handled"
@@ -76,11 +75,7 @@ const ProfileScreen = ({ navigation }: Props) => {
                      globalStyles.centerHorizontal
                   ]}
                >
-                  <UserProfilePhoto
-                     imageSrc=""
-                     imageSize={90}
-                     showIcon={false}
-                  />
+                  <UserProfilePhoto imageSrc="" imageSize={90} />
 
                   <Text style={styles.profileName}>John Doe</Text>
                   <Text style={styles.profilePhone} textBreakStrategy="simple">
@@ -89,42 +84,6 @@ const ProfileScreen = ({ navigation }: Props) => {
 
                   <CardAccountNo bank={{} as any} />
 
-                  <View style={styles.divider} />
-
-                  <ListTile
-                     leading={IMAGES["icon-edit-profile"]}
-                     title="Edit Profile"
-                     subtitle="Change your name, email address, photo"
-                     onClick={() =>
-                        navigation.navigate(ROUTES.EDIT_PROFILE_SCREEN)
-                     }
-                  />
-                  <ListTile
-                     leading={IMAGES["icon-password"]}
-                     title="Security"
-                     onClick={() => navigation.navigate(ROUTES.SECURITY_SCREEN)}
-                  />
-                  <ListTile
-                     leading={IMAGES["icon-manage-account"]}
-                     title="Manage Account "
-                     onClick={() =>
-                        navigation.navigate(ROUTES.PAYMENT_METHOD_SCREEN)
-                     }
-                  />
-                  <ListTile
-                     leading={IMAGES["icon-invite"]}
-                     title="Invite Users"
-                     onClick={() => null}
-                  />
-                  <View style={styles.divider} />
-                  <ListTile
-                     leading={IMAGES["icon-verify-account"]}
-                     title="Verify Account"
-                     onClick={() =>
-                        navigation.navigate(ROUTES.EDIT_PROFILE_SCREEN)
-                     }
-                  />
-                  <View style={[styles.divider, { marginTop: 16 }]} />
                   <ListTile
                      leading={IMAGES["icon-take-tour"]}
                      title="Take Tour"
@@ -190,4 +149,4 @@ const styles = StyleSheet.create({
    }
 });
 
-export default ProfileScreen;
+export default SendMoneySummary;

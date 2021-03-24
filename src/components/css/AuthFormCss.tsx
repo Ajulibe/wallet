@@ -61,7 +61,8 @@ const authStyles = StyleSheet.create({
       textAlign: "left",
       fontSize: wp("3.73%"),
       fontFamily: "Inter-Regular",
-      marginBottom: 6
+      marginBottom: 6,
+      width: "100%"
    },
    inputLabelTop: {
       color: COLORS.light.textBlack,

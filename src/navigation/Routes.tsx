@@ -39,11 +39,20 @@ export enum ROUTES {
    PAYMENT_METHOD_SCREEN = "PaymentMethodScreen",
    ADD_PAYMENT_CARD_SCREEN = "AddPaymentCardScreen",
 
-   // OTHER SCREENS
+   // WALLET ACTIONS
 
-   //WALLET ACTIONS
-   FUND_MONEY_SCREEN = "AddMoneyScreen",
+   //SEND MONEY
+   SEND_MONEY_STACK = "SendMoneyStack", //STACK...
    SEND_MONEY_SCREEN = "SendMoneyScreen",
+   AMOUNT_TO_SEND_SCREEN = "AmountToSendScreen",
+   SEND_MONEY_DETAIL_SCREEN = "SendMoneyDetailScreen",
+   SEND_MONEY_SUMMARY_SCREEN = "SendMoneySummaryScreen",
+   SEND_MONEY_ENTER_PIN_SCREEN = "SendMoneyEnterPin",
+
+   // FUND MONEY...
+   FUND_MONEY_STACK = "FundMoneyStack", //STACK...
+   FUND_MONEY_SCREEN = "FundMoneyScreen",
+
    // NOTIFICATION...
    NOTIFICATION_SCREEN = "NotificationScreen"
 }

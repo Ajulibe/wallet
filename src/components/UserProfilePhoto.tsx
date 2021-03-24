@@ -9,7 +9,7 @@ interface Props {
    imageSrc: String;
    imageSize: number;
    trailing?: JSX.Element;
-   onClick?: (param?: any) => void; //on click of the photo
+   showIcon?: boolean; //on click of the photo
    onIconClick?: (param?: any) => void; //on click of the top right icon
 }
 const UserProfilePhoto = (props: Props) => {
@@ -30,9 +30,14 @@ const UserProfilePhoto = (props: Props) => {
             imageStyle={{ borderRadius: 60 }}
             style={styles.image}
          />
-         <View style={styles.iconWrapper}>
+         <View
+            style={[
+               styles.iconWrapper,
+               { display: props.showIcon ? "flex" : "none" }
+            ]}
+         >
             <TouchableOpacity
-               onPress={() => (props.onClick ? props.onClick() : null)}
+               onPress={() => (props.onIconClick ? props.onIconClick() : null)}
             >
                <MaterialIcons
                   name="photo-camera"

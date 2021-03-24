@@ -73,10 +73,10 @@ const HomeScreen = ({ navigation }: Props) => {
                {/* SEND MONEY & FUND WALLET COMPONENT  */}
                <WalletAction
                   onFundWalletClick={() =>
-                     navigation.navigate(ROUTES.FUND_MONEY_SCREEN)
+                     navigation.navigate(ROUTES.FUND_MONEY_STACK)
                   }
                   onSendMoneyClick={() =>
-                     navigation.navigate(ROUTES.SEND_MONEY_SCREEN)
+                     navigation.navigate(ROUTES.SEND_MONEY_STACK)
                   }
                />
                {/* RECENT CHATS */}
