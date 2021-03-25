@@ -1,26 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-   View,
-   StyleSheet,
-   ScrollView,
-   SafeAreaView,
-   Text,
-   NativeSyntheticEvent,
-   NativeScrollEvent,
-   Platform
-} from "react-native";
-import { useScrollToTop } from "@react-navigation/native";
-import ListTile from "../../../components/ListTile";
-import IMAGES from "../../../utils/Images";
+import { View, StyleSheet, ScrollView, SafeAreaView, Text } from "react-native";
 import UserProfilePhoto from "../../../components/UserProfilePhoto";
 import COLORS from "../../../utils/Colors";
 import { hp, wp } from "../../../utils/Dimensions";
 import globalStyles from "../../../components/css/GlobalCss";
-import CardAccountNo from "../../../components/CardAccountNo";
 import { StackScreenProps } from "@react-navigation/stack";
 import { SendMoneyStackParamList } from "../../../navigation/SendMoneyStack";
 import { ROUTES } from "../../../navigation/Routes";
 import CustomAppbar from "../../../components/CustomAppbar";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import MoneyListTile from "../Components/MoneyListTile";
+import authStyles from "../../../components/css/AuthFormCss";
+import CustomButton from "../../../components/Button";
+import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 
 type Props = StackScreenProps<
    SendMoneyStackParamList,
@@ -28,46 +20,27 @@ type Props = StackScreenProps<
 >;
 
 const SendMoneySummary = ({ navigation }: Props) => {
-   const [hideSubtitle, setHideSubtitle] = useState(false);
-   const ref = useRef<ScrollView | null>(null);
-   useScrollToTop(ref);
-
-   //Hide Subtitle(& notification bell) on 90px scroll up
-   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      const positionX = event.nativeEvent.contentOffset.x;
-      const positionY = event.nativeEvent.contentOffset.y;
-
-      if (positionY > 100) {
-         setHideSubtitle(true);
-      } else if (hideSubtitle) {
-         if (Platform.OS == "android") {
-            if (positionY < 4) setHideSubtitle(false);
-         } else {
-            if (positionY < 80) setHideSubtitle(false);
-         }
-      }
+   const onSubmit = () => {
+      navigation.navigate(ROUTES.SEND_MONEY_ENTER_PIN_SCREEN);
    };
-
-   React.useEffect(() => {
-      const unsubscribe = navigation.addListener("focus", () => {
-         console.log("Payload is called .....................");
-      });
-      return unsubscribe;
-   }, [navigation]);
-
    return (
       <>
          {/* <StatusBar barStyle="light-content" /> */}
          <SafeAreaView style={globalStyles.AndroidSafeArea}>
-            <CustomAppbar navigation={navigation} title="Sending Money To" />
+            <CustomAppbar
+               navigation={navigation}
+               title="Transaction Summary"
+               trailing={
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                     <Entypo name={"edit"} size={14} />
+                  </TouchableOpacity>
+               }
+            />
             <ScrollView
                contentContainerStyle={{ flexGrow: 1 }}
                keyboardShouldPersistTaps="handled"
                bounces={false}
                showsVerticalScrollIndicator={false}
-               onScroll={(event) => handleScroll(event)}
-               onScrollEndDrag={(event) => handleScroll(event)}
-               scrollEventThrottle={160}
             >
                <View
                   style={[
@@ -75,41 +48,66 @@ const SendMoneySummary = ({ navigation }: Props) => {
                      globalStyles.centerHorizontal
                   ]}
                >
-                  <UserProfilePhoto imageSrc="" imageSize={90} />
-
-                  <Text style={styles.profileName}>John Doe</Text>
-                  <Text style={styles.profilePhone} textBreakStrategy="simple">
-                     {" +2348078213212 "}
-                  </Text>
-
-                  <CardAccountNo bank={{} as any} />
-
-                  <ListTile
-                     leading={IMAGES["icon-take-tour"]}
-                     title="Take Tour"
-                     onClick={() => null}
+                  <UserProfilePhoto
+                     imageSrc=""
+                     imageSize={70}
+                     showIcon={false}
                   />
-                  <ListTile
-                     leading={IMAGES["icon-customer-support"]}
-                     title="Customer Support"
-                     onClick={() => null}
-                  />
-                  <ListTile
-                     leading={IMAGES["icon-rate-us"]}
-                     title="Rate Us"
-                     onClick={() => null}
-                  />
-                  <ListTile
-                     leading={IMAGES["icon-faq"]}
-                     title="FAQs"
-                     onClick={() => null}
+                  <Text style={styles.nameOfUser}>Adebowale Adewale</Text>
+                  <Text style={[styles.amountOfUser]}>+234 807 340 4890</Text>
+
+                  <View style={styles.divider} />
+                  <MoneyListTile
+                     title={"Amount To Transfer"}
+                     price={"N1,232.00"}
                   />
                   <View style={styles.divider} />
-                  <ListTile
-                     leading={IMAGES["icon-logout"]}
-                     title="Logout"
-                     onClick={() => null}
-                  />
+                  <MoneyListTile title={"Transaction Fee"} price={"N5.00"} />
+                  <View style={styles.divider} />
+                  <Text style={[authStyles.inputLabel, { marginTop: hp(24) }]}>
+                     Note
+                  </Text>
+                  <Text style={styles.noteText}>
+                     Yo! what’s up man, please this is my contribution to
+                     Racheal’s wedding
+                  </Text>
+                  <View style={[styles.tagsWrapper]}>
+                     <MaterialCommunityIcons
+                        name={"tag-outline"}
+                        color={"#A6A8B5"}
+                        size={24}
+                     />
+                     <TouchableOpacity
+                        style={[
+                           styles.tagItem,
+                           {
+                              backgroundColor: COLORS.light.tagBgActive
+                           }
+                        ]}
+                     >
+                        <Text
+                           style={[
+                              styles.item,
+                              {
+                                 color: COLORS.light.textBlack
+                              }
+                           ]}
+                        >
+                           Entertainment
+                        </Text>
+                     </TouchableOpacity>
+                  </View>
+
+                  <View style={{ flex: 1 }} />
+
+                  <View style={styles.btnWrapper}>
+                     <CustomButton
+                        bgColor={COLORS.light.primary}
+                        textColor={COLORS.light.white}
+                        btnText={"Continue"}
+                        onClick={onSubmit}
+                     />
+                  </View>
                </View>
             </ScrollView>
          </SafeAreaView>
@@ -118,33 +116,55 @@ const SendMoneySummary = ({ navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
-   profileName: {
-      fontSize: wp(16),
+   nameOfUser: {
+      fontSize: wp(18),
+      lineHeight: hp(24),
       fontFamily: "Inter-Medium",
-      lineHeight: hp(16),
       color: COLORS.light.textBlack,
-      marginTop: hp(18),
-      marginBottom: hp(8)
-   },
-   profilePhone: {
       textAlign: "center",
-      fontSize: wp(12),
-      fontFamily: "Inter-Regular",
-      color: COLORS.light.textBlack40,
-      // lineHeight: hp(12),
-      marginBottom: 28
+      marginTop: hp(18),
+      marginBottom: hp(6)
    },
-   cardWrapper: {
-      width: "100%",
-      paddingHorizontal: wp(24),
-      paddingVertical: hp(18),
-      borderColor: "#F2F6F8"
+   amountOfUser: {
+      fontSize: wp(14),
+      lineHeight: hp(24),
+      fontFamily: "Inter-Regular",
+      color: COLORS.light.textBlack50,
+      textAlign: "center",
+      marginBottom: hp(24)
+   },
+   noteText: {
+      fontSize: wp(14),
+      lineHeight: hp(24),
+      fontFamily: "Inter-Regular",
+      color: "rgba(166,168,181,1)",
+      width: "100%"
    },
    divider: {
-      marginTop: hp(30),
-      marginBottom: hp(18),
       backgroundColor: "#EBEBF2",
       height: 1,
+      width: "100%"
+   },
+   tagsWrapper: {
+      marginTop: hp(24),
+      flex: 1,
+      flexDirection: "row",
+      width: "100%",
+      alignItems: "center"
+   },
+   tagItem: {
+      borderRadius: 4,
+      marginLeft: hp(12),
+      paddingHorizontal: wp(12),
+      paddingVertical: hp(7)
+   },
+   item: {
+      fontSize: wp(14),
+      lineHeight: hp(16),
+      fontFamily: "Inter-Regular",
+      color: COLORS.light.tagTextInactive
+   },
+   btnWrapper: {
       width: "100%"
    }
 });

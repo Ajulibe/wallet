@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
    btn: {
       width: "100%",
       borderRadius: 4,
-      paddingVertical: hp("1.72%"),
+      paddingVertical: hp("1.97%"),
       marginTop: hp("3%"),
       flexDirection: "row",
       justifyContent: "center",

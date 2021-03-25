@@ -1,14 +1,10 @@
 import React from "react";
-import { StyleSheet, Image, View, ImageSourcePropType } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-animatable";
 import COLORS from "../utils/Colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import { hp, wp } from "../utils/Dimensions";
-import {
-   StackNavigationOptions,
-   StackNavigationProp
-} from "@react-navigation/stack";
 
 interface Props {
    onBackPress?: () => void; //Back button press
@@ -45,7 +41,9 @@ const CustomAppbar = (props: Props) => {
                <Text style={styles.subtitle}>{props.subtitle}</Text>
             )}
          </View>
-         {props.trailing != null && props.trailing}
+         <View style={styles.trailing}>
+            {props.trailing != null && props.trailing}
+         </View>
       </View>
    );
 };
@@ -76,14 +74,14 @@ const styles = StyleSheet.create({
    },
    textContainer: {
       flex: 1,
-      marginHorizontal: wp(21),
-      justifyContent: "center",
-      marginLeft: 64
+      // marginLeft: wp(21),
+      justifyContent: "center"
    },
    title: {
       fontFamily: "Inter-Medium",
       lineHeight: hp(24),
       fontSize: wp(16),
+      textAlign: "center",
       color: COLORS.light.textBlack
    },
    subtitle: {
@@ -91,5 +89,10 @@ const styles = StyleSheet.create({
       lineHeight: hp(16),
       fontSize: wp(10),
       color: COLORS.light.textBlackLight
+   },
+   trailing: {
+      // flexDirection: "row",
+      alignItems: "flex-end",
+      minWidth: 50
    }
 });

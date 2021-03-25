@@ -113,8 +113,8 @@ const SendMoneyDetail = ({ navigation }: Props) => {
                                  {
                                     backgroundColor:
                                        t == tag
-                                          ? "rgba(252,237,231,1)"
-                                          : "transparent"
+                                          ? COLORS.light.tagBgActive
+                                          : COLORS.light.transparent
                                  }
                               ]}
                            >
@@ -125,7 +125,7 @@ const SendMoneyDetail = ({ navigation }: Props) => {
                                        color:
                                           t == tag
                                              ? COLORS.light.textBlack
-                                             : "rgba(166,172,180,1)"
+                                             : COLORS.light.tagTextInactive
                                     }
                                  ]}
                               >
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
       fontSize: wp(14),
       lineHeight: hp(16),
       fontFamily: "Inter-Regular",
-      color: "rgba(166,172,180,1)"
+      color: COLORS.light.tagTextInactive
    },
    btnWrapper: {
       width: "100%"

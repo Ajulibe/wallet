@@ -14,8 +14,6 @@ import { SendMoneyStackParamList } from "../../../navigation/SendMoneyStack";
 import { ROUTES } from "../../../navigation/Routes";
 import CustomAppbar from "../../../components/CustomAppbar";
 import globalStyles from "../../../components/css/GlobalCss";
-import { CountryData } from "../../../extra/CountryData";
-import libphonenumber from "google-libphonenumber";
 import { hp, wp } from "../../../utils/Dimensions";
 import UserProfilePhoto from "../../../components/UserProfilePhoto";
 import KeyboardInput from "../../../components/KeyboardInput";
@@ -32,7 +30,7 @@ const AmountToSend = ({ navigation }: Props) => {
    // on amount entered
    const onAmountEntered = (num: string | number) => {
       let checkForDot = amount.includes(".");
-      if ((checkForDot && num == ".") || amount.toString().length > 8) {
+      if ((checkForDot && num == ".") || amount.toString().length > 6) {
          return;
       }
       let newAmount = `${amount}${num}`;

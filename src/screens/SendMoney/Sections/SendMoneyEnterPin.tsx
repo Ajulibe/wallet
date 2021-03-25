@@ -14,13 +14,10 @@ import { SendMoneyStackParamList } from "../../../navigation/SendMoneyStack";
 import { ROUTES } from "../../../navigation/Routes";
 import CustomAppbar from "../../../components/CustomAppbar";
 import globalStyles from "../../../components/css/GlobalCss";
-import { CountryData } from "../../../extra/CountryData";
-import libphonenumber from "google-libphonenumber";
-import TabBar from "../Components/TabBar";
-import SendToWallet from "../Components/SendToWallet";
-import SendToBankAccount from "../Components/SendToBankAccount";
-import authStyles from "../../../components/css/AuthFormCss";
 import { hp, wp } from "../../../utils/Dimensions";
+import UserProfilePhoto from "../../../components/UserProfilePhoto";
+import KeyboardInput from "../../../components/KeyboardInput";
+import CustomButton from "../../../components/Button";
 
 type Props = StackScreenProps<
    SendMoneyStackParamList,
@@ -28,37 +25,34 @@ type Props = StackScreenProps<
 >;
 
 const SendMoneyEnterPin = ({ navigation }: Props) => {
-   const [activeIndex, setActiveIndex] = useState(0);
-   const [btnBgColor, setBtnBgColor] = useState<string>(COLORS.light.disabled);
-   const [phoneNumber, setPhoneNumber] = useState("");
+   const [amount, setAmount] = useState("0");
 
-   const [errorText, setErrorText] = useState("");
-
-   // country data
-   const [openCountry, setOpenCountry] = useState(false); //couhntry show/hide listener
-   const [country, setCountry] = useState(CountryData.africaCountries[0]);
-   // google libphonenumber init
-   const phoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
-   const completePhone = (phone: string) =>
-      phoneNumberUtil.parseAndKeepRawInput(phone, country.code);
-   // checking the inputs on text change
-   useEffect(() => {
-      if (phoneNumber == null) return;
-      if (phoneNumber.length < 6) {
-         setBtnBgColor(COLORS.light.disabled);
-      } else if (!phoneNumberUtil.isValidNumber(completePhone(phoneNumber))) {
-         setBtnBgColor(COLORS.light.disabled);
-      } else {
-         setBtnBgColor(COLORS.light.primary);
-         setErrorText("");
+   // on amount entered
+   const onAmountEntered = (num: string | number) => {
+      if (num == "." || amount.length >= 4) {
+         return;
       }
-   }, [phoneNumber]);
+      let newAmount = `${amount}${num}`;
+      newAmount = newAmount == "" ? "0" : newAmount;
+      newAmount =
+         newAmount[0] == "0" && newAmount[1] != "."
+            ? parseInt(newAmount).toString()
+            : newAmount;
+      setAmount(newAmount);
+   };
 
-   const onSubmit = () => {};
+   const onDelete = () => {
+      let newAmount = amount.substring(0, amount.length - 1);
+      newAmount = newAmount == "" ? "0" : newAmount;
+      setAmount(newAmount);
+   };
+
+   const onSubmit = () => {
+      navigation.navigate(ROUTES.HOME_SCREEN_STACK);
+   };
    return (
       <>
          <SafeAreaView style={globalStyles.AndroidSafeArea}>
-            {/* <StatusBar barStyle="light-content" /> */}
             <CustomAppbar navigation={navigation} title="" />
             <KeyboardAvoidingView
                behavior={"padding"}
@@ -74,25 +68,49 @@ const SendMoneyEnterPin = ({ navigation }: Props) => {
                   showsVerticalScrollIndicator={false}
                >
                   <View
-                     style={[globalStyles.container, { paddingHorizontal: 0 }]}
+                     style={[
+                        globalStyles.container,
+                        globalStyles.centerHorizontal,
+                        { paddingHorizontal: 0, width: "100%" }
+                     ]}
                   >
-                     <View style={styles.header}>
-                        <Text style={styles.headerTitile}>Send Money</Text>
-                        <Text style={[authStyles.formSubtitle]}>
-                           Send money to another SurePay user's wallet or to a
-                           bank account.
-                        </Text>
-                     </View>
-                     <TabBar
-                        activeIndex={activeIndex}
-                        onSendToWalletClick={() => setActiveIndex(0)}
-                        onSendToBankClick={() => setActiveIndex(1)}
+                     <Text style={[styles.amountOfUser]}>
+                        Please Enter your 4-digit PIN to complete your
+                        transaction
+                     </Text>
+                     <Text
+                        style={[
+                           styles.inputField,
+                           {
+                              color:
+                                 amount == "0"
+                                    ? "#C4C4C4"
+                                    : COLORS.light.textBlack,
+                              backgroundColor:
+                                 amount == "0"
+                                    ? "#f5f5f5"
+                                    : "rgba(221,74,10,0.05)"
+                           }
+                        ]}
+                     >
+                        {amount}
+                     </Text>
+                     <KeyboardInput
+                        onNumberClick={onAmountEntered}
+                        onDelete={onDelete}
                      />
-                     {activeIndex == 0 ? (
-                        <SendToWallet navigation={navigation} />
-                     ) : (
-                        <SendToBankAccount navigation={navigation} />
-                     )}
+                     <View style={styles.btnWrapper}>
+                        <CustomButton
+                           bgColor={
+                              amount.length != 4
+                                 ? COLORS.light.disabled
+                                 : COLORS.light.primary
+                           }
+                           textColor={COLORS.light.white}
+                           btnText={"Confirm"}
+                           onClick={onSubmit}
+                        />
+                     </View>
                   </View>
                </ScrollView>
             </KeyboardAvoidingView>
@@ -102,13 +120,36 @@ const SendMoneyEnterPin = ({ navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
-   header: {
-      paddingHorizontal: wp(30)
+   nameOfUser: {
+      fontSize: wp(18),
+      lineHeight: hp(24),
+      fontFamily: "Inter-Medium",
+      color: COLORS.light.textBlack,
+      textAlign: "center",
+      marginTop: hp(18),
+      marginBottom: hp(6)
    },
-   headerTitile: {
-      fontSize: wp(24),
-      lineHeight: hp(36),
-      fontFamily: "Inter-Bold"
+   amountOfUser: {
+      fontSize: wp(14),
+      lineHeight: hp(24),
+      fontFamily: "Inter-Regular",
+      color: COLORS.light.textBlack50,
+      textAlign: "center",
+      marginBottom: hp(24)
+   },
+   inputField: {
+      fontSize: wp(38),
+      lineHeight: hp(40),
+      fontFamily: "Inter-SemiBold",
+      color: "#C4C4C4",
+      textAlign: "center",
+      paddingVertical: hp(16),
+      backgroundColor: "#F5F5F5",
+      width: "100%"
+   },
+   btnWrapper: {
+      width: "100%",
+      paddingHorizontal: wp(30)
    }
 });
 

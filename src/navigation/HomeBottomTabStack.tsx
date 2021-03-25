@@ -86,7 +86,7 @@ export default function HomeBottomTabStack() {
                   width: 0,
                   height: 1
                },
-               shadowColor: COLORS.light.lightGrey,
+               shadowColor: COLORS.light.textBlack50,
                shadowOpacity: 0.2,
                paddingTop: hp(16)
             },

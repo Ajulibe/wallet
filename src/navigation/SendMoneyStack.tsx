@@ -10,6 +10,7 @@ import AmountToSend from "../screens/SendMoney/Sections/AmountToSend";
 import SendMoneyDetail from "../screens/SendMoney/Sections/SendMoneyDetail";
 import SendMoneySummary from "../screens/SendMoney/Sections/SendMoneySummary";
 import SendMoneyEnterPin from "../screens/SendMoney/Sections/SendMoneyEnterPin";
+import HomeStack from "./HomeStack";
 
 export type SendMoneyStackParamList = {
    [ROUTES.SEND_MONEY_SCREEN]: undefined;
@@ -17,6 +18,7 @@ export type SendMoneyStackParamList = {
    [ROUTES.SEND_MONEY_DETAIL_SCREEN]: undefined;
    [ROUTES.SEND_MONEY_SUMMARY_SCREEN]: undefined;
    [ROUTES.SEND_MONEY_ENTER_PIN_SCREEN]: undefined;
+   [ROUTES.HOME_SCREEN_STACK]: undefined;
 };
 
 const SendMoneyStack = createStackNavigator<SendMoneyStackParamList>();
@@ -64,6 +66,11 @@ export default function SendMoneyNavigationStack() {
          <SendMoneyStack.Screen
             name={ROUTES.SEND_MONEY_ENTER_PIN_SCREEN}
             component={SendMoneyEnterPin}
+            options={headerOptions}
+         />
+         <SendMoneyStack.Screen
+            name={ROUTES.HOME_SCREEN_STACK}
+            component={HomeStack}
             options={headerOptions}
          />
       </SendMoneyStack.Navigator>

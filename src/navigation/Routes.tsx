@@ -52,6 +52,10 @@ export enum ROUTES {
    // FUND MONEY...
    FUND_MONEY_STACK = "FundMoneyStack", //STACK...
    FUND_MONEY_SCREEN = "FundMoneyScreen",
+   FUND_MONEY_MEDIUM_LIST_SCREEN = "FundMoneyMediumListScreen",
+   FUND_WITH_BANK_SCREEN = "FundWithBankScreen",
+   FUND_WITH_CARD_SCREEN = "FundWithCardScreen",
+   FUND_WITH_USSD_SCREEN = "FundWithUssdScreen",
 
    // NOTIFICATION...
    NOTIFICATION_SCREEN = "NotificationScreen"

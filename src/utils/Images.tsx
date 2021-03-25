@@ -40,7 +40,13 @@ const IMAGES = {
    "icon-notification": require("../assets/images/icon-notification.png"),
    "icon-home-wallet": require("../assets/images/icon-home-wallet.png"),
    "icon-home-send": require("../assets/images/icon-home-send.png"),
-   // "icon-biometric": require("../assets/images/icon-biometric.png"),
+   //fund wallet
+   "icon-users-white": require("../assets/images/icon-users-white.png"),
+   "icon-bank-white": require("../assets/images/icon-bank-white.png"),
+   "icon-phone-white": require("../assets/images/icon-phone-white.png"),
+   "icon-card-white": require("../assets/images/icon-card-white.png"),
+   "icon-ussd-white": require("../assets/images/icon-ussd-white.png"),
+   "icon-payco": require("../assets/images/icon-payco.png"),
    // "icon-biometric": require("../assets/images/icon-biometric.png"),
 
    WalletIcon: require("../assets/images/WalletIcon.png"),

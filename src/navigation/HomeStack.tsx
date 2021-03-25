@@ -6,6 +6,7 @@ import {
 import HomeBottomTabStack from "./HomeBottomTabStack";
 import ProfileStack from "./ProfileStack";
 import SendMoneyStack from "./SendMoneyStack";
+import FundMoneyStack from "./FundMoneyStack";
 import { ROUTES } from "./Routes";
 import NotificationScreen from "../screens/Notification/NotificationScreen";
 import FundMoneyScreen from "../screens/FundMoney/FundMoneyScreen";
@@ -60,7 +61,7 @@ export default function HomeNavigationStack() {
 
          <HomeStack.Screen
             name={ROUTES.FUND_MONEY_STACK}
-            component={FundMoneyScreen}
+            component={FundMoneyStack}
             options={headerOptions}
          />
 
